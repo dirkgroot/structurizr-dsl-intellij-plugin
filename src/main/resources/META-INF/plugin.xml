@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>nl.dirkgroot.structurizr-dsl-plugin</id>
+    <name>Structurizr DSL Language Support</name>
+    <vendor url="https://github.com/dirkgroot">Dirk Groot</vendor>
+
+    <description>Adds Structurizr DSL language support to IntelliJ.</description>
+
+    <depends>com.intellij.modules.platform</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="StructurizrDSL File"
+                  implementationClass="nl.dirkgroot.structurizr.dsl.StructurizrDSLFileType"
+                  fieldName="INSTANCE"
+                  language="StructurizrDSL"
+                  extensions="dsl"/>
+        <lang.parserDefinition language="StructurizrDSL"
+                               implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="StructurizrDSL"
+                                       implementationClass="nl.dirkgroot.structurizr.dsl.syntax.StructurizrDSLSyntaxHighlighterFactory"/>
+        <annotator language="StructurizrDSL"
+                   implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLAnnotator"/>
+    </extensions>
+
+    <actions>
+    </actions>
+</idea-plugin>

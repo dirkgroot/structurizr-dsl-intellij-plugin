@@ -1,0 +1,77 @@
+{
+    parserClass="nl.dirkgroot.structurizr.dsl.StructurizrDSLParser"
+
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="SD"
+    psiImplClassSuffix="Impl"
+    psiPackage="nl.dirkgroot.structurizr.dsl.psi"
+    psiImplPackage="nl.dirkgroot.structurizr.dsl.psi.impl"
+    psiImplUtilClass="nl.dirkgroot.structurizr.dsl.psi.impl.SDPsiImplUtil"
+
+    elementTypeHolderClass="nl.dirkgroot.structurizr.dsl.psi.SDTypes"
+    elementTypeClass="nl.dirkgroot.structurizr.dsl.psi.SDElement"
+    tokenTypeClass="nl.dirkgroot.structurizr.dsl.psi.SDToken"
+
+    tokens=[
+        line_comment='regexp://[^\r\n]*(\r|\n|\r\n)?'
+        block_comment='regexp:/\*(.|\n)*\*/'
+    ]
+}
+
+//
+// OVERALL FILE STRUCTURE
+//
+
+structurizrDSLFile ::= workspace | workspaceSection | modelSectionElements
+private workspaceSection ::= modelSection | viewsSection
+
+//
+// WORKSPACE
+//
+
+workspace ::= workspaceDefinition (BRACE1 eol workspaceElements? BRACE2)? eol {
+    methods = [getElementName getElementDescription]
+    implements = ["SDElementWithName" "SDElementWithDescription"]
+}
+private workspaceDefinition ::= WORKSPACE_KEYWORD nameArgument? descriptionArgument?
+private workspaceElements ::= (modelSection viewsSection?) | (viewsSection modelSection?)
+
+//
+// MODEL SECTION
+//
+
+modelSection ::= MODEL_KEYWORD (BRACE1 eol modelSectionElements BRACE2)? eol
+private modelSectionElements ::= softwareSystem*
+
+//
+// SOFTWARE SYSTEM ELEMENT
+//
+
+softwareSystem ::= SOFTWARE_SYSTEM_KEYWORD nameArgument descriptionArgument? tagsArgument? eol {
+    methods = [getElementName getElementDescription getElementTags]
+    implements = ["SDElementWithName" "SDElementWithDescription" "SDElementWithTags"]
+}
+
+//
+// VIEWS SECTION
+//
+
+viewsSection ::= VIEWS_KEYWORD BRACE1 eol BRACE2 eol
+
+//
+// ARGUMENT MATCHERS
+//
+
+nameArgument ::= argument
+descriptionArgument ::= argument
+tagsArgument ::= argument
+private argument ::= quotedArgument | unquotedArgument
+private quotedArgument ::= QUOTED_TEXT
+private unquotedArgument ::= UNQUOTED_TEXT
+
+//
+// UTILITIES
+//
+
+private eol ::= LINE_TERMINATOR | <<eof>>
