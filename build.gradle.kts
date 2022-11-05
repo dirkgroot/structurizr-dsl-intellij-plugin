@@ -16,8 +16,7 @@ repositories {
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
-    version.set("2022.1.4")
-    type.set("IC")
+    version.set("2022.2.3")
 }
 
 sourceSets["main"].java.srcDirs("src/main/gen")
