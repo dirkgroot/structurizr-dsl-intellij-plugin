@@ -62,21 +62,4 @@ tasks {
         // if set, plugin will remove a lexer output file before generating new one. Default: false
         purgeOldFiles.set(true)
     }
-
-//    generateParser {
-//        // source bnf file
-//        source.set("src/main/grammar/StructurizrDSL.bnf")
-//
-//        // optional, task-specific root for the generated files. Default: none
-//        targetRoot.set("src/main/gen")
-//
-//        // path to a parser file, relative to the targetRoot
-//        pathToParser.set("/nl/dirkgroot/structurizr/dsl/StructurizrDSLParser")
-//
-//        // path to a directory with generated psi files, relative to the targetRoot
-//        pathToPsiRoot.set("/nl/dirkgroot/structurizr/dsl/psi")
-//
-//        // if set, the plugin will remove a parser output file and psi output directory before generating new ones. Default: false
-//        purgeOldFiles.set(true)
-//    }
 }
