@@ -1,3 +1,282 @@
 # IntelliJ plugin for the Structurizr DSL
 
 This plugin is a work in progress!
+
+## TODO
+
+### Legend
+
+- 🔳 = todo
+- ☑️ = partially done
+- ✅ = done
+
+### Features
+
+- ☑️ syntax highlighting
+- 🔳 code competion
+- 🔳 go to definition
+- 🔳 diagram preview
+- ...
+
+### Grammar
+
+- 🔳 `!include`
+- 🔳 `!constant`
+- ☑️ `workspace`
+  - ✅ with children
+  - ✅ without children
+  - ☑️ `name`
+    - ✅ argument
+    - 🔳 child keyword
+  - ☑️ `description`
+    - ✅ argument
+    - 🔳 child keyword
+  - 🔳 `extends`
+  - 🔳 `properties`
+  - 🔳 `!docs`
+  - 🔳 `!adrs`
+  - 🔳 `!identifiers`
+  - 🔳 `!impliedRelationships`
+  - ✅ `model`
+    - ✅ with children
+    - ✅ without children
+    - 🔳 identifiers
+      - 🔳 flat
+      - 🔳 hierarchical
+    - 🔳 `group` (containing people, software systems)
+    - 🔳 `person`
+      - 🔳 `name`
+        - 🔳 argument
+        - 🔳 child keyword
+      - 🔳 `description`
+        - 🔳 argument
+        - 🔳 child keyword
+      - 🔳 `tags`
+        - 🔳 argument
+        - 🔳 child keyword
+      - 🔳 `url`
+      - 🔳 `properties`
+      - 🔳 `perspectives`
+      - 🔳 relationships
+    - ☑️ `softwareSystem`
+      - ☑️ `name`
+        - ✅ argument
+        - 🔳 child keyword
+      - ☑️ `description`
+        - ✅ argument
+        - 🔳 child keyword
+      - ☑️ `tags`
+        - ✅ argument
+        - 🔳 child keyword
+      - 🔳 `group` (containing containers)
+      - 🔳 `container`
+        - 🔳 `name`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `description`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `technology`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `tags`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `group` (containing components)
+        - 🔳 `component`
+          - 🔳 `name`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `description`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `technology`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `tags`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `url`
+          - 🔳 `properties`
+          - 🔳 `perspectives`
+          - 🔳 relationships
+        - 🔳 `url`
+        - 🔳 `properties`
+        - 🔳 `perspectives`
+        - 🔳 relationships
+      - 🔳 `!docs`
+      - 🔳 `!adrs`
+      - 🔳 `url`
+      - 🔳 `properties`
+      - 🔳 `perspectives`
+      - 🔳 relationships
+    - 🔳 `deploymentEnvironment`
+      - 🔳 `name` argument
+      - 🔳 `deploymentGroup`
+        - 🔳 `name` argument
+      - 🔳 `deploymentNode`
+        - 🔳 `name` argument
+        - 🔳 `description`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `technology`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `tags`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `instances`
+          - 🔳 argument
+          - 🔳 child keyword
+        - 🔳 `deploymentNode` (nesting)
+        - 🔳 `infrastructureNode`
+          - 🔳 `name` argument
+          - 🔳 `description`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `technology`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `tags`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `url`
+          - 🔳 `properties`
+          - 🔳 `perspectives`
+          - 🔳 relationships
+        - 🔳 `softwareSystemInstance`
+          - 🔳 `identifier` argument
+          - 🔳 `deploymentGroups` argument
+          - 🔳 `tags`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `description` child keyword
+          - 🔳 `description` child keyword
+          - 🔳 `url`
+          - 🔳 `properties`
+          - 🔳 `perspectives`
+          - 🔳 `healthCheck`
+            - 🔳 `name` argument
+            - 🔳 `url` argument
+            - 🔳 `interval` argument
+            - 🔳 `timeout` argument
+          - 🔳 relationships
+        - 🔳 `containerInstance`
+          - 🔳 `identifier` argument
+          - 🔳 `deploymentGroups` argument
+          - 🔳 `tags`
+            - 🔳 argument
+            - 🔳 child keyword
+          - 🔳 `description` child keyword
+          - 🔳 `description` child keyword
+          - 🔳 `url`
+          - 🔳 `properties`
+          - 🔳 `perspectives`
+          - 🔳 `healthCheck`
+          - 🔳 relationships
+        - 🔳 `url`
+        - 🔳 `properties`
+        - 🔳 `perspectives`
+        - 🔳 relationships
+      - 🔳 relationships
+    - 🔳 `element`
+      - 🔳 `name` argument
+      - 🔳 `metadata` argument
+      - 🔳 `description`
+        - 🔳 argument
+        - 🔳 child keyword
+      - 🔳 `tags`
+        - 🔳 argument
+        - 🔳 child keyword
+      - 🔳 `url`
+      - 🔳 `properties`
+      - 🔳 `perspectives`
+      - 🔳 relationships
+    - 🔳 `enterprise`
+      - 🔳 `group`
+      - 🔳 `person`
+      - 🔳 `softwareSystem`
+    - 🔳 relationships
+      - 🔳 explicit form
+      - 🔳 implicit form
+      - 🔳 `description` argument
+      - 🔳 `technology` argument
+      - 🔳 `tags`
+        - 🔳 argument
+        - 🔳 child keyword
+      - 🔳 `properties`
+      - 🔳 `perspectives`
+    - 🔳 `!ref`
+      - 🔳 `identifier` argument
+      - 🔳 `canonical name` argument
+  - 🔳 `views`
+    - 🔳 `systemLandscape`
+    - 🔳 `systemContext`
+    - 🔳 `container`
+    - 🔳 `component`
+    - 🔳 `filtered`
+    - 🔳 `dynamic`
+    - 🔳 `deployment`
+    - 🔳 `custom`
+    - 🔳 view definition keywords
+      - 🔳 `include`
+      - 🔳 `exclude`
+      - 🔳 `autoLayout`
+      - 🔳 `animation`
+      - 🔳 `title`
+      - 🔳 `description`
+      - 🔳 `properties`
+    - 🔳 `styles`
+      - 🔳 `element`
+        - 🔳 `tag` argument
+        - 🔳 `shape`
+        - 🔳 `icon`
+        - 🔳 `width`
+        - 🔳 `height`
+        - 🔳 `background`
+        - 🔳 `color`
+        - 🔳 `colour`
+        - 🔳 `stroke`
+        - 🔳 `strokeWidth`
+        - 🔳 `fontSize`
+        - 🔳 `border`
+        - 🔳 `opacity`
+        - 🔳 `metadata`
+        - 🔳 `description`
+        - 🔳 `properties`
+      - 🔳 `relationship`
+        - 🔳 `tag` argument
+        - 🔳 `thickness`
+        - 🔳 `color`
+        - 🔳 `colour`
+        - 🔳 `dashed`
+        - 🔳 `style`
+        - 🔳 `routing`
+        - 🔳 `fontSize`
+        - 🔳 `width`
+        - 🔳 `position`
+        - 🔳 `opacity`
+        - 🔳 `properties`
+    - 🔳 `theme`
+      - 🔳 `default` argument
+      - 🔳 `url` argument
+    - 🔳 `themes`
+      - 🔳 `url` argument (multiple)
+    - 🔳 `branding`
+      - 🔳 `logo`
+      - 🔳 `font`
+    - 🔳 `terminology`
+      - 🔳 `enterprise`
+      - 🔳 `person`
+      - 🔳 `softwareSystem`
+      - 🔳 `container`
+      - 🔳 `component`
+      - 🔳 `deploymentNode`
+      - 🔳 `infrastructureNode`
+      - 🔳 `relationship`
+    - 🔳 `properties`
+    - 🔳 expressions for `include` and `exclude`
+  - 🔳 `configuration`
+    - 🔳 `users`
+      - 🔳 user configuration
+    - 🔳 `properties`
