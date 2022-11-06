@@ -66,9 +66,9 @@ viewsSection ::= VIEWS_KEYWORD BRACE1 eol BRACE2 eol
 nameArgument ::= argument
 descriptionArgument ::= argument
 tagsArgument ::= argument
-private argument ::= quotedArgument | unquotedArgument
-private quotedArgument ::= QUOTED_TEXT
-private unquotedArgument ::= UNQUOTED_TEXT
+private argument ::= quotedText | unquotedText
+private quotedText ::= QUOTED_TEXT
+private unquotedText ::= UNQUOTED_TEXT
 
 //
 // UTILITIES

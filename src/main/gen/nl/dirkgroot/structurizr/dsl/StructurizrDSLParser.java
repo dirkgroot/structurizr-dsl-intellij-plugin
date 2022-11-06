@@ -36,13 +36,13 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // quotedArgument | unquotedArgument
+  // quotedText | unquotedText
   static boolean argument(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "argument")) return false;
     if (!nextTokenIs(b, "", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
     boolean r;
-    r = quotedArgument(b, l + 1);
-    if (!r) r = unquotedArgument(b, l + 1);
+    r = quotedText(b, l + 1);
+    if (!r) r = unquotedText(b, l + 1);
     return r;
   }
 
@@ -130,7 +130,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // QUOTED_TEXT
-  static boolean quotedArgument(PsiBuilder b, int l) {
+  static boolean quotedText(PsiBuilder b, int l) {
     return consumeToken(b, QUOTED_TEXT);
   }
 
@@ -189,7 +189,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // UNQUOTED_TEXT
-  static boolean unquotedArgument(PsiBuilder b, int l) {
+  static boolean unquotedText(PsiBuilder b, int l) {
     return consumeToken(b, UNQUOTED_TEXT);
   }
 

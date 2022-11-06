@@ -21,13 +21,9 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 %type IElementType
 %unicode
 
-%state ARGUMENTS
-
 LINE_TERMINATOR=\r|\n|\r\n
 WHITE_SPACE=[ \t\x0B\f]+
 EMPTY_LINE={WHITE_SPACE}* {LINE_TERMINATOR}
-
-//IDENTIFIER=[a-zA-Z0-9\-_\.]+
 
 QUOTED_TEXT=\"[^\"]*\"
 UNQUOTED_TEXT=[^\s\"]+
@@ -40,27 +36,20 @@ BLOCK_COMMENT="/*" [^*] ~"*/" {LINE_TERMINATOR}?
 {LINE_COMMENT}     { return LINE_COMMENT; }
 {BLOCK_COMMENT}    { return BLOCK_COMMENT; }
 {WHITE_SPACE}      { return WHITE_SPACE; }
+^{EMPTY_LINE}      { return WHITE_SPACE; }
+{LINE_TERMINATOR}  { return LINE_TERMINATOR; }
 
-<YYINITIAL> {
-    ^{EMPTY_LINE}      { return WHITE_SPACE; }
-    {LINE_TERMINATOR}  { return LINE_TERMINATOR; }
+"{"                { return BRACE1; }
+"}"                { return BRACE2; }
 
-    "{"                { return BRACE1; }
-    "}"                { return BRACE2; }
+"workspace"        { return WORKSPACE_KEYWORD; }
 
-    "workspace"        { yybegin(ARGUMENTS); return WORKSPACE_KEYWORD; }
+"model"            { return MODEL_KEYWORD; }
+"softwareSystem"   { return SOFTWARE_SYSTEM_KEYWORD; }
 
-    "model"            { return MODEL_KEYWORD; }
-    "softwareSystem"   { yybegin(ARGUMENTS); return SOFTWARE_SYSTEM_KEYWORD; }
+"views"            { return VIEWS_KEYWORD; }
 
-    "views"            { return VIEWS_KEYWORD; }
-}
-
-<ARGUMENTS> {
-    {LINE_TERMINATOR}  { yybegin(YYINITIAL); return LINE_TERMINATOR; }
-    "{"                { return BRACE1; }
-    {QUOTED_TEXT}      { return QUOTED_TEXT; }
-    {UNQUOTED_TEXT}    { return UNQUOTED_TEXT; }
-}
+{QUOTED_TEXT}      { return QUOTED_TEXT; }
+{UNQUOTED_TEXT}    { return UNQUOTED_TEXT; }
 
 [^]                { return BAD_CHARACTER; }

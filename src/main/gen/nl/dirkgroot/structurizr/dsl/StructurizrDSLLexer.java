@@ -24,7 +24,6 @@ public class StructurizrDSLLexer implements FlexLexer {
 
   /** lexical states */
   public static final int YYINITIAL = 0;
-  public static final int ARGUMENTS = 2;
 
   /**
    * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
@@ -33,7 +32,7 @@ public class StructurizrDSLLexer implements FlexLexer {
    * l is of the form l = 2*k, k a non negative integer
    */
   private static final int ZZ_LEXSTATE[] = { 
-     0,  1,  2, 2
+     0, 1
   };
 
   /** 
@@ -66,13 +65,13 @@ public class StructurizrDSLLexer implements FlexLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\3\0\1\1\2\2\1\3\1\1\1\4\1\5\4\1"+
-    "\3\3\1\6\2\7\1\1\1\6\1\4\1\10\6\0"+
-    "\1\11\1\6\2\10\5\0\1\6\5\0\1\6\1\12"+
-    "\2\0\1\13\1\14\3\12\6\0\1\15\5\0\1\16";
+    "\2\0\1\1\2\2\1\3\2\4\1\1\1\5\1\6"+
+    "\4\1\3\3\1\0\1\7\1\10\5\1\2\10\1\1"+
+    "\1\0\5\1\1\0\4\1\2\11\2\1\1\12\1\13"+
+    "\2\11\6\1\1\14\5\1\1\15";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[67];
+    int [] result = new int[61];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -97,18 +96,17 @@ public class StructurizrDSLLexer implements FlexLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\34\0\70\0\124\0\160\0\124\0\214\0\250"+
-    "\0\124\0\124\0\304\0\340\0\374\0\u0118\0\u0134\0\124"+
-    "\0\u0150\0\u016c\0\u0188\0\124\0\u01a4\0\u01c0\0\u016c\0\u01dc"+
-    "\0\u01f8\0\u0214\0\u0230\0\u024c\0\u0268\0\u01a4\0\124\0\u0284"+
-    "\0\u02a0\0\124\0\u02bc\0\u02d8\0\u02f4\0\u0310\0\u032c\0\u0348"+
-    "\0\u0364\0\u0380\0\u039c\0\u03b8\0\u03d4\0\u03f0\0\u040c\0\u0428"+
-    "\0\u0444\0\124\0\124\0\u0460\0\u047c\0\124\0\u0498\0\u04b4"+
-    "\0\u04d0\0\u04ec\0\u0508\0\u0524\0\124\0\u0540\0\u055c\0\u0578"+
-    "\0\u0594\0\u05b0\0\124";
+    "\0\0\0\34\0\70\0\124\0\160\0\214\0\250\0\160"+
+    "\0\304\0\70\0\70\0\340\0\374\0\u0118\0\u0134\0\u0150"+
+    "\0\160\0\u016c\0\250\0\160\0\u0188\0\u01a4\0\u01c0\0\u01dc"+
+    "\0\u01f8\0\u0214\0\u0230\0\160\0\u024c\0\u0268\0\u0284\0\u02a0"+
+    "\0\u02bc\0\u02d8\0\u02f4\0\u0310\0\u032c\0\u0348\0\u0364\0\u0380"+
+    "\0\u039c\0\u03b8\0\u03d4\0\u03f0\0\70\0\70\0\u040c\0\160"+
+    "\0\u0428\0\u0444\0\u0460\0\u047c\0\u0498\0\u04b4\0\70\0\u04d0"+
+    "\0\u04ec\0\u0508\0\u0524\0\u0540\0\70";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[67];
+    int [] result = new int[61];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -131,31 +129,37 @@ public class StructurizrDSLLexer implements FlexLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\4\1\5\1\6\1\7\2\4\1\10\1\4\1\11"+
-    "\1\12\1\13\3\4\1\14\4\4\1\15\6\4\1\16"+
-    "\2\4\1\17\1\20\1\21\2\4\1\10\1\4\1\11"+
-    "\1\12\1\13\3\4\1\14\4\4\1\15\6\4\1\16"+
-    "\1\4\1\22\1\23\1\24\1\7\1\25\1\4\1\26"+
-    "\1\22\1\27\23\22\36\0\1\6\34\0\1\7\36\0"+
-    "\1\30\1\31\37\0\1\32\33\0\1\33\33\0\1\34"+
-    "\53\0\1\35\2\0\1\20\32\0\1\17\1\20\1\21"+
-    "\30\0\1\22\5\0\26\22\2\0\1\24\31\0\4\36"+
-    "\1\37\27\36\1\22\5\0\1\30\1\40\24\22\1\30"+
-    "\1\41\1\42\31\30\7\43\1\0\24\43\14\0\1\44"+
-    "\45\0\1\45\31\0\1\46\31\0\1\47\11\0\1\50"+
-    "\5\43\1\50\1\22\24\50\2\0\1\42\31\0\7\43"+
-    "\1\51\24\43\15\0\1\52\45\0\1\53\26\0\1\54"+
-    "\23\0\1\55\21\0\1\50\5\43\1\50\1\56\24\50"+
-    "\6\43\1\57\1\51\24\43\16\0\1\60\27\0\1\61"+
-    "\46\0\1\62\24\0\1\63\15\0\1\50\5\43\1\64"+
-    "\1\56\24\50\1\0\1\65\1\66\50\0\1\67\34\0"+
-    "\1\70\13\0\1\22\1\65\1\66\3\0\26\22\2\0"+
-    "\1\66\51\0\1\71\27\0\1\72\40\0\1\73\34\0"+
-    "\1\74\33\0\1\75\41\0\1\76\34\0\1\77\20\0"+
-    "\1\100\44\0\1\101\26\0\1\102\34\0\1\103\10\0";
+    "\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\3"+
+    "\1\12\1\13\1\14\3\3\1\15\4\3\1\16\6\3"+
+    "\1\17\2\3\1\20\1\21\1\22\1\7\1\10\1\11"+
+    "\1\3\1\12\1\13\1\14\3\3\1\15\4\3\1\16"+
+    "\6\3\1\17\2\3\5\0\26\3\2\0\1\5\70\0"+
+    "\1\6\30\0\4\23\1\24\27\23\1\3\5\0\1\25"+
+    "\1\26\25\3\5\0\5\3\1\27\21\3\5\0\5\3"+
+    "\1\30\21\3\5\0\5\3\1\31\21\3\5\0\25\3"+
+    "\1\32\2\0\1\21\32\0\1\20\1\21\1\22\30\0"+
+    "\1\25\1\33\1\34\31\25\1\35\5\36\1\35\1\3"+
+    "\24\35\1\3\5\0\6\3\1\37\20\3\5\0\20\3"+
+    "\1\40\6\3\5\0\16\3\1\41\10\3\5\0\14\3"+
+    "\1\42\11\3\2\0\1\34\31\0\1\35\5\36\1\35"+
+    "\1\43\24\35\7\36\1\44\24\36\1\3\5\0\7\3"+
+    "\1\45\17\3\5\0\21\3\1\46\5\3\5\0\14\3"+
+    "\1\47\12\3\5\0\4\3\1\50\21\3\1\35\5\36"+
+    "\1\51\1\43\24\35\6\36\1\52\1\44\24\36\1\3"+
+    "\5\0\10\3\1\53\16\3\5\0\4\3\1\54\22\3"+
+    "\5\0\17\3\1\55\7\3\5\0\10\3\1\56\16\3"+
+    "\1\57\1\60\3\0\26\3\1\0\1\57\1\60\31\0"+
+    "\1\3\5\0\11\3\1\61\15\3\5\0\12\3\1\62"+
+    "\13\3\2\0\1\60\31\0\1\3\5\0\12\3\1\63"+
+    "\14\3\5\0\6\3\1\64\20\3\5\0\13\3\1\65"+
+    "\13\3\5\0\14\3\1\66\12\3\5\0\14\3\1\67"+
+    "\12\3\5\0\22\3\1\70\4\3\5\0\23\3\1\71"+
+    "\3\3\5\0\10\3\1\72\16\3\5\0\21\3\1\73"+
+    "\5\3\5\0\14\3\1\74\12\3\5\0\15\3\1\75"+
+    "\10\3";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1484];
+    int [] result = new int[1372];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -193,13 +197,12 @@ public class StructurizrDSLLexer implements FlexLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\3\0\1\11\1\1\1\11\2\1\2\11\5\1\1\11"+
-    "\3\1\1\11\4\1\6\0\1\11\2\1\1\11\5\0"+
-    "\1\1\5\0\2\1\2\0\2\11\2\1\1\11\6\0"+
-    "\1\11\5\0\1\11";
+    "\2\0\2\1\1\11\2\1\1\11\10\1\1\11\1\1"+
+    "\1\0\1\11\7\1\1\11\1\1\1\0\5\1\1\0"+
+    "\13\1\1\11\15\1";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[67];
+    int [] result = new int[61];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -538,75 +541,70 @@ public class StructurizrDSLLexer implements FlexLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return BAD_CHARACTER;
+            { return UNQUOTED_TEXT;
             } 
             // fall through
-          case 15: break;
+          case 14: break;
           case 2: 
             { return LINE_TERMINATOR;
             } 
             // fall through
-          case 16: break;
+          case 15: break;
           case 3: 
             { return WHITE_SPACE;
             } 
             // fall through
-          case 17: break;
+          case 16: break;
           case 4: 
+            { return BAD_CHARACTER;
+            } 
+            // fall through
+          case 17: break;
+          case 5: 
             { return BRACE1;
             } 
             // fall through
           case 18: break;
-          case 5: 
+          case 6: 
             { return BRACE2;
             } 
             // fall through
           case 19: break;
-          case 6: 
-            { return UNQUOTED_TEXT;
+          case 7: 
+            { return QUOTED_TEXT;
             } 
             // fall through
           case 20: break;
-          case 7: 
-            { yybegin(YYINITIAL); return LINE_TERMINATOR;
-            } 
-            // fall through
-          case 21: break;
           case 8: 
             { return LINE_COMMENT;
             } 
             // fall through
-          case 22: break;
+          case 21: break;
           case 9: 
-            { return QUOTED_TEXT;
-            } 
-            // fall through
-          case 23: break;
-          case 10: 
             { return BLOCK_COMMENT;
             } 
             // fall through
-          case 24: break;
-          case 11: 
+          case 22: break;
+          case 10: 
             { return MODEL_KEYWORD;
             } 
             // fall through
-          case 25: break;
-          case 12: 
+          case 23: break;
+          case 11: 
             { return VIEWS_KEYWORD;
             } 
             // fall through
-          case 26: break;
+          case 24: break;
+          case 12: 
+            { return WORKSPACE_KEYWORD;
+            } 
+            // fall through
+          case 25: break;
           case 13: 
-            { yybegin(ARGUMENTS); return WORKSPACE_KEYWORD;
+            { return SOFTWARE_SYSTEM_KEYWORD;
             } 
             // fall through
-          case 27: break;
-          case 14: 
-            { yybegin(ARGUMENTS); return SOFTWARE_SYSTEM_KEYWORD;
-            } 
-            // fall through
-          case 28: break;
+          case 26: break;
           default:
             zzScanError(ZZ_NO_MATCH);
           }
