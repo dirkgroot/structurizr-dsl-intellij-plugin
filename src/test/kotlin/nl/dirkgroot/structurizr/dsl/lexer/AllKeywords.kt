@@ -12,7 +12,6 @@ val KEYWORDS_WITH_BLOCKS = listOf(
     "!include" to INCLUDE_FILE_KEYWORD,
     "!plugin" to PLUGIN_KEYWORD,
     "!ref" to REF_KEYWORD,
-    "->" to RELATIONSHIP_KEYWORD,
     "animation" to ANIMATION_KEYWORD,
     "autoLayout" to AUTO_LAYOUT_KEYWORD,
     "background" to BACKGROUND_KEYWORD,

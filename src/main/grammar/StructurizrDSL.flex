@@ -38,8 +38,9 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 
 %state EXPECT_ARGUMENTS
 %state EXPECT_PROPERTIES
-%state EXPECT_SCRIPT_ARGUMENTS
+%state EXPECT_REL_DESTINATION
 %state EXPECT_SCRIPT
+%state EXPECT_SCRIPT_ARGUMENTS
 
 CRLF=\r|\n|\r\n
 WHITE_SPACE=[\ \t\f]+
@@ -56,7 +57,7 @@ SCRIPT_TEXT=[^\r\n{}]+
 
 %%
 
-<YYINITIAL,EXPECT_PROPERTIES,EXPECT_ARGUMENTS,EXPECT_SCRIPT_ARGUMENTS> {
+<YYINITIAL,EXPECT_PROPERTIES,EXPECT_REL_DESTINATION,EXPECT_ARGUMENTS,EXPECT_SCRIPT_ARGUMENTS> {
 {WHITE_SPACE}      { return WHITE_SPACE; }
 {BLOCK_COMMENT}    { return BLOCK_COMMENT; }
 {LINE_COMMENT}     { return LINE_COMMENT; }
@@ -82,7 +83,7 @@ SCRIPT_TEXT=[^\r\n{}]+
 "!plugin"                { yybegin(EXPECT_ARGUMENTS); return PLUGIN_KEYWORD; }
 "!ref"                   { yybegin(EXPECT_ARGUMENTS); return REF_KEYWORD; }
 "!script"                { yybegin(EXPECT_SCRIPT_ARGUMENTS); return SCRIPT_KEYWORD; }
-"->"                     { yybegin(EXPECT_ARGUMENTS); return RELATIONSHIP_KEYWORD; }
+"->"                     { yybegin(EXPECT_REL_DESTINATION); return RELATIONSHIP_KEYWORD; }
 "animation"              { yybegin(EXPECT_ARGUMENTS); return ANIMATION_KEYWORD; }
 "autoLayout"             { yybegin(EXPECT_ARGUMENTS); return AUTO_LAYOUT_KEYWORD; }
 "background"             { yybegin(EXPECT_ARGUMENTS); return BACKGROUND_KEYWORD; }
@@ -146,6 +147,11 @@ SCRIPT_TEXT=[^\r\n{}]+
 {IDENTIFIER}       { return IDENTIFIER; }
 
 [^]                { return BAD_CHARACTER; }
+}
+
+<EXPECT_REL_DESTINATION> {
+{IDENTIFIER}       { yybegin(EXPECT_ARGUMENTS); return IDENTIFIER; }
+[^]                { yybegin(YYINITIAL); yypushback(yytext().length()); }
 }
 
 <EXPECT_ARGUMENTS> {
