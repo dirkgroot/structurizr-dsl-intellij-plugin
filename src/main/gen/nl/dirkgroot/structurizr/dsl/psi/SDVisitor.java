@@ -7,38 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public class SDVisitor extends PsiElementVisitor {
 
-  public void visitDescriptionArgument(@NotNull SDDescriptionArgument o) {
-    visitPsiElement(o);
-  }
-
-  public void visitModelSection(@NotNull SDModelSection o) {
-    visitPsiElement(o);
-  }
-
-  public void visitNameArgument(@NotNull SDNameArgument o) {
-    visitPsiElement(o);
-  }
-
-  public void visitSoftwareSystem(@NotNull SDSoftwareSystem o) {
-    visitElementWithName(o);
-    // visitElementWithDescription(o);
-    // visitElementWithTags(o);
-  }
-
-  public void visitTagsArgument(@NotNull SDTagsArgument o) {
-    visitPsiElement(o);
-  }
-
-  public void visitViewsSection(@NotNull SDViewsSection o) {
-    visitPsiElement(o);
-  }
-
-  public void visitWorkspace(@NotNull SDWorkspace o) {
-    visitElementWithName(o);
-    // visitElementWithDescription(o);
-  }
-
-  public void visitElementWithName(@NotNull SDElementWithName o) {
+  public void visitRootElement(@NotNull SDRootElement o) {
     visitPsiElement(o);
   }
 

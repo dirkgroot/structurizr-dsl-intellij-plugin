@@ -29,7 +29,7 @@ class StructurizrDSLParserDefinition : ParserDefinition {
 
     override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 
-    override fun createParser(project: Project?) = StructurizrDSLParser()
+    override fun createParser(project: Project) = StructurizrDSLParser()
 
     override fun getFileNodeType() = FILE
 

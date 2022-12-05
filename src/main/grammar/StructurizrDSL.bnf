@@ -16,62 +16,91 @@
     tokens=[
         line_comment='regexp://[^\r\n]*(\r|\n|\r\n)?'
         block_comment='regexp:/\*(.|\n)*\*/'
+
+        crlf='crlf'
+        brace1='{'
+        brace2='}'
+        equals='='
+
+        adrs_keyword='!adrs'
+        animation_keyword='animation'
+        auto_layout_keyword='autoLayout'
+        background_keyword='background'
+        border_keyword='border'
+        branding_keyword='branding'
+        color_keyword='color'
+        colour_keyword='colour'
+        component_keyword='component'
+        configuration_keyword='configuration'
+        constant_keyword='!constant'
+        container_instance='containerInstance'
+        container_keyword='container'
+        custom_keyword='custom'
+        deployment_environment_keyword='deploymentEnvironment'
+        deployment_group_keyword='deploymentGroup'
+        deployment_keyword='deployment'
+        deployment_node_keyword='deploymentNode'
+        description_keyword='description'
+        docs_keyword='!docs'
+        dynamic_keyword='dynamic'
+        element_keyword='element'
+        enterprise_keyword='enterprise'
+        exclude_element_keyword='exclude'
+        extends_keyword='extends'
+        filtered_keyword='filtered'
+        fontsize_keyword='fontSize'
+        group_keyword='group'
+        health_check_keyword='healthCheck'
+        height_keyword='height'
+        icon_keyword='icon'
+        identifiers_keyword='!identifiers'
+        implied_relationships_keyword='!impliedRelationships'
+        include_element_keyword='include'
+        include_file_keyword='!include'
+        infrastructure_node_keyword='infrastructureNode'
+        instances_keyword='instances'
+        metadata_keyword='metadata'
+        model_keyword='model'
+        opacity_keyword='opacity'
+        person_keyword='person'
+        perspectives_keyword='perspectives'
+        plugin_keyword='!plugin'
+        position_keyword='position'
+        properties_keyword='properties'
+        ref_keyword='!ref'
+        relationship_keyword='->'
+        routing_keyword='routing'
+        script_keyword='!script'
+        shape_keyword='shape'
+        software_system_instance_keyword='softwareSystemInstance'
+        software_system_keyword='softwareSystem'
+        stroke_keyword='stroke'
+        strokewidth_keyword='strokeWidth'
+        style_keyword='style'
+        styles_keyword='styles'
+        system_context_keyword='systemContext'
+        system_landscape_keyword='systemLandscape'
+        tags_keyword='tags'
+        technology_keyword='technology'
+        terminology_keyword='terminology'
+        theme_keyword='theme'
+        thickness_keyword='thickness'
+        title_keyword='title'
+        url_keyword='url'
+        users_keyword='users'
+        views_keyword='views'
+        width_keyword='width'
+        workspace_keyword='workspace'
+
+        quoted_text='regexp:\"[^\"\r\n]*\"'
+        unquoted_text='regexp:[^\s\"\r\n]+'
+
+        identifier='regexp:[a-zA-Z_0-9]+'
+
+        script_text='script_text'
     ]
 }
 
-//
-// OVERALL FILE STRUCTURE
-//
+structurizrDSLFile ::= rootElement
 
-structurizrDSLFile ::= workspace | workspaceSection | modelSectionElements
-private workspaceSection ::= modelSection | viewsSection
-
-//
-// WORKSPACE
-//
-
-workspace ::= workspaceDefinition (BRACE1 eol workspaceElements? BRACE2)? eol {
-    methods = [getElementName getElementDescription]
-    implements = ["SDElementWithName" "SDElementWithDescription"]
-}
-private workspaceDefinition ::= WORKSPACE_KEYWORD nameArgument? descriptionArgument?
-private workspaceElements ::= (modelSection viewsSection?) | (viewsSection modelSection?)
-
-//
-// MODEL SECTION
-//
-
-modelSection ::= MODEL_KEYWORD (BRACE1 eol modelSectionElements BRACE2)? eol
-private modelSectionElements ::= softwareSystem*
-
-//
-// SOFTWARE SYSTEM ELEMENT
-//
-
-softwareSystem ::= SOFTWARE_SYSTEM_KEYWORD nameArgument descriptionArgument? tagsArgument? eol {
-    methods = [getElementName getElementDescription getElementTags]
-    implements = ["SDElementWithName" "SDElementWithDescription" "SDElementWithTags"]
-}
-
-//
-// VIEWS SECTION
-//
-
-viewsSection ::= VIEWS_KEYWORD BRACE1 eol BRACE2 eol
-
-//
-// ARGUMENT MATCHERS
-//
-
-nameArgument ::= argument
-descriptionArgument ::= argument
-tagsArgument ::= argument
-private argument ::= quotedText | unquotedText
-private quotedText ::= QUOTED_TEXT
-private unquotedText ::= UNQUOTED_TEXT
-
-//
-// UTILITIES
-//
-
-private eol ::= LINE_TERMINATOR | <<eof>>
+rootElement ::= !<<eof>>
