@@ -1,6 +1,18 @@
 # IntelliJ plugin for the Structurizr DSL
 
+<!-- Plugin description -->
 This plugin is a work in progress!
+<!-- Plugin description end -->
+
+## Decisions
+
+- For now, arguments of statements are all treated as (un)quoted strings, so "true", "false", integers, (un)quoted text
+  will all get the same syntax highlighting.
+- The following blocks are treated as property blocks, containing (un)quoted string pairs:
+  - branding
+  - terminology
+  - configuration
+  - users
 
 ## TODO
 
@@ -13,6 +25,9 @@ This plugin is a work in progress!
 ### Features
 
 - ☑️ syntax highlighting
+  - ✅ token based
+  - 🔳 annotator based
+- 🔳 code validation
 - 🔳 code competion
 - 🔳 go to definition
 - 🔳 diagram preview
@@ -22,14 +37,14 @@ This plugin is a work in progress!
 
 - 🔳 `!include`
 - 🔳 `!constant`
-- ☑️ `workspace`
-  - ✅ with children
-  - ✅ without children
-  - ☑️ `name`
-    - ✅ argument
+- 🔳️ `workspace`
+  - 🔳 with children
+  - 🔳 without children
+  - 🔳 `name`
+    - 🔳 argument
     - 🔳 child keyword
-  - ☑️ `description`
-    - ✅ argument
+  - 🔳 `description`
+    - 🔳 argument
     - 🔳 child keyword
   - 🔳 `extends`
   - 🔳 `properties`
@@ -37,9 +52,9 @@ This plugin is a work in progress!
   - 🔳 `!adrs`
   - 🔳 `!identifiers`
   - 🔳 `!impliedRelationships`
-  - ✅ `model`
-    - ✅ with children
-    - ✅ without children
+  - 🔳 `model`
+    - 🔳 with children
+    - 🔳 without children
     - 🔳 identifiers
       - 🔳 flat
       - 🔳 hierarchical
@@ -58,15 +73,15 @@ This plugin is a work in progress!
       - 🔳 `properties`
       - 🔳 `perspectives`
       - 🔳 relationships
-    - ☑️ `softwareSystem`
-      - ☑️ `name`
-        - ✅ argument
+    - 🔳 `softwareSystem`
+      - 🔳 `name`
+        - 🔳 argument
         - 🔳 child keyword
-      - ☑️ `description`
-        - ✅ argument
+      - 🔳 `description`
+        - 🔳 argument
         - 🔳 child keyword
-      - ☑️ `tags`
-        - ✅ argument
+      - 🔳 `tags`
+        - 🔳 argument
         - 🔳 child keyword
       - 🔳 `group` (containing containers)
       - 🔳 `container`
