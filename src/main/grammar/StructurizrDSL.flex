@@ -28,6 +28,7 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
     private int braces = 0;
 %}
 
+%ignorecase
 %public
 %class StructurizrDSLLexer
 %implements FlexLexer
