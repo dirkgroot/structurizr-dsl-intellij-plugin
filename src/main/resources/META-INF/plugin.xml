@@ -1,5 +1,9 @@
 <idea-plugin>
+    <id>nl.dirkgroot.structurizr-dsl-plugin</id>
+    <name>Structurizr DSL Language Support</name>
     <depends>com.intellij.modules.platform</depends>
+    <vendor url="https://github.com/dirkgroot/structurizr-dsl-intellij-plugin">Dirk Groot</vendor>
+    <description>Adds Structurizr DSL language support to IntelliJ.</description>
 
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="StructurizrDSL File"

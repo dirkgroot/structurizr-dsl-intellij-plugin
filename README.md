@@ -1,6 +1,8 @@
 # IntelliJ plugin for the Structurizr DSL
 
 <!-- Plugin description -->
+Adds Structurizr DSL language support to IntelliJ.
+
 This plugin is a work in progress!
 <!-- Plugin description end -->
 

@@ -11,8 +11,8 @@ plugins {
     id("org.jetbrains.grammarkit") version "2022.3"
 }
 
-group = "nl.dirkgroot"
-version = "1.0-SNAPSHOT"
+group = properties("pluginGroup")
+version = properties("pluginVersion")
 
 repositories {
     mavenCentral()
