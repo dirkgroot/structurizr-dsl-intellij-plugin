@@ -1,3 +1,5 @@
+[![Build](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/actions/workflows/build.yml)
+
 # IntelliJ plugin for the Structurizr DSL
 
 <!-- Plugin description -->
