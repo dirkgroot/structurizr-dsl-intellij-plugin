@@ -1,6 +1,9 @@
-# Changelog
+# Structurizr DSL Language Support Changelog
 
 ## [Unreleased]
+
+### Changed
+- Automatically publish releases from the release GitHub workflow
 
 ## [0.1.0-alpha] - 2022-12-08
 
