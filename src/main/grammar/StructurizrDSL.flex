@@ -48,7 +48,7 @@ EMPTY_LINE={WHITE_SPACE}* {CRLF}
 
 QUOTED_TEXT=\" [^\"\r\n]* \"?
 UNQUOTED_TEXT=[^\s\"\r\n]+
-IDENTIFIER=[a-zA-Z_0-9]+
+IDENTIFIER=[a-zA-Z_0-9\\.]+
 
 LINE_COMMENT=("//"|"#") [^\r\n]*
 BLOCK_COMMENT="/*" [^*] ~"*/"
@@ -68,11 +68,11 @@ SCRIPT_TEXT=[^\r\n{}]+
 }
 
 <YYINITIAL> {
-{CRLF}             { return CRLF; }
+{CRLF}                   { return CRLF; }
 
-"{"                { return BRACE1; }
-"}"                { return BRACE2; }
-"="                { return EQUALS; }
+"{"                      { return BRACE1; }
+"}"                      { return BRACE2; }
+"="                      { return EQUALS; }
 
 "!adrs"                  { yybegin(EXPECT_ARGUMENTS); return ADRS_KEYWORD; }
 "!constant"              { yybegin(EXPECT_ARGUMENTS); return CONSTANT_KEYWORD; }
@@ -144,9 +144,9 @@ SCRIPT_TEXT=[^\r\n{}]+
 "width"                  { yybegin(EXPECT_ARGUMENTS); return WIDTH_KEYWORD; }
 "workspace"              { yybegin(EXPECT_ARGUMENTS); return WORKSPACE_KEYWORD; }
 
-{IDENTIFIER}       { return IDENTIFIER; }
+{IDENTIFIER}             { return IDENTIFIER; }
 
-[^]                { return BAD_CHARACTER; }
+[^]                      { return BAD_CHARACTER; }
 }
 
 <EXPECT_REL_DESTINATION> {
