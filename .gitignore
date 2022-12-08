@@ -1,3 +1,6 @@
 .gradle/
 .idea/
 build/
+
+# Ignore the Lexer code, as it is being generated at build time
+src/main/gen/nl/dirkgroot/structurizr/dsl/StructurizrDSLLexer.java
