@@ -1,3 +1,4 @@
+import org.jetbrains.changelog.Changelog
 import org.jetbrains.changelog.markdownToHTML
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -30,6 +31,12 @@ intellij {
 
     // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
     plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
+}
+
+// Configure Gradle Changelog Plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
+changelog {
+    groups.set(emptyList())
+    repositoryUrl.set(properties("pluginRepositoryUrl"))
 }
 
 sourceSets["main"].java.srcDirs("src/main/gen")
@@ -70,6 +77,13 @@ tasks {
                 subList(indexOf(start) + 1, indexOf(end))
             }.joinToString("\n").let { markdownToHTML(it) }
         )
+
+        // Get the latest available change notes from the changelog file
+        changeNotes.set(provider {
+            with(changelog) {
+                renderItem(getOrNull(properties("pluginVersion")) ?: getLatest(), Changelog.OutputType.HTML)
+            }
+        })
     }
 
     generateLexer {
