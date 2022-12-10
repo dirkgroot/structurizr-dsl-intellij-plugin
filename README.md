@@ -10,7 +10,7 @@ IntelliJ.
 Structurizr DSL is a domain specific language for creating architecture models and diagrams
 using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model.com).
 
-> ℹ️ **Note**
+> **Note**
 >
 > This plugin is in **alpha** stage, so there will likely be bugs. I'd love to get your feedback! You can leave feedback
 > by [writing a review](https://plugins.jetbrains.com/plugin/20606-structurizr-dsl-language-support/reviews) or
