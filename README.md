@@ -21,8 +21,8 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 
 * Basic syntax highlighting for the Structurizr DSL language. Files with the `.dsl` extension are considered to be
   Structurizr DSL files.
-* More to come! Please refer to the README at <https://github.com/dirkgroot/structurizr-dsl-intellij-plugin> for a list
-  of features that will likely be added.
+* More to come! Please refer to the [TODO section](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin#todo) of
+  the README for a list of features that will likely be added.
 
 ## Decisions / limitations
 
