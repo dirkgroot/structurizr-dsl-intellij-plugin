@@ -5,6 +5,9 @@
 ### Changed
 - Automatically publish releases from the release GitHub workflow
 
+### Fixed
+- Syntax highlighting of block comments without a closing `*/`
+
 ## [0.1.0-alpha] - 2022-12-08
 
 ### Added

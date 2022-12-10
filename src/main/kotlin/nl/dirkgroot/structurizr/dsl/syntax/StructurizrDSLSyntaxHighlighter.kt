@@ -112,7 +112,7 @@ class StructurizrDSLSyntaxHighlighter : SyntaxHighlighterBase() {
 
         private val MAP = buildMap {
             fillMap(this, LINE_COMMENT_KEY, LINE_COMMENT)
-            fillMap(this, BLOCK_COMMENT_KEY, LINE_COMMENT)
+            fillMap(this, BLOCK_COMMENT_KEY, BLOCK_COMMENT)
             fillMap(this, TEXT_TOKENS, TEXT_KEY)
             fillMap(this, KEYWORD_TOKENS, KEYWORD_KEY)
             fillMap(this, BAD_CHARACTER_KEY, TokenType.BAD_CHARACTER)

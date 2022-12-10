@@ -51,7 +51,7 @@ UNQUOTED_TEXT=[^\s\"\r\n]+
 IDENTIFIER=[a-zA-Z_0-9\\.]+
 
 LINE_COMMENT=("//"|"#") [^\r\n]*
-BLOCK_COMMENT="/*" [^*] ~"*/"
+BLOCK_COMMENT="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
 
 SCRIPT_TEXT=[^\r\n{}]+
 

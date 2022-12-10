@@ -61,4 +61,13 @@ class CommentsTest : StringSpec({
             DESCRIPTION_KEYWORD to "description"
         )
     }
+
+    "unterminated block comment" {
+        """
+            /*
+            workspace
+        """.trimIndent().tokenize() shouldContainExactly listOf(
+            BLOCK_COMMENT to "/*\nworkspace",
+        )
+    }
 })
