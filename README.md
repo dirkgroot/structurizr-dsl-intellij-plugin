@@ -3,10 +3,25 @@
 # IntelliJ plugin for the Structurizr DSL
 
 <!-- Plugin description -->
-Adds Structurizr DSL language support to IntelliJ.
 
-This plugin is a work in progress!
-<!-- Plugin description end -->
+Adds [Structurizr DSL](https://github.com/structurizr/dsl/blob/master/docs/language-reference.md) language support to
+IntelliJ.
+
+Structurizr DSL is a domain specific language for creating architecture models and diagrams
+using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model.com).
+
+> ℹ️ **Note**
+>
+> This plugin is in **alpha** stage, so there will likely be bugs. I'd love to get your feedback! You can leave feedback
+> by [writing a review](https://plugins.jetbrains.com/plugin/20606-structurizr-dsl-language-support/reviews) or
+> by [filing an issue](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/issues).
+
+## Features
+
+* Basic syntax highlighting for the Structurizr DSL language. Files with the `.dsl` extension are considered to be
+  Structurizr DSL files.
+* More to come! Please refer to the README at <https://github.com/dirkgroot/structurizr-dsl-intellij-plugin> for a list
+  of features that will likely be added.
 
 ## Decisions / limitations
 
@@ -21,6 +36,8 @@ This plugin is a work in progress!
   most likely be implemented using
   an [annotator](https://plugins.jetbrains.com/docs/intellij/syntax-highlighting-and-error-highlighting.html#annotator),
   instead of via lexer based highlighting.
+
+<!-- Plugin description end -->
 
 ## TODO
 

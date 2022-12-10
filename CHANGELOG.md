@@ -4,6 +4,7 @@
 
 ### Changed
 - Automatically publish releases from the release GitHub workflow
+- Added more information to the README, and the plugin's description
 
 ### Fixed
 - Syntax highlighting of block comments without a closing `*/`
