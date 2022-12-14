@@ -1,6 +1,17 @@
 [![Build](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/actions/workflows/build.yml)
 [![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/dirkgroot/structurizr-dsl-intellij-plugin?include_prereleases&label=latest%20release)](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/releases)
 
+<!-- TOC -->
+* [IntelliJ plugin for the Structurizr DSL](#intellij-plugin-for-the-structurizr-dsl)
+  * [Features](#features)
+  * [Decisions / limitations](#decisions--limitations)
+  * [Installation](#installation)
+  * [TODO](#todo)
+    * [Legend](#legend)
+    * [Features](#features-1)
+    * [Grammar](#grammar)
+<!-- TOC -->
+
 # IntelliJ plugin for the Structurizr DSL
 
 <!-- Plugin description -->
@@ -39,6 +50,16 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
   instead of via lexer based highlighting.
 
 <!-- Plugin description end -->
+
+## Installation
+
+- Add the `alpha` release channel to IntelliJ by adding the following url to the list of plugin
+  repositories: <https://plugins.jetbrains.com/plugins/alpha/list>. Please refer to
+  IntelliJ's [documentation](https://www.jetbrains.com/help/idea/managing-plugins.html#repos) for instructions on how to
+  add plugin repositories.
+- Search for "Structurizr" in the marketplace, and install the plugin. Please refer to
+  IntelliJ's [documentation](https://www.jetbrains.com/help/idea/managing-plugins.html) for instructions on how to
+  install plugins.
 
 ## TODO
 
