@@ -18,13 +18,15 @@ class CommentsTest : StringSpec({
         "// line comment\n".tokenize() shouldContainExactly listOf(LINE_COMMENT to "// line comment", CRLF to "\n")
     }
 
-    "line comment after other tokens does not consume crlf" {
+    "line comment after other tokens" {
         "description text // comment\n".tokenize() shouldContainExactly listOf(
             DESCRIPTION_KEYWORD to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             WHITE_SPACE to " ",
-            LINE_COMMENT to "// comment",
+            UNQUOTED_TEXT to "//",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "comment",
             CRLF to "\n",
         )
     }
@@ -41,7 +43,9 @@ class CommentsTest : StringSpec({
         "description /* */ text".tokenize() shouldContainExactly listOf(
             DESCRIPTION_KEYWORD to "description",
             WHITE_SPACE to " ",
-            BLOCK_COMMENT to "/* */",
+            UNQUOTED_TEXT to "/*",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "*/",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
         )
@@ -56,7 +60,9 @@ class CommentsTest : StringSpec({
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             WHITE_SPACE to " ",
-            BLOCK_COMMENT to "/* */",
+            UNQUOTED_TEXT to "/*",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "*/",
             CRLF to "\n",
             DESCRIPTION_KEYWORD to "description"
         )

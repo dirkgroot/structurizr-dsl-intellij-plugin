@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Changed
+- Only allow "standalone" comments, so one line can either be (part of) a comment (single line of block), or not.
+  Comments "embedded" in a regular line of DSL code are not highlighted as comments anymore. This fixes #10.
+
 ## [0.1.1-alpha] - 2022-12-10
 
 ### Changed
