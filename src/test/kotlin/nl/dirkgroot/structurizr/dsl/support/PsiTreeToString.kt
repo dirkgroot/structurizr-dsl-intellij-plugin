@@ -3,7 +3,7 @@ package nl.dirkgroot.structurizr.dsl.support
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiErrorElement
 import com.intellij.util.text.escLBr
-import nl.dirkgroot.structurizr.dsl.psi.SDFile
+import nl.dirkgroot.structurizr.dsl.psi.StructurizrDSLFile
 
 fun psiTreeToString(root: PsiElement): String {
     val builder = StringBuilder()
@@ -15,6 +15,10 @@ fun psiTreeToString(root: PsiElement): String {
             .replace("(^SD|Impl$)".toRegex(), "")
         builder.append(name)
 
+        if (element is PsiErrorElement) {
+            builder.append(" ")
+            builder.append(element.errorDescription)
+        }
         if (element.children.isEmpty()) {
             builder.append(" ")
             builder.append(element.text.escLBr())
@@ -26,7 +30,7 @@ fun psiTreeToString(root: PsiElement): String {
         }
     }
 
-    if (root is SDFile)
+    if (root is StructurizrDSLFile)
         root.children.forEach {
             if (builder.isNotEmpty()) builder.appendLine()
             inner(it)

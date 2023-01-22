@@ -10,7 +10,7 @@ import com.intellij.psi.tree.IFileElementType
 import com.intellij.psi.tree.TokenSet
 import nl.dirkgroot.structurizr.dsl.StructurizrDSLLanguage
 import nl.dirkgroot.structurizr.dsl.StructurizrDSLParser
-import nl.dirkgroot.structurizr.dsl.psi.SDFile
+import nl.dirkgroot.structurizr.dsl.psi.StructurizrDSLFile
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes
 
 class StructurizrDSLParserDefinition : ParserDefinition {
@@ -33,7 +33,7 @@ class StructurizrDSLParserDefinition : ParserDefinition {
 
     override fun getFileNodeType() = FILE
 
-    override fun createFile(viewProvider: FileViewProvider) = SDFile(viewProvider)
+    override fun createFile(viewProvider: FileViewProvider) = StructurizrDSLFile(viewProvider)
 
     override fun spaceExistenceTypeBetweenTokens(left: ASTNode?, right: ASTNode?) =
         ParserDefinition.SpaceRequirements.MAY
