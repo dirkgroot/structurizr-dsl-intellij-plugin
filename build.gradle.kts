@@ -47,7 +47,7 @@ kover.xmlReport {
 sourceSets["main"].java.srcDirs("src/main/gen")
 
 dependencies {
-    testImplementation("io.kotest:kotest-runner-junit5:5.5.4")
+    testImplementation("io.kotest:kotest-runner-junit5:5.5.5")
     testImplementation("io.kotest:kotest-assertions-core:5.5.4")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 }
