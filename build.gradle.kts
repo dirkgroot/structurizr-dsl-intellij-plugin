@@ -96,7 +96,7 @@ tasks {
 
     generateLexer {
         // source flex file
-        source.set("src/main/grammar/StructurizrDSL.flex")
+        sourceFile.set(File("src/main/grammar/StructurizrDSL.flex"))
 
         // target directory for lexer
         targetDir.set("src/main/gen/nl/dirkgroot/structurizr/dsl/")
