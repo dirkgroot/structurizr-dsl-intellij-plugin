@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.1.3-alpha] - 2023-03-30
+
 ### Changed
 - Made the plugin compatible with IntelliJ Platform version 2023.1 (build 231.*).
 
@@ -26,7 +28,8 @@
 ### Added
 - Token based syntax highlighting
 
-[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.2-alpha...HEAD
+[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.3-alpha...HEAD
+[0.1.3-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.2-alpha...v0.1.3-alpha
 [0.1.2-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.1-alpha...v0.1.2-alpha
 [0.1.1-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.0-alpha...v0.1.1-alpha
 [0.1.0-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/commits/v0.1.0-alpha
