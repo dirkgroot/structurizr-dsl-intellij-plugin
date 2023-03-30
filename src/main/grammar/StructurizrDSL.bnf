@@ -92,8 +92,8 @@
         width_keyword='width'
         workspace_keyword='workspace'
 
-        quoted_text='regexp:"[^"\r\n]*"'
-        unquoted_text='regexp:[^\s"\r\n]+'
+        quoted_text='regexp:\"[^\"\r\n]*\"'
+        unquoted_text='regexp:[^\s\"\r\n]+'
 
         identifier='regexp:[a-zA-Z_0-9]+'
 
@@ -101,43 +101,6 @@
     ]
 }
 
-structurizrDSLFile ::= statement*
+structurizrDSLFile ::= rootElement
 
-private statement ::= identifierAssignment | elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
-
-identifierAssignment ::= identifierName '=' elementDefinition
-identifierName ::= IDENTIFIER
-
-private elementDefinition ::= singleLineStatement | blockStatement | propertyBlockStatement | CRLF
-
-singleLineStatement ::= keywordWithArguments lf_eof
-blockStatement ::= keywordWithArguments '{' CRLF statement* '}' lf_eof
-propertyBlockStatement ::= keywordWithPropertyBlock '{' CRLF keyValuePair* '}'
-keyValuePair ::= key value CRLF
-key ::= text
-value ::= text
-
-scriptBlock ::= '!script' argument* '{' scriptContents '}'
-scriptContents ::= SCRIPT_TEXT+
-
-explicitRelationship ::= identifierName '->' identifierName argument*
-implicitRelationship ::= '->' identifierName argument*
-
-private keywordWithArguments ::= keyword argument*
-
-keyword ::= '!adrs' | 'animation' | 'autoLayout' | 'background' | 'border' | 'color' | 'colour' | 'component' |
-            '!constant' | 'containerInstance' | 'container' | 'custom' | 'deploymentEnvironment' | 'deploymentGroup' |
-            'deployment' | 'deploymentNode' | 'description' | '!docs' | 'dynamic' | 'element' | 'enterprise' |
-            'exclude' | 'extends' | 'filtered' | 'fontSize' | 'group' | 'healthCheck' | 'height' | 'icon' |
-            '!identifiers' | '!impliedRelationships' | 'include' | '!include' | 'infrastructureNode' | 'instances' |
-            'metadata' | 'model' | 'opacity' | 'person' | 'perspectives' | '!plugin' | 'position' | '!ref' | '->' |
-            'routing' | '!script' | 'shape' | 'softwareSystemInstance' | 'softwareSystem' | 'stroke' | 'strokeWidth' |
-            'style' | 'styles' | 'systemContext' | 'systemLandscape' | 'tags' | 'technology' | 'theme' | 'thickness' |
-            'title' | 'url' | 'views' | 'width' | 'workspace'
-
-keywordWithPropertyBlock ::= 'branding' | 'configuration' | 'properties' | 'terminology' | 'users'
-
-argument ::= text
-
-private text ::= QUOTED_TEXT | UNQUOTED_TEXT
-private lf_eof ::= CRLF | <<eof>>
+rootElement ::= !<<eof>>
