@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- Made the plugin compatible with IntelliJ Platform version 2023.1 (build 231.*).
+
 ## [0.1.2-alpha] - 2023-01-09
 
 ### Changed
