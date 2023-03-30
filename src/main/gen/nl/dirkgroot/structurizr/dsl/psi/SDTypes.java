@@ -8,7 +8,21 @@ import nl.dirkgroot.structurizr.dsl.psi.impl.*;
 
 public interface SDTypes {
 
-  IElementType ROOT_ELEMENT = new SDElement("ROOT_ELEMENT");
+  IElementType ARGUMENT = new SDElement("ARGUMENT");
+  IElementType BLOCK_STATEMENT = new SDElement("BLOCK_STATEMENT");
+  IElementType EXPLICIT_RELATIONSHIP = new SDElement("EXPLICIT_RELATIONSHIP");
+  IElementType IDENTIFIER_ASSIGNMENT = new SDElement("IDENTIFIER_ASSIGNMENT");
+  IElementType IDENTIFIER_NAME = new SDElement("IDENTIFIER_NAME");
+  IElementType IMPLICIT_RELATIONSHIP = new SDElement("IMPLICIT_RELATIONSHIP");
+  IElementType KEY = new SDElement("KEY");
+  IElementType KEYWORD = new SDElement("KEYWORD");
+  IElementType KEYWORD_WITH_PROPERTY_BLOCK = new SDElement("KEYWORD_WITH_PROPERTY_BLOCK");
+  IElementType KEY_VALUE_PAIR = new SDElement("KEY_VALUE_PAIR");
+  IElementType PROPERTY_BLOCK_STATEMENT = new SDElement("PROPERTY_BLOCK_STATEMENT");
+  IElementType SCRIPT_BLOCK = new SDElement("SCRIPT_BLOCK");
+  IElementType SCRIPT_CONTENTS = new SDElement("SCRIPT_CONTENTS");
+  IElementType SINGLE_LINE_STATEMENT = new SDElement("SINGLE_LINE_STATEMENT");
+  IElementType VALUE = new SDElement("VALUE");
 
   IElementType ADRS_KEYWORD = new SDToken("!adrs");
   IElementType ANIMATION_KEYWORD = new SDToken("animation");
@@ -26,7 +40,7 @@ public interface SDTypes {
   IElementType CONSTANT_KEYWORD = new SDToken("!constant");
   IElementType CONTAINER_INSTANCE = new SDToken("containerInstance");
   IElementType CONTAINER_KEYWORD = new SDToken("container");
-  IElementType CRLF = new SDToken("crlf");
+  IElementType CRLF = new SDToken("CRLF");
   IElementType CUSTOM_KEYWORD = new SDToken("custom");
   IElementType DEPLOYMENT_ENVIRONMENT_KEYWORD = new SDToken("deploymentEnvironment");
   IElementType DEPLOYMENT_GROUP_KEYWORD = new SDToken("deploymentGroup");
@@ -46,7 +60,7 @@ public interface SDTypes {
   IElementType HEALTH_CHECK_KEYWORD = new SDToken("healthCheck");
   IElementType HEIGHT_KEYWORD = new SDToken("height");
   IElementType ICON_KEYWORD = new SDToken("icon");
-  IElementType IDENTIFIER = new SDToken("identifier");
+  IElementType IDENTIFIER = new SDToken("IDENTIFIER");
   IElementType IDENTIFIERS_KEYWORD = new SDToken("!identifiers");
   IElementType IMPLIED_RELATIONSHIPS_KEYWORD = new SDToken("!impliedRelationships");
   IElementType INCLUDE_ELEMENT_KEYWORD = new SDToken("include");
@@ -62,12 +76,12 @@ public interface SDTypes {
   IElementType PLUGIN_KEYWORD = new SDToken("!plugin");
   IElementType POSITION_KEYWORD = new SDToken("position");
   IElementType PROPERTIES_KEYWORD = new SDToken("properties");
-  IElementType QUOTED_TEXT = new SDToken("quoted_text");
+  IElementType QUOTED_TEXT = new SDToken("QUOTED_TEXT");
   IElementType REF_KEYWORD = new SDToken("!ref");
   IElementType RELATIONSHIP_KEYWORD = new SDToken("->");
   IElementType ROUTING_KEYWORD = new SDToken("routing");
   IElementType SCRIPT_KEYWORD = new SDToken("!script");
-  IElementType SCRIPT_TEXT = new SDToken("script_text");
+  IElementType SCRIPT_TEXT = new SDToken("SCRIPT_TEXT");
   IElementType SHAPE_KEYWORD = new SDToken("shape");
   IElementType SOFTWARE_SYSTEM_INSTANCE_KEYWORD = new SDToken("softwareSystemInstance");
   IElementType SOFTWARE_SYSTEM_KEYWORD = new SDToken("softwareSystem");
@@ -83,7 +97,7 @@ public interface SDTypes {
   IElementType THEME_KEYWORD = new SDToken("theme");
   IElementType THICKNESS_KEYWORD = new SDToken("thickness");
   IElementType TITLE_KEYWORD = new SDToken("title");
-  IElementType UNQUOTED_TEXT = new SDToken("unquoted_text");
+  IElementType UNQUOTED_TEXT = new SDToken("UNQUOTED_TEXT");
   IElementType URL_KEYWORD = new SDToken("url");
   IElementType USERS_KEYWORD = new SDToken("users");
   IElementType VIEWS_KEYWORD = new SDToken("views");
@@ -93,8 +107,50 @@ public interface SDTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ROOT_ELEMENT) {
-        return new SDRootElementImpl(node);
+      if (type == ARGUMENT) {
+        return new SDArgumentImpl(node);
+      }
+      else if (type == BLOCK_STATEMENT) {
+        return new SDBlockStatementImpl(node);
+      }
+      else if (type == EXPLICIT_RELATIONSHIP) {
+        return new SDExplicitRelationshipImpl(node);
+      }
+      else if (type == IDENTIFIER_ASSIGNMENT) {
+        return new SDIdentifierAssignmentImpl(node);
+      }
+      else if (type == IDENTIFIER_NAME) {
+        return new SDIdentifierNameImpl(node);
+      }
+      else if (type == IMPLICIT_RELATIONSHIP) {
+        return new SDImplicitRelationshipImpl(node);
+      }
+      else if (type == KEY) {
+        return new SDKeyImpl(node);
+      }
+      else if (type == KEYWORD) {
+        return new SDKeywordImpl(node);
+      }
+      else if (type == KEYWORD_WITH_PROPERTY_BLOCK) {
+        return new SDKeywordWithPropertyBlockImpl(node);
+      }
+      else if (type == KEY_VALUE_PAIR) {
+        return new SDKeyValuePairImpl(node);
+      }
+      else if (type == PROPERTY_BLOCK_STATEMENT) {
+        return new SDPropertyBlockStatementImpl(node);
+      }
+      else if (type == SCRIPT_BLOCK) {
+        return new SDScriptBlockImpl(node);
+      }
+      else if (type == SCRIPT_CONTENTS) {
+        return new SDScriptContentsImpl(node);
+      }
+      else if (type == SINGLE_LINE_STATEMENT) {
+        return new SDSingleLineStatementImpl(node);
+      }
+      else if (type == VALUE) {
+        return new SDValueImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
