@@ -2,12 +2,11 @@
 
 ## [Unreleased]
 
-### Added
+## [0.2.0] - 2023-03-31
 
-- Very simple parser, which should provide just enough of a basis to add basic editor functionality like code
-  formatting and auto indentation.
-- Support for IntelliJ's "Reformat Code" command. Currently, this indents blocks and normalizes spacing between tokens
-  on 1 line.
+### Added
+- Very simple parser, which should provide just enough of a basis to add basic editor functionality like code formatting and auto indentation.
+- Support for IntelliJ's "Reformat Code" command. Currently, this indents blocks and normalizes spacing between tokens on 1 line.
 
 ## [0.1.3-alpha] - 2023-03-30
 
@@ -35,7 +34,8 @@
 ### Added
 - Token based syntax highlighting
 
-[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.3-alpha...HEAD
+[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.3-alpha...v0.2.0
 [0.1.3-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.2-alpha...v0.1.3-alpha
 [0.1.2-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.1-alpha...v0.1.2-alpha
 [0.1.1-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.0-alpha...v0.1.1-alpha
