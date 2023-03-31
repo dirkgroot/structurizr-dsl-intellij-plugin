@@ -9,7 +9,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.8.10"
     id("org.jetbrains.intellij") version "1.13.3"
     id("org.jetbrains.changelog") version "2.0.0"
-    id("org.jetbrains.kotlinx.kover") version "0.6.1"
+    id("org.jetbrains.kotlinx.kover") version "0.7.0-Alpha"
     id("org.jetbrains.grammarkit") version "2022.3.1"
 }
 
@@ -40,8 +40,10 @@ changelog {
     repositoryUrl.set(properties("pluginRepositoryUrl"))
 }
 
-kover.xmlReport {
-    onCheck.set(true)
+koverReport {
+    xml {
+        onCheck = true
+    }
 }
 
 sourceSets["main"].java.srcDirs("src/main/gen")
