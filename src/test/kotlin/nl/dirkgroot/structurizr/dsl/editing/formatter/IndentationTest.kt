@@ -1,8 +1,8 @@
-package nl.dirkgroot.structurizr.dsl.editing
+package nl.dirkgroot.structurizr.dsl.editing.formatter
 
 import org.junit.jupiter.api.Test
 
-class FormatterIndentationTest : FormatterTest() {
+class IndentationTest : FormatterTest() {
     @Test
     fun `block with single line element`() {
         assertFormattingResult(

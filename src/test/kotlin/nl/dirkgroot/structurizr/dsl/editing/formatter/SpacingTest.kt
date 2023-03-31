@@ -1,8 +1,8 @@
-package nl.dirkgroot.structurizr.dsl.editing
+package nl.dirkgroot.structurizr.dsl.editing.formatter
 
 import org.junit.jupiter.api.Test
 
-class FormatterSpacingTest : FormatterTest() {
+class SpacingTest : FormatterTest() {
     @Test
     fun arguments() {
         assertFormattingResult(

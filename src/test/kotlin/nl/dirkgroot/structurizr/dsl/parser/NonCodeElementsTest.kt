@@ -1,9 +1,9 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
-import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLParserTest
+import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
 import org.junit.jupiter.api.Test
 
-class NonCodeElementsTest : StructurizrDSLParserTest() {
+class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
     @Test
     fun `empty line`() {
         assertPsiTree("\n", """PsiWhiteSpace \n""")

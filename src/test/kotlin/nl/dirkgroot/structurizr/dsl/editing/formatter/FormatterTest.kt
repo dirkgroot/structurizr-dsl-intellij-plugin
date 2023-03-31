@@ -1,10 +1,10 @@
-package nl.dirkgroot.structurizr.dsl.editing
+package nl.dirkgroot.structurizr.dsl.editing.formatter
 
 import com.intellij.openapi.command.WriteCommandAction
 import com.intellij.psi.codeStyle.CodeStyleManager
-import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLParserTest
+import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
 
-open class FormatterTest : StructurizrDSLParserTest() {
+abstract class FormatterTest : StructurizrDSLCodeInsightTest() {
     protected fun assertFormattingResult(code: String, expectedResult: String) {
         val file = fixture.addFileToProject("test.dsl", code)
         fixture.openFileInEditor(file.virtualFile)
