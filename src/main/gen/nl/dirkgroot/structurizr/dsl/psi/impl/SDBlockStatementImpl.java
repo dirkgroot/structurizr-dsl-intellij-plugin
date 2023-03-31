@@ -53,6 +53,12 @@ public class SDBlockStatementImpl extends ASTWrapperPsiElement implements SDBloc
 
   @Override
   @NotNull
+  public List<SDIdentifierReferences> getIdentifierReferencesList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierReferences.class);
+  }
+
+  @Override
+  @NotNull
   public List<SDImplicitRelationship> getImplicitRelationshipList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SDImplicitRelationship.class);
   }

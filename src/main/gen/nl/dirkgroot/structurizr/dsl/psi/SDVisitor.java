@@ -23,6 +23,10 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitIdentifierReferences(@NotNull SDIdentifierReferences o) {
+    visitPsiElement(o);
+  }
+
   public void visitImplicitRelationship(@NotNull SDImplicitRelationship o) {
     visitPsiElement(o);
   }

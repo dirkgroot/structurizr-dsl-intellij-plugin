@@ -103,7 +103,7 @@
 
 structurizrDSLFile ::= statement*
 
-private statement ::= elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
+private statement ::= elementDefinition | scriptBlock | explicitRelationship | implicitRelationship | identifierReferences
 
 private elementDefinition ::= singleLineStatement | blockStatement | propertyBlockStatement | CRLF
 
@@ -122,6 +122,8 @@ scriptContents ::= SCRIPT_TEXT+
 
 explicitRelationship ::= identifierName '->' identifierName argument*
 implicitRelationship ::= '->' identifierName argument*
+
+identifierReferences ::= identifierName+ lf_eof
 
 private keywordWithArguments ::= keyword argument*
 

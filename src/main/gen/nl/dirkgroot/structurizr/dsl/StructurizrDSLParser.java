@@ -145,6 +145,34 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // identifierName+ lf_eof
+  public static boolean identifierReferences(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReferences")) return false;
+    if (!nextTokenIs(b, IDENTIFIER)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = identifierReferences_0(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, IDENTIFIER_REFERENCES, r);
+    return r;
+  }
+
+  // identifierName+
+  private static boolean identifierReferences_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReferences_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = identifierName(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!identifierName(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "identifierReferences_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // '->' identifierName argument*
   public static boolean implicitRelationship(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "implicitRelationship")) return false;
@@ -417,7 +445,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
+  // elementDefinition | scriptBlock | explicitRelationship | implicitRelationship | identifierReferences
   static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
@@ -425,6 +453,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     if (!r) r = scriptBlock(b, l + 1);
     if (!r) r = explicitRelationship(b, l + 1);
     if (!r) r = implicitRelationship(b, l + 1);
+    if (!r) r = identifierReferences(b, l + 1);
     return r;
   }
 
