@@ -6,9 +6,8 @@
 
 - Very simple parser, which should provide just enough of a basis to add basic editor functionality like code
   formatting and auto indentation.
-- Support for IntelliJ's "Reformat Code" command. Currently, this does the following:
-  - Indent blocks
-  - Normalize spacing between tokens on 1 line
+- Support for IntelliJ's "Reformat Code" command. Currently, this indents blocks and normalizes spacing between tokens
+  on 1 line.
 
 ## [0.1.3-alpha] - 2023-03-30
 
