@@ -10,7 +10,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 
 @RunInEdt
-abstract class StructurizrDSLParserTest {
+abstract class StructurizrDSLCodeInsightTest {
     protected lateinit var fixture: CodeInsightTestFixture
     protected lateinit var project: Project
 

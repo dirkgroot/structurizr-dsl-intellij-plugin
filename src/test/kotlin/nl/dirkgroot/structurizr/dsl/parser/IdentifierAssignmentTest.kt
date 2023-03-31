@@ -1,11 +1,11 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.lexer.KEYWORDS
-import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLParserTest
+import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 
-class IdentifierAssignmentTest : StructurizrDSLParserTest() {
+class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
     @TestFactory
     fun `identifier assignment to single line element`() = KEYWORDS.map { (keyword, _) ->
         dynamicTest(keyword) {

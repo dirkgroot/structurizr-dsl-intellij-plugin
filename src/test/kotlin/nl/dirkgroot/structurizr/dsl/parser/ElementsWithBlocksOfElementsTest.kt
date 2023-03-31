@@ -1,11 +1,11 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.lexer.KEYWORDS_WITH_BLOCKS
-import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLParserTest
+import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
 import org.junit.jupiter.api.DynamicTest.dynamicTest
 import org.junit.jupiter.api.TestFactory
 
-class ElementsWithBlocksOfElementsTest : StructurizrDSLParserTest() {
+class ElementsWithBlocksOfElementsTest : StructurizrDSLCodeInsightTest() {
     @TestFactory
     fun `empty block`() = KEYWORDS_WITH_BLOCKS.map { (keyword, _) ->
         dynamicTest(keyword) {

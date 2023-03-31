@@ -1,9 +1,9 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
-import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLParserTest
+import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
 import org.junit.jupiter.api.Test
 
-class ScriptBlockTest : StructurizrDSLParserTest() {
+class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
     @Test
     fun `empty script block`() {
         assertPsiTree(
