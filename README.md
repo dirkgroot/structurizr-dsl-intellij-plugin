@@ -31,7 +31,7 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 
 * Basic syntax highlighting for the Structurizr DSL language. Files with the `.dsl` extension are considered to be
   Structurizr DSL files.
-* Automatically indent and normalize spacing on IntelliJ's "Reformat Code" command.
+* Automatically indent and normalize spacing with IntelliJ's "Reformat Code" command.
 * More to come! Please refer to the [TODO section](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin#todo) of
   the README for a list of features that will likely be added.
 
