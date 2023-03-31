@@ -34,6 +34,12 @@ public class SDSingleLineStatementImpl extends ASTWrapperPsiElement implements S
   }
 
   @Override
+  @Nullable
+  public SDIdentifierName getIdentifierName() {
+    return findChildByClass(SDIdentifierName.class);
+  }
+
+  @Override
   @NotNull
   public SDKeyword getKeyword() {
     return findNotNullChildByClass(SDKeyword.class);

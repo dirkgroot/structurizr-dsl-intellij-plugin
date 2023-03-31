@@ -12,11 +12,10 @@ class IdentifierAssignmentTest : StructurizrDSLParserTest() {
             assertPsiTree(
                 """identifier = softwareSystem blaat""",
                 """
-                    IdentifierAssignment
+                    SingleLineStatement
                         IdentifierName identifier
-                        SingleLineStatement
-                            Keyword softwareSystem
-                            Argument blaat
+                        Keyword softwareSystem
+                        Argument blaat
                 """.trimIndent()
             )
         }
@@ -32,15 +31,14 @@ class IdentifierAssignmentTest : StructurizrDSLParserTest() {
                     }
                 """.trimIndent(),
                 """
-                    IdentifierAssignment
+                    BlockStatement
                         IdentifierName identifier
-                        BlockStatement
-                            Keyword softwareSystem
-                            Argument blaat
-                            SingleLineStatement
-                                Keyword container
-                                Argument containerName
-                """.trimIndent()
+                        Keyword softwareSystem
+                        Argument blaat
+                        SingleLineStatement
+                            Keyword container
+                            Argument containerName
+                 """.trimIndent()
             )
         }
     }
@@ -57,11 +55,10 @@ class IdentifierAssignmentTest : StructurizrDSLParserTest() {
                 """
                     BlockStatement
                         Keyword model
-                        IdentifierAssignment
+                        SingleLineStatement
                             IdentifierName identifier
-                            SingleLineStatement
-                                Keyword softwareSystem
-                                Argument name
+                            Keyword softwareSystem
+                            Argument name
                 """.trimIndent()
             )
         }

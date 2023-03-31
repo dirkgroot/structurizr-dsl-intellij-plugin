@@ -16,8 +16,8 @@ public interface SDBlockStatement extends PsiElement {
   @NotNull
   List<SDExplicitRelationship> getExplicitRelationshipList();
 
-  @NotNull
-  List<SDIdentifierAssignment> getIdentifierAssignmentList();
+  @Nullable
+  SDIdentifierName getIdentifierName();
 
   @NotNull
   List<SDImplicitRelationship> getImplicitRelationshipList();

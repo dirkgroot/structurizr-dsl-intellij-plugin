@@ -103,15 +103,15 @@
 
 structurizrDSLFile ::= statement*
 
-private statement ::= identifierAssignment | elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
-
-identifierAssignment ::= identifierName '=' elementDefinition
-identifierName ::= IDENTIFIER
+private statement ::= elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
 
 private elementDefinition ::= singleLineStatement | blockStatement | propertyBlockStatement | CRLF
 
-singleLineStatement ::= keywordWithArguments lf_eof
-blockStatement ::= keywordWithArguments '{' CRLF statement* '}' lf_eof
+singleLineStatement ::= identifierAssignment? keywordWithArguments lf_eof
+blockStatement ::= identifierAssignment? keywordWithArguments '{' CRLF statement* '}' lf_eof
+
+private identifierAssignment ::= identifierName '='
+
 propertyBlockStatement ::= keywordWithPropertyBlock '{' CRLF keyValuePair* '}'
 keyValuePair ::= key value CRLF
 key ::= text
@@ -138,6 +138,7 @@ keyword ::= '!adrs' | 'animation' | 'autoLayout' | 'background' | 'border' | 'co
 keywordWithPropertyBlock ::= 'branding' | 'configuration' | 'properties' | 'terminology' | 'users'
 
 argument ::= text
+identifierName ::= IDENTIFIER
 
 private text ::= QUOTED_TEXT | UNQUOTED_TEXT
 private lf_eof ::= CRLF | <<eof>>

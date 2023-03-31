@@ -46,9 +46,9 @@ public class SDBlockStatementImpl extends ASTWrapperPsiElement implements SDBloc
   }
 
   @Override
-  @NotNull
-  public List<SDIdentifierAssignment> getIdentifierAssignmentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierAssignment.class);
+  @Nullable
+  public SDIdentifierName getIdentifierName() {
+    return findChildByClass(SDIdentifierName.class);
   }
 
   @Override

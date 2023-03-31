@@ -48,27 +48,35 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // keywordWithArguments '{' CRLF statement* '}' lf_eof
+  // identifierAssignment? keywordWithArguments '{' CRLF statement* '}' lf_eof
   public static boolean blockStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "blockStatement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BLOCK_STATEMENT, "<block statement>");
-    r = keywordWithArguments(b, l + 1);
+    r = blockStatement_0(b, l + 1);
+    r = r && keywordWithArguments(b, l + 1);
     r = r && consumeTokens(b, 0, BRACE1, CRLF);
-    r = r && blockStatement_3(b, l + 1);
+    r = r && blockStatement_4(b, l + 1);
     r = r && consumeToken(b, BRACE2);
     r = r && lf_eof(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // identifierAssignment?
+  private static boolean blockStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockStatement_0")) return false;
+    identifierAssignment(b, l + 1);
+    return true;
+  }
+
   // statement*
-  private static boolean blockStatement_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "blockStatement_3")) return false;
+  private static boolean blockStatement_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockStatement_4")) return false;
     while (true) {
       int c = current_position_(b);
       if (!statement(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "blockStatement_3", c)) break;
+      if (!empty_element_parsed_guard_(b, "blockStatement_4", c)) break;
     }
     return true;
   }
@@ -112,16 +120,15 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // identifierName '=' elementDefinition
-  public static boolean identifierAssignment(PsiBuilder b, int l) {
+  // identifierName '='
+  static boolean identifierAssignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "identifierAssignment")) return false;
     if (!nextTokenIs(b, IDENTIFIER)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = identifierName(b, l + 1);
     r = r && consumeToken(b, EQUALS);
-    r = r && elementDefinition(b, l + 1);
-    exit_section_(b, m, IDENTIFIER_ASSIGNMENT, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -390,24 +397,31 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // keywordWithArguments lf_eof
+  // identifierAssignment? keywordWithArguments lf_eof
   public static boolean singleLineStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "singleLineStatement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, SINGLE_LINE_STATEMENT, "<single line statement>");
-    r = keywordWithArguments(b, l + 1);
+    r = singleLineStatement_0(b, l + 1);
+    r = r && keywordWithArguments(b, l + 1);
     r = r && lf_eof(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // identifierAssignment?
+  private static boolean singleLineStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "singleLineStatement_0")) return false;
+    identifierAssignment(b, l + 1);
+    return true;
+  }
+
   /* ********************************************************** */
-  // identifierAssignment | elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
+  // elementDefinition | scriptBlock | explicitRelationship | implicitRelationship
   static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
-    r = identifierAssignment(b, l + 1);
-    if (!r) r = elementDefinition(b, l + 1);
+    r = elementDefinition(b, l + 1);
     if (!r) r = scriptBlock(b, l + 1);
     if (!r) r = explicitRelationship(b, l + 1);
     if (!r) r = implicitRelationship(b, l + 1);

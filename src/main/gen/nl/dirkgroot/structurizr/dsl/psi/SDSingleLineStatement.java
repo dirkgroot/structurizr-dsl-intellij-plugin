@@ -10,6 +10,9 @@ public interface SDSingleLineStatement extends PsiElement {
   @NotNull
   List<SDArgument> getArgumentList();
 
+  @Nullable
+  SDIdentifierName getIdentifierName();
+
   @NotNull
   SDKeyword getKeyword();
 

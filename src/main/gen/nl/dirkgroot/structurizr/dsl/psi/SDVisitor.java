@@ -19,10 +19,6 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitIdentifierAssignment(@NotNull SDIdentifierAssignment o) {
-    visitPsiElement(o);
-  }
-
   public void visitIdentifierName(@NotNull SDIdentifierName o) {
     visitPsiElement(o);
   }

@@ -11,7 +11,6 @@ public interface SDTypes {
   IElementType ARGUMENT = new SDElement("ARGUMENT");
   IElementType BLOCK_STATEMENT = new SDElement("BLOCK_STATEMENT");
   IElementType EXPLICIT_RELATIONSHIP = new SDElement("EXPLICIT_RELATIONSHIP");
-  IElementType IDENTIFIER_ASSIGNMENT = new SDElement("IDENTIFIER_ASSIGNMENT");
   IElementType IDENTIFIER_NAME = new SDElement("IDENTIFIER_NAME");
   IElementType IMPLICIT_RELATIONSHIP = new SDElement("IMPLICIT_RELATIONSHIP");
   IElementType KEY = new SDElement("KEY");
@@ -115,9 +114,6 @@ public interface SDTypes {
       }
       else if (type == EXPLICIT_RELATIONSHIP) {
         return new SDExplicitRelationshipImpl(node);
-      }
-      else if (type == IDENTIFIER_ASSIGNMENT) {
-        return new SDIdentifierAssignmentImpl(node);
       }
       else if (type == IDENTIFIER_NAME) {
         return new SDIdentifierNameImpl(node);
