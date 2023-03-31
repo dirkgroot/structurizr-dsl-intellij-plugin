@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Changed
+- Replaced file icon with a generic one (following [this discussion](https://github.com/structurizr/dsl/discussions/240#discussioncomment-5488973)).
+
 ## [0.2.0] - 2023-03-31
 
 ### Added
