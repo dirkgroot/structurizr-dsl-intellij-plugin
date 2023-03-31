@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.2.1] - 2023-03-31
+
 ### Changed
 - Replaced file icon with a generic one (following [this discussion](https://github.com/structurizr/dsl/discussions/240#discussioncomment-5488973)).
 
@@ -37,7 +39,8 @@
 ### Added
 - Token based syntax highlighting
 
-[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.1...HEAD
+[0.2.1]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.3-alpha...v0.2.0
 [0.1.3-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.2-alpha...v0.1.3-alpha
 [0.1.2-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.1-alpha...v0.1.2-alpha
