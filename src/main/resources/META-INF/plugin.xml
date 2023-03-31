@@ -13,6 +13,8 @@
                   extensions="dsl"/>
         <lang.syntaxHighlighterFactory language="StructurizrDSL"
                                        implementationClass="nl.dirkgroot.structurizr.dsl.syntax.StructurizrDSLSyntaxHighlighterFactory"/>
+        <lang.parserDefinition language="StructurizrDSL"
+                               implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLParserDefinition"/>
     </extensions>
 
     <actions>
