@@ -25,8 +25,9 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 >
 > This plugin is a **work in progress**! There may be bugs, and features that you might expect from a language plugin
 > are missing. I'd love to get your feedback! You can leave feedback
-> by [writing a review](https://plugins.jetbrains.com/plugin/20606-structurizr-dsl-language-support/reviews) or
-> by [filing an issue](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/issues).
+> by [writing a review](https://plugins.jetbrains.com/plugin/20606-structurizr-dsl-language-support/reviews),
+> by [filing an issue](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/issues),
+> or by [starting a discussion](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/discussions).
 
 ## Features
 
