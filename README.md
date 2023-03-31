@@ -1,5 +1,5 @@
 [![Build](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/actions/workflows/build.yml/badge.svg)](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/actions/workflows/build.yml)
-[![GitHub release (latest SemVer including pre-releases)](https://img.shields.io/github/v/release/dirkgroot/structurizr-dsl-intellij-plugin?include_prereleases&label=latest%20release)](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/releases)
+[![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/v/nl.dirkgroot.structurizr-dsl-plugin?label=latest%20release)](https://plugins.jetbrains.com/plugin/20606-structurizr-dsl-language-support/versions)
 
 <!-- TOC -->
 * [IntelliJ plugin for the Structurizr DSL](#intellij-plugin-for-the-structurizr-dsl)
