@@ -23,7 +23,8 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 
 > **Note**
 >
-> This plugin is in **alpha** stage, so there will likely be bugs. I'd love to get your feedback! You can leave feedback
+> This plugin is a **work in progress**! There may be bugs, and features that you might expect from a language plugin
+> are missing. I'd love to get your feedback! You can leave feedback
 > by [writing a review](https://plugins.jetbrains.com/plugin/20606-structurizr-dsl-language-support/reviews) or
 > by [filing an issue](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/issues).
 
@@ -40,10 +41,10 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 - For now, arguments of statements are all treated as (un)quoted strings, so "true", "false", integers, (un)quoted text
   will all get the same syntax highlighting.
 - The following blocks are treated as property blocks, containing (un)quoted string pairs:
-    - branding
-    - terminology
-    - configuration
-    - users
+  - branding
+  - terminology
+  - configuration
+  - users
 - All arguments of view declarations are highlighted as (un)quoted strings. Correct highlighting of these arguments will
   most likely be implemented using
   an [annotator](https://plugins.jetbrains.com/docs/intellij/syntax-highlighting-and-error-highlighting.html#annotator),
@@ -53,13 +54,8 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 
 ## Installation
 
-- Add the `alpha` release channel to IntelliJ by adding the following url to the list of plugin
-  repositories: <https://plugins.jetbrains.com/plugins/alpha/list>. Please refer to
-  IntelliJ's [documentation](https://www.jetbrains.com/help/idea/managing-plugins.html#repos) for instructions on how to
-  add plugin repositories.
-- Search for "Structurizr" in the marketplace, and install the plugin. Please refer to
-  IntelliJ's [documentation](https://www.jetbrains.com/help/idea/managing-plugins.html) for instructions on how to
-  install plugins.
+Search for "Structurizr" in the marketplace, and install the plugin. Please refer to IntelliJ's
+[documentation](https://www.jetbrains.com/help/idea/managing-plugins.html) for instructions on how to install plugins.
 
 ## TODO
 
@@ -72,8 +68,8 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 ### Features
 
 - ☑️ syntax highlighting
-    - ✅ token based
-    - 🔳 annotator based
+  - ✅ token based
+  - 🔳 annotator based
 - ✅ reformat code
 - 🔳 auto indentation
 - 🔳 go to definition
