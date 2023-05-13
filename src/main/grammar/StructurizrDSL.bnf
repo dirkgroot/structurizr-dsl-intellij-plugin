@@ -61,7 +61,7 @@ scriptKeyword ::= '!script'
 scriptBlock ::= '{' SCRIPT_TEXT '}'
 
 propertiesDefinition ::= propertiesKeyword propertiesBlock lf_eof { extends=statement }
-propertiesKeyword ::= 'properties' | 'users'
+propertiesKeyword ::= 'perspectives' | 'properties' | 'users'
 propertiesBlock ::= '{' CRLF propertyDefinition* '}'
 propertyDefinition ::= propertyKey propertyValue CRLF
 propertyKey ::= text

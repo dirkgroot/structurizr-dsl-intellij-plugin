@@ -46,7 +46,6 @@ val KEYWORDS_WITH_BLOCKS = listOf(
     "model" to UNQUOTED_TEXT,
     "opacity" to UNQUOTED_TEXT,
     "person" to UNQUOTED_TEXT,
-    "perspectives" to UNQUOTED_TEXT,
     "position" to UNQUOTED_TEXT,
     "routing" to UNQUOTED_TEXT,
     "shape" to UNQUOTED_TEXT,
@@ -71,6 +70,7 @@ val KEYWORDS_WITH_BLOCKS = listOf(
 )
 
 val KEYWORDS_WITH_PROPERTY_BLOCKS = listOf<Pair<String, IElementType>>(
+    "perspectives" to UNQUOTED_TEXT,
     "properties" to UNQUOTED_TEXT,
     "users" to UNQUOTED_TEXT,
 )

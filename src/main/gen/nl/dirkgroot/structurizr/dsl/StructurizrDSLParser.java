@@ -415,12 +415,13 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // 'properties' | 'users'
+  // 'perspectives' | 'properties' | 'users'
   public static boolean propertiesKeyword(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "propertiesKeyword")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROPERTIES_KEYWORD, "<properties keyword>");
-    r = consumeToken(b, "properties");
+    r = consumeToken(b, "perspectives");
+    if (!r) r = consumeToken(b, "properties");
     if (!r) r = consumeToken(b, "users");
     exit_section_(b, l, m, r, false, null);
     return r;
