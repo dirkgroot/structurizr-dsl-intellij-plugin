@@ -34,6 +34,8 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 * Basic syntax highlighting for the Structurizr DSL language. Files with the `.dsl` extension are considered to be
   Structurizr DSL files.
 * Automatically indent and normalize spacing with IntelliJ's "Reformat Code" command.
+* Automatically indent new code while typing
+* Comment code using the "Comment with line/block comment" commands
 * More to come! Please refer to the [TODO section](https://github.com/dirkgroot/structurizr-dsl-intellij-plugin#todo) of
   the README for a list of features that will likely be added.
 
@@ -42,9 +44,8 @@ using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model
 - For now, arguments of statements are all treated as (un)quoted strings, so "true", "false", integers, (un)quoted text
   will all get the same syntax highlighting.
 - The following blocks are treated as property blocks, containing (un)quoted string pairs:
-  - branding
-  - terminology
-  - configuration
+  - perspectives
+  - properties
   - users
 - All arguments of view declarations are highlighted as (un)quoted strings. Correct highlighting of these arguments will
   most likely be implemented using
