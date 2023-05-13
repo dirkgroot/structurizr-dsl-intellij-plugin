@@ -185,7 +185,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // relationshipSource relationshipKeyword relationshipDestination argument* lf_eof
+  // relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
   public static boolean explicitRelationship(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "explicitRelationship")) return false;
     if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
@@ -195,6 +195,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     r = r && relationshipKeyword(b, l + 1);
     r = r && relationshipDestination(b, l + 1);
     r = r && explicitRelationship_3(b, l + 1);
+    r = r && explicitRelationship_4(b, l + 1);
     r = r && lf_eof(b, l + 1);
     exit_section_(b, m, EXPLICIT_RELATIONSHIP, r);
     return r;
@@ -208,6 +209,13 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
       if (!argument(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "explicitRelationship_3", c)) break;
     }
+    return true;
+  }
+
+  // block?
+  private static boolean explicitRelationship_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationship_4")) return false;
+    block(b, l + 1);
     return true;
   }
 
@@ -298,7 +306,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // relationshipKeyword relationshipDestination argument* lf_eof
+  // relationshipKeyword relationshipDestination argument* block? lf_eof
   public static boolean implicitRelationship(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "implicitRelationship")) return false;
     if (!nextTokenIs(b, ARROW)) return false;
@@ -307,6 +315,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     r = relationshipKeyword(b, l + 1);
     r = r && relationshipDestination(b, l + 1);
     r = r && implicitRelationship_2(b, l + 1);
+    r = r && implicitRelationship_3(b, l + 1);
     r = r && lf_eof(b, l + 1);
     exit_section_(b, m, IMPLICIT_RELATIONSHIP, r);
     return r;
@@ -320,6 +329,13 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
       if (!argument(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "implicitRelationship_2", c)) break;
     }
+    return true;
+  }
+
+  // block?
+  private static boolean implicitRelationship_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationship_3")) return false;
+    block(b, l + 1);
     return true;
   }
 

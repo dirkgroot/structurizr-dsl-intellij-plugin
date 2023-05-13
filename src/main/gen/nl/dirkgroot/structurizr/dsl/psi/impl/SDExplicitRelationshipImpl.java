@@ -34,6 +34,12 @@ public class SDExplicitRelationshipImpl extends SDStatementImpl implements SDExp
   }
 
   @Override
+  @Nullable
+  public SDBlock getBlock() {
+    return findChildByClass(SDBlock.class);
+  }
+
+  @Override
   @NotNull
   public SDRelationshipDestination getRelationshipDestination() {
     return findNotNullChildByClass(SDRelationshipDestination.class);

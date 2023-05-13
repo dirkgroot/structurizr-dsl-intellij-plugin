@@ -45,6 +45,24 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
     }
 
     @Test
+    fun `explicit relationship with block`() {
+        assertPsiTree(
+            """
+                a -> b arg1 {
+                }
+            """.trimIndent(),
+            """
+                ExplicitRelationship
+                    RelationshipSource a
+                    RelationshipKeyword ->
+                    RelationshipDestination b
+                    Argument arg1
+                    Block {\n}
+            """.trimIndent()
+        )
+    }
+
+    @Test
     fun `implicit with arguments`() {
         assertPsiTree(
             """-> b arg1 arg2""",
@@ -54,6 +72,23 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
                     RelationshipDestination b
                     Argument arg1
                     Argument arg2
+            """.trimIndent()
+        )
+    }
+
+    @Test
+    fun `implicit relationship with block`() {
+        assertPsiTree(
+            """
+                -> b arg1 {
+                }
+            """.trimIndent(),
+            """
+                ImplicitRelationship
+                    RelationshipKeyword ->
+                    RelationshipDestination b
+                    Argument arg1
+                    Block {\n}
             """.trimIndent()
         )
     }

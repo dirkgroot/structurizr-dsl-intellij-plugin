@@ -43,8 +43,8 @@ private expr ::=
 
 fake statement ::= expr
 
-explicitRelationship ::= relationshipSource relationshipKeyword relationshipDestination argument* lf_eof { extends=statement }
-implicitRelationship ::= relationshipKeyword relationshipDestination argument* lf_eof { extends=statement }
+explicitRelationship ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof { extends=statement }
+implicitRelationship ::= relationshipKeyword relationshipDestination argument* block? lf_eof { extends=statement }
 relationshipSource ::= UNQUOTED_TEXT
 relationshipKeyword ::= ARROW
 relationshipDestination ::= UNQUOTED_TEXT

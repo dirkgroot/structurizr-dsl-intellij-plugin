@@ -10,6 +10,9 @@ public interface SDImplicitRelationship extends SDStatement {
   @NotNull
   List<SDArgument> getArgumentList();
 
+  @Nullable
+  SDBlock getBlock();
+
   @NotNull
   SDRelationshipDestination getRelationshipDestination();
 
