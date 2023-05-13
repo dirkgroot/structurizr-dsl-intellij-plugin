@@ -4,10 +4,9 @@
 
 ### Changed
 
-- Rework lexer and parser and added some features
-- The lexer is now a LOT simpler
-- The parser is a little bit more complicated
-- Syntax highlighting is now annotator based instead of lexer based
+- Reworked the lexer and parser to be more generic, which should make it a bit easier to support future changes to the
+  Structurizr DSL
+- Syntax highlighting is now mostly annotator based instead of lexer based
 
 ### Added
 
