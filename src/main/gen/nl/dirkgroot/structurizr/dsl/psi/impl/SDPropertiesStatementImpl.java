@@ -10,15 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDPropertiesDefinitionImpl extends SDStatementImpl implements SDPropertiesDefinition {
+public class SDPropertiesStatementImpl extends SDStatementImpl implements SDPropertiesStatement {
 
-  public SDPropertiesDefinitionImpl(@NotNull ASTNode node) {
+  public SDPropertiesStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitPropertiesDefinition(this);
+    visitor.visitPropertiesStatement(this);
   }
 
   @Override

@@ -10,15 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDScriptDefinitionImpl extends SDStatementImpl implements SDScriptDefinition {
+public class SDIdentifierReferencesStatementImpl extends SDStatementImpl implements SDIdentifierReferencesStatement {
 
-  public SDScriptDefinitionImpl(@NotNull ASTNode node) {
+  public SDIdentifierReferencesStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitScriptDefinition(this);
+    visitor.visitIdentifierReferencesStatement(this);
   }
 
   @Override
@@ -29,20 +29,8 @@ public class SDScriptDefinitionImpl extends SDStatementImpl implements SDScriptD
 
   @Override
   @NotNull
-  public List<SDArgument> getArgumentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDArgument.class);
-  }
-
-  @Override
-  @NotNull
-  public SDScriptBlock getScriptBlock() {
-    return findNotNullChildByClass(SDScriptBlock.class);
-  }
-
-  @Override
-  @NotNull
-  public SDScriptKeyword getScriptKeyword() {
-    return findNotNullChildByClass(SDScriptKeyword.class);
+  public List<SDIdentifierReference> getIdentifierReferenceList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierReference.class);
   }
 
 }

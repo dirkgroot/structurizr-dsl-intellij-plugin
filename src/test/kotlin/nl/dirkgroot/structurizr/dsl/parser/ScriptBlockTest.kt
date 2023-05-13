@@ -12,7 +12,7 @@ class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                ScriptDefinition
+                ScriptStatement
                     ScriptKeyword !script
                     ScriptBlock {\n}
             """.trimIndent()
@@ -27,7 +27,7 @@ class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                ScriptDefinition
+                ScriptStatement
                     ScriptKeyword !script
                     Argument kotlin
                     Argument arg2
@@ -46,7 +46,7 @@ class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                ScriptDefinition
+                ScriptStatement
                     ScriptKeyword !script
                     Argument kotlin
                     ScriptBlock {\n    println("Hello World...")\n    println("...from a script block")\n}

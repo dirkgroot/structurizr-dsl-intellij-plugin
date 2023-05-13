@@ -10,15 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDIdentifierReferencesImpl extends SDStatementImpl implements SDIdentifierReferences {
+public class SDAnimationStatementImpl extends SDStatementImpl implements SDAnimationStatement {
 
-  public SDIdentifierReferencesImpl(@NotNull ASTNode node) {
+  public SDAnimationStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitIdentifierReferences(this);
+    visitor.visitAnimationStatement(this);
   }
 
   @Override
@@ -29,8 +29,14 @@ public class SDIdentifierReferencesImpl extends SDStatementImpl implements SDIde
 
   @Override
   @NotNull
-  public List<SDIdentifierReference> getIdentifierReferenceList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierReference.class);
+  public SDAnimationKeyword getAnimationKeyword() {
+    return findNotNullChildByClass(SDAnimationKeyword.class);
+  }
+
+  @Override
+  @NotNull
+  public List<SDStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDStatement.class);
   }
 
 }

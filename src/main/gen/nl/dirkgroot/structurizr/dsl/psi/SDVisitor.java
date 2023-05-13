@@ -7,12 +7,12 @@ import com.intellij.psi.PsiElement;
 
 public class SDVisitor extends PsiElementVisitor {
 
-  public void visitAnimationBlock(@NotNull SDAnimationBlock o) {
-    visitStatement(o);
-  }
-
   public void visitAnimationKeyword(@NotNull SDAnimationKeyword o) {
     visitPsiElement(o);
+  }
+
+  public void visitAnimationStatement(@NotNull SDAnimationStatement o) {
+    visitStatement(o);
   }
 
   public void visitArgument(@NotNull SDArgument o) {
@@ -31,11 +31,11 @@ public class SDVisitor extends PsiElementVisitor {
     visitStatement(o);
   }
 
-  public void visitExplicitRelationship(@NotNull SDExplicitRelationship o) {
+  public void visitExplicitRelationshipStatement(@NotNull SDExplicitRelationshipStatement o) {
     visitStatement(o);
   }
 
-  public void visitIdentifierAssignment(@NotNull SDIdentifierAssignment o) {
+  public void visitIdentifierAssignmentStatement(@NotNull SDIdentifierAssignmentStatement o) {
     visitStatement(o);
   }
 
@@ -43,11 +43,11 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitIdentifierReferences(@NotNull SDIdentifierReferences o) {
+  public void visitIdentifierReferencesStatement(@NotNull SDIdentifierReferencesStatement o) {
     visitStatement(o);
   }
 
-  public void visitImplicitRelationship(@NotNull SDImplicitRelationship o) {
+  public void visitImplicitRelationshipStatement(@NotNull SDImplicitRelationshipStatement o) {
     visitStatement(o);
   }
 
@@ -63,12 +63,12 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPropertiesDefinition(@NotNull SDPropertiesDefinition o) {
-    visitStatement(o);
-  }
-
   public void visitPropertiesKeyword(@NotNull SDPropertiesKeyword o) {
     visitPsiElement(o);
+  }
+
+  public void visitPropertiesStatement(@NotNull SDPropertiesStatement o) {
+    visitStatement(o);
   }
 
   public void visitPropertyDefinition(@NotNull SDPropertyDefinition o) {
@@ -99,12 +99,12 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitScriptDefinition(@NotNull SDScriptDefinition o) {
-    visitStatement(o);
-  }
-
   public void visitScriptKeyword(@NotNull SDScriptKeyword o) {
     visitPsiElement(o);
+  }
+
+  public void visitScriptStatement(@NotNull SDScriptStatement o) {
+    visitStatement(o);
   }
 
   public void visitSingleLineStatement(@NotNull SDSingleLineStatement o) {

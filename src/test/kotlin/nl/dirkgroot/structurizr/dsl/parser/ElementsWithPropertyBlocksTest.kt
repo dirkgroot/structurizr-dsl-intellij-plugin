@@ -15,7 +15,7 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertiesDefinition
+                    PropertiesStatement
                         PropertiesKeyword $keyword
                         PropertiesBlock {\n}
                 """.trimIndent()
@@ -35,7 +35,7 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertiesDefinition
+                    PropertiesStatement
                         PropertiesKeyword $keyword
                         PropertiesBlock {\n\n\n\n}
                 """.trimIndent()
@@ -53,7 +53,7 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertiesDefinition
+                    PropertiesStatement
                         PropertiesKeyword $keyword
                         PropertiesBlock
                             PropertyDefinition
@@ -77,7 +77,7 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertiesDefinition
+                    PropertiesStatement
                         PropertiesKeyword $keyword
                         PropertiesBlock
                             PropertyDefinition

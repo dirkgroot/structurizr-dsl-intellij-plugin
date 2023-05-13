@@ -10,15 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDImplicitRelationshipImpl extends SDStatementImpl implements SDImplicitRelationship {
+public class SDExplicitRelationshipStatementImpl extends SDStatementImpl implements SDExplicitRelationshipStatement {
 
-  public SDImplicitRelationshipImpl(@NotNull ASTNode node) {
+  public SDExplicitRelationshipStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitImplicitRelationship(this);
+    visitor.visitExplicitRelationshipStatement(this);
   }
 
   @Override
@@ -49,6 +49,12 @@ public class SDImplicitRelationshipImpl extends SDStatementImpl implements SDImp
   @NotNull
   public SDRelationshipKeyword getRelationshipKeyword() {
     return findNotNullChildByClass(SDRelationshipKeyword.class);
+  }
+
+  @Override
+  @NotNull
+  public SDRelationshipSource getRelationshipSource() {
+    return findNotNullChildByClass(SDRelationshipSource.class);
   }
 
 }

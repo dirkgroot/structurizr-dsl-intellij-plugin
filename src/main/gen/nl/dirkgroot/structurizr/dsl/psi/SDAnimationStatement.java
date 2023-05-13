@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDAnimationBlock extends SDStatement {
+public interface SDAnimationStatement extends SDStatement {
 
   @NotNull
   SDAnimationKeyword getAnimationKeyword();

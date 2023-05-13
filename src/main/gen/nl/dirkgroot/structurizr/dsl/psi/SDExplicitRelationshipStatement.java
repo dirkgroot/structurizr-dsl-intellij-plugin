@@ -5,15 +5,21 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDScriptDefinition extends SDStatement {
+public interface SDExplicitRelationshipStatement extends SDStatement {
 
   @NotNull
   List<SDArgument> getArgumentList();
 
-  @NotNull
-  SDScriptBlock getScriptBlock();
+  @Nullable
+  SDBlock getBlock();
 
   @NotNull
-  SDScriptKeyword getScriptKeyword();
+  SDRelationshipDestination getRelationshipDestination();
+
+  @NotNull
+  SDRelationshipKeyword getRelationshipKeyword();
+
+  @NotNull
+  SDRelationshipSource getRelationshipSource();
 
 }

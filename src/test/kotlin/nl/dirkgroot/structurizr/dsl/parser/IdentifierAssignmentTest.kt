@@ -12,7 +12,7 @@ class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
             assertPsiTree(
                 """identifier = $keyword blaat""",
                 """
-                    IdentifierAssignment
+                    IdentifierAssignmentStatement
                         IdentifierReference identifier
                         SingleLineStatement
                             Keyword $keyword
@@ -32,7 +32,7 @@ class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    IdentifierAssignment
+                    IdentifierAssignmentStatement
                         IdentifierReference identifier
                         BlockStatement
                             Keyword softwareSystem
@@ -59,7 +59,7 @@ class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
                     BlockStatement
                         Keyword model
                         Block
-                            IdentifierAssignment
+                            IdentifierAssignmentStatement
                                 IdentifierReference identifier
                                 SingleLineStatement
                                     Keyword softwareSystem

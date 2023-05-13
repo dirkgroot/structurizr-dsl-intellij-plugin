@@ -10,15 +10,15 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDIdentifierAssignmentImpl extends SDStatementImpl implements SDIdentifierAssignment {
+public class SDScriptStatementImpl extends SDStatementImpl implements SDScriptStatement {
 
-  public SDIdentifierAssignmentImpl(@NotNull ASTNode node) {
+  public SDScriptStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitIdentifierAssignment(this);
+    visitor.visitScriptStatement(this);
   }
 
   @Override
@@ -29,8 +29,20 @@ public class SDIdentifierAssignmentImpl extends SDStatementImpl implements SDIde
 
   @Override
   @NotNull
-  public SDIdentifierReference getIdentifierReference() {
-    return findNotNullChildByClass(SDIdentifierReference.class);
+  public List<SDArgument> getArgumentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDArgument.class);
+  }
+
+  @Override
+  @NotNull
+  public SDScriptBlock getScriptBlock() {
+    return findNotNullChildByClass(SDScriptBlock.class);
+  }
+
+  @Override
+  @NotNull
+  public SDScriptKeyword getScriptKeyword() {
+    return findNotNullChildByClass(SDScriptKeyword.class);
   }
 
 }

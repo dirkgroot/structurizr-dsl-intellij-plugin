@@ -9,7 +9,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """a -> b""",
             """
-                ExplicitRelationship
+                ExplicitRelationshipStatement
                     RelationshipSource a
                     RelationshipKeyword ->
                     RelationshipDestination b
@@ -22,7 +22,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """-> b""",
             """
-                ImplicitRelationship
+                ImplicitRelationshipStatement
                     RelationshipKeyword ->
                     RelationshipDestination b
             """.trimIndent()
@@ -34,7 +34,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """a -> b arg1 arg2""",
             """
-                ExplicitRelationship
+                ExplicitRelationshipStatement
                     RelationshipSource a
                     RelationshipKeyword ->
                     RelationshipDestination b
@@ -52,7 +52,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                ExplicitRelationship
+                ExplicitRelationshipStatement
                     RelationshipSource a
                     RelationshipKeyword ->
                     RelationshipDestination b
@@ -67,7 +67,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """-> b arg1 arg2""",
             """
-                ImplicitRelationship
+                ImplicitRelationshipStatement
                     RelationshipKeyword ->
                     RelationshipDestination b
                     Argument arg1
@@ -84,7 +84,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                ImplicitRelationship
+                ImplicitRelationshipStatement
                     RelationshipKeyword ->
                     RelationshipDestination b
                     Argument arg1

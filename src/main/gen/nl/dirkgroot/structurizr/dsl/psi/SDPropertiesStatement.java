@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDIdentifierReferences extends SDStatement {
+public interface SDPropertiesStatement extends SDStatement {
 
   @NotNull
-  List<SDIdentifierReference> getIdentifierReferenceList();
+  SDPropertiesBlock getPropertiesBlock();
+
+  @NotNull
+  SDPropertiesKeyword getPropertiesKeyword();
 
 }

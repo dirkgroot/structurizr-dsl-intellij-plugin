@@ -13,9 +13,9 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                AnimationBlock
+                AnimationStatement
                     AnimationKeyword animation
-                    IdentifierReferences
+                    IdentifierReferencesStatement
                         IdentifierReference someIdentifier
             """.trimIndent()
         )
@@ -30,9 +30,9 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                AnimationBlock
+                AnimationStatement
                     AnimationKeyword animation
-                    IdentifierReferences
+                    IdentifierReferencesStatement
                         IdentifierReference someIdentifier1
                         IdentifierReference someIdentifier2
             """.trimIndent()
@@ -50,14 +50,14 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
                 }
             """.trimIndent(),
             """
-                AnimationBlock
+                AnimationStatement
                     AnimationKeyword animation
-                    IdentifierReferences
+                    IdentifierReferencesStatement
                         IdentifierReference someIdentifier1
                         IdentifierReference someIdentifier2
-                    IdentifierReferences
+                    IdentifierReferencesStatement
                         IdentifierReference someIdentifier3
-                    IdentifierReferences
+                    IdentifierReferencesStatement
                         IdentifierReference someIdentifier4
             """.trimIndent()
         )

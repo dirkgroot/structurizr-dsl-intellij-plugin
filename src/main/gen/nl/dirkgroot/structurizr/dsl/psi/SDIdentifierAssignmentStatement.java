@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDPropertiesDefinition extends SDStatement {
+public interface SDIdentifierAssignmentStatement extends SDStatement {
 
   @NotNull
-  SDPropertiesBlock getPropertiesBlock();
-
-  @NotNull
-  SDPropertiesKeyword getPropertiesKeyword();
+  SDIdentifierReference getIdentifierReference();
 
 }

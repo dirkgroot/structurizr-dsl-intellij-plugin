@@ -5,9 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDIdentifierAssignment extends SDStatement {
+public interface SDScriptStatement extends SDStatement {
 
   @NotNull
-  SDIdentifierReference getIdentifierReference();
+  List<SDArgument> getArgumentList();
+
+  @NotNull
+  SDScriptBlock getScriptBlock();
+
+  @NotNull
+  SDScriptKeyword getScriptKeyword();
 
 }

@@ -36,46 +36,10 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
-    create_token_set_(ANIMATION_BLOCK, BLOCK_COMMENT_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP,
-      IDENTIFIER_ASSIGNMENT, IDENTIFIER_REFERENCES, IMPLICIT_RELATIONSHIP, LINE_COMMENT_STATEMENT,
-      PROPERTIES_DEFINITION, SCRIPT_DEFINITION, SINGLE_LINE_STATEMENT),
+    create_token_set_(ANIMATION_STATEMENT, BLOCK_COMMENT_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP_STATEMENT,
+      IDENTIFIER_ASSIGNMENT_STATEMENT, IDENTIFIER_REFERENCES_STATEMENT, IMPLICIT_RELATIONSHIP_STATEMENT, LINE_COMMENT_STATEMENT,
+      PROPERTIES_STATEMENT, SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT),
   };
-
-  /* ********************************************************** */
-  // animationKeyword '{' CRLF (identifierReferences | lineCommentStatement | blockCommentStatement)* '}' lf_eof
-  public static boolean animationBlock(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "animationBlock")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, ANIMATION_BLOCK, "<animation block>");
-    r = animationKeyword(b, l + 1);
-    r = r && consumeTokens(b, 0, BRACE1, CRLF);
-    r = r && animationBlock_3(b, l + 1);
-    r = r && consumeToken(b, BRACE2);
-    r = r && lf_eof(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // (identifierReferences | lineCommentStatement | blockCommentStatement)*
-  private static boolean animationBlock_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "animationBlock_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!animationBlock_3_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "animationBlock_3", c)) break;
-    }
-    return true;
-  }
-
-  // identifierReferences | lineCommentStatement | blockCommentStatement
-  private static boolean animationBlock_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "animationBlock_3_0")) return false;
-    boolean r;
-    r = identifierReferences(b, l + 1);
-    if (!r) r = lineCommentStatement(b, l + 1);
-    if (!r) r = blockCommentStatement(b, l + 1);
-    return r;
-  }
 
   /* ********************************************************** */
   // 'animation'
@@ -85,6 +49,42 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b, l, _NONE_, ANIMATION_KEYWORD, "<animation keyword>");
     r = consumeToken(b, "animation");
     exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
+  public static boolean animationStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationStatement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ANIMATION_STATEMENT, "<animation statement>");
+    r = animationKeyword(b, l + 1);
+    r = r && consumeTokens(b, 0, BRACE1, CRLF);
+    r = r && animationStatement_3(b, l + 1);
+    r = r && consumeToken(b, BRACE2);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)*
+  private static boolean animationStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationStatement_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!animationStatement_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "animationStatement_3", c)) break;
+    }
+    return true;
+  }
+
+  // identifierReferencesStatement | lineCommentStatement | blockCommentStatement
+  private static boolean animationStatement_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationStatement_3_0")) return false;
+    boolean r;
+    r = identifierReferencesStatement(b, l + 1);
+    if (!r) r = lineCommentStatement(b, l + 1);
+    if (!r) r = blockCommentStatement(b, l + 1);
     return r;
   }
 
@@ -186,46 +186,46 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
-  public static boolean explicitRelationship(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "explicitRelationship")) return false;
+  public static boolean explicitRelationshipStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationshipStatement")) return false;
     if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = relationshipSource(b, l + 1);
     r = r && relationshipKeyword(b, l + 1);
     r = r && relationshipDestination(b, l + 1);
-    r = r && explicitRelationship_3(b, l + 1);
-    r = r && explicitRelationship_4(b, l + 1);
+    r = r && explicitRelationshipStatement_3(b, l + 1);
+    r = r && explicitRelationshipStatement_4(b, l + 1);
     r = r && lf_eof(b, l + 1);
-    exit_section_(b, m, EXPLICIT_RELATIONSHIP, r);
+    exit_section_(b, m, EXPLICIT_RELATIONSHIP_STATEMENT, r);
     return r;
   }
 
   // argument*
-  private static boolean explicitRelationship_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "explicitRelationship_3")) return false;
+  private static boolean explicitRelationshipStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationshipStatement_3")) return false;
     while (true) {
       int c = current_position_(b);
       if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "explicitRelationship_3", c)) break;
+      if (!empty_element_parsed_guard_(b, "explicitRelationshipStatement_3", c)) break;
     }
     return true;
   }
 
   // block?
-  private static boolean explicitRelationship_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "explicitRelationship_4")) return false;
+  private static boolean explicitRelationshipStatement_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationshipStatement_4")) return false;
     block(b, l + 1);
     return true;
   }
 
   /* ********************************************************** */
-  // scriptDefinition
-  //             | explicitRelationship
-  //             | implicitRelationship
-  //             | animationBlock
-  //             | propertiesDefinition
-  //             | identifierAssignment
+  // scriptStatement
+  //             | explicitRelationshipStatement
+  //             | implicitRelationshipStatement
+  //             | animationStatement
+  //             | propertiesStatement
+  //             | identifierAssignmentStatement
   //             | blockStatement
   //             | singleLineStatement
   //             | lineCommentStatement
@@ -233,12 +233,12 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   static boolean expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr")) return false;
     boolean r;
-    r = scriptDefinition(b, l + 1);
-    if (!r) r = explicitRelationship(b, l + 1);
-    if (!r) r = implicitRelationship(b, l + 1);
-    if (!r) r = animationBlock(b, l + 1);
-    if (!r) r = propertiesDefinition(b, l + 1);
-    if (!r) r = identifierAssignment(b, l + 1);
+    r = scriptStatement(b, l + 1);
+    if (!r) r = explicitRelationshipStatement(b, l + 1);
+    if (!r) r = implicitRelationshipStatement(b, l + 1);
+    if (!r) r = animationStatement(b, l + 1);
+    if (!r) r = propertiesStatement(b, l + 1);
+    if (!r) r = identifierAssignmentStatement(b, l + 1);
     if (!r) r = blockStatement(b, l + 1);
     if (!r) r = singleLineStatement(b, l + 1);
     if (!r) r = lineCommentStatement(b, l + 1);
@@ -248,21 +248,21 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // identifierReference '=' (blockStatement | singleLineStatement)
-  public static boolean identifierAssignment(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierAssignment")) return false;
+  public static boolean identifierAssignmentStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierAssignmentStatement")) return false;
     if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = identifierReference(b, l + 1);
     r = r && consumeToken(b, EQUALS);
-    r = r && identifierAssignment_2(b, l + 1);
-    exit_section_(b, m, IDENTIFIER_ASSIGNMENT, r);
+    r = r && identifierAssignmentStatement_2(b, l + 1);
+    exit_section_(b, m, IDENTIFIER_ASSIGNMENT_STATEMENT, r);
     return r;
   }
 
   // blockStatement | singleLineStatement
-  private static boolean identifierAssignment_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierAssignment_2")) return false;
+  private static boolean identifierAssignmentStatement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierAssignmentStatement_2")) return false;
     boolean r;
     r = blockStatement(b, l + 1);
     if (!r) r = singleLineStatement(b, l + 1);
@@ -283,58 +283,58 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // identifierReference* CRLF
-  public static boolean identifierReferences(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierReferences")) return false;
-    if (!nextTokenIs(b, "<identifier references>", CRLF, UNQUOTED_TEXT)) return false;
+  public static boolean identifierReferencesStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReferencesStatement")) return false;
+    if (!nextTokenIs(b, "<identifier references statement>", CRLF, UNQUOTED_TEXT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, IDENTIFIER_REFERENCES, "<identifier references>");
-    r = identifierReferences_0(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, IDENTIFIER_REFERENCES_STATEMENT, "<identifier references statement>");
+    r = identifierReferencesStatement_0(b, l + 1);
     r = r && consumeToken(b, CRLF);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   // identifierReference*
-  private static boolean identifierReferences_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierReferences_0")) return false;
+  private static boolean identifierReferencesStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReferencesStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
       if (!identifierReference(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "identifierReferences_0", c)) break;
+      if (!empty_element_parsed_guard_(b, "identifierReferencesStatement_0", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
   // relationshipKeyword relationshipDestination argument* block? lf_eof
-  public static boolean implicitRelationship(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "implicitRelationship")) return false;
+  public static boolean implicitRelationshipStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationshipStatement")) return false;
     if (!nextTokenIs(b, ARROW)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = relationshipKeyword(b, l + 1);
     r = r && relationshipDestination(b, l + 1);
-    r = r && implicitRelationship_2(b, l + 1);
-    r = r && implicitRelationship_3(b, l + 1);
+    r = r && implicitRelationshipStatement_2(b, l + 1);
+    r = r && implicitRelationshipStatement_3(b, l + 1);
     r = r && lf_eof(b, l + 1);
-    exit_section_(b, m, IMPLICIT_RELATIONSHIP, r);
+    exit_section_(b, m, IMPLICIT_RELATIONSHIP_STATEMENT, r);
     return r;
   }
 
   // argument*
-  private static boolean implicitRelationship_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "implicitRelationship_2")) return false;
+  private static boolean implicitRelationshipStatement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationshipStatement_2")) return false;
     while (true) {
       int c = current_position_(b);
       if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "implicitRelationship_2", c)) break;
+      if (!empty_element_parsed_guard_(b, "implicitRelationshipStatement_2", c)) break;
     }
     return true;
   }
 
   // block?
-  private static boolean implicitRelationship_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "implicitRelationship_3")) return false;
+  private static boolean implicitRelationshipStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationshipStatement_3")) return false;
     block(b, l + 1);
     return true;
   }
@@ -402,19 +402,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // propertiesKeyword propertiesBlock lf_eof
-  public static boolean propertiesDefinition(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertiesDefinition")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PROPERTIES_DEFINITION, "<properties definition>");
-    r = propertiesKeyword(b, l + 1);
-    r = r && propertiesBlock(b, l + 1);
-    r = r && lf_eof(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
   // 'perspectives' | 'properties' | 'users'
   public static boolean propertiesKeyword(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "propertiesKeyword")) return false;
@@ -423,6 +410,19 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, "perspectives");
     if (!r) r = consumeToken(b, "properties");
     if (!r) r = consumeToken(b, "users");
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // propertiesKeyword propertiesBlock lf_eof
+  public static boolean propertiesStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertiesStatement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PROPERTIES_STATEMENT, "<properties statement>");
+    r = propertiesKeyword(b, l + 1);
+    r = r && propertiesBlock(b, l + 1);
+    r = r && lf_eof(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -514,31 +514,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // scriptKeyword argument* scriptBlock lf_eof
-  public static boolean scriptDefinition(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "scriptDefinition")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, SCRIPT_DEFINITION, "<script definition>");
-    r = scriptKeyword(b, l + 1);
-    r = r && scriptDefinition_1(b, l + 1);
-    r = r && scriptBlock(b, l + 1);
-    r = r && lf_eof(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // argument*
-  private static boolean scriptDefinition_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "scriptDefinition_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "scriptDefinition_1", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
   // '!script'
   public static boolean scriptKeyword(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "scriptKeyword")) return false;
@@ -547,6 +522,31 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, "!script");
     exit_section_(b, l, m, r, false, null);
     return r;
+  }
+
+  /* ********************************************************** */
+  // scriptKeyword argument* scriptBlock lf_eof
+  public static boolean scriptStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "scriptStatement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, SCRIPT_STATEMENT, "<script statement>");
+    r = scriptKeyword(b, l + 1);
+    r = r && scriptStatement_1(b, l + 1);
+    r = r && scriptBlock(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // argument*
+  private static boolean scriptStatement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "scriptStatement_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!argument(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "scriptStatement_1", c)) break;
+    }
+    return true;
   }
 
   /* ********************************************************** */

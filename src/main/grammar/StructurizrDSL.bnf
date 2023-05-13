@@ -25,17 +25,19 @@
         quoted_text='regexp:"[^"\r\n]*"'
         unquoted_text='regexp:[^\s"\r\n]+'
     ]
+
+    extends(".*Statement")=statement
 }
 
 structurizrDSLFile ::= expr*
 
 private expr ::=
-            scriptDefinition
-            | explicitRelationship
-            | implicitRelationship
-            | animationBlock
-            | propertiesDefinition
-            | identifierAssignment
+            scriptStatement
+            | explicitRelationshipStatement
+            | implicitRelationshipStatement
+            | animationStatement
+            | propertiesStatement
+            | identifierAssignmentStatement
             | blockStatement
             | singleLineStatement
             | lineCommentStatement
@@ -43,41 +45,41 @@ private expr ::=
 
 fake statement ::= expr
 
-explicitRelationship ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof { extends=statement }
-implicitRelationship ::= relationshipKeyword relationshipDestination argument* block? lf_eof { extends=statement }
+explicitRelationshipStatement ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
+implicitRelationshipStatement ::= relationshipKeyword relationshipDestination argument* block? lf_eof
 relationshipSource ::= UNQUOTED_TEXT
 relationshipKeyword ::= ARROW
 relationshipDestination ::= UNQUOTED_TEXT
 
-animationBlock ::= animationKeyword '{' CRLF (identifierReferences | lineCommentStatement | blockCommentStatement)* '}' lf_eof { extends=statement }
+animationStatement ::= animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
 animationKeyword ::= 'animation'
-identifierReferences ::= identifierReference* CRLF { extends=statement }
+identifierReferencesStatement ::= identifierReference* CRLF
 
-lineCommentStatement ::= LINE_COMMENT lf_eof { extends=statement }
-blockCommentStatement ::= BLOCK_COMMENT lf_eof { extends=statement }
+lineCommentStatement ::= LINE_COMMENT lf_eof
+blockCommentStatement ::= BLOCK_COMMENT lf_eof
 
-scriptDefinition ::= scriptKeyword argument* scriptBlock lf_eof { extends=statement }
+scriptStatement ::= scriptKeyword argument* scriptBlock lf_eof
 scriptKeyword ::= '!script'
 scriptBlock ::= '{' SCRIPT_TEXT '}'
 
-propertiesDefinition ::= propertiesKeyword propertiesBlock lf_eof { extends=statement }
+propertiesStatement ::= propertiesKeyword propertiesBlock lf_eof
 propertiesKeyword ::= 'perspectives' | 'properties' | 'users'
 propertiesBlock ::= '{' CRLF propertyDefinition* '}'
 propertyDefinition ::= propertyKey propertyValue CRLF
 propertyKey ::= text
 propertyValue ::= text
 
-identifierAssignment ::= identifierReference '=' (blockStatement | singleLineStatement) { extends=statement }
+identifierAssignmentStatement ::= identifierReference '=' (blockStatement | singleLineStatement)
 identifierReference ::= UNQUOTED_TEXT
 
-blockStatement ::= keyword argument* block lf_eof { extends=statement }
+blockStatement ::= keyword argument* block lf_eof
 block ::= '{' CRLF expr* '}' {
     pin=1
     recoverWhile=blockRecover
 }
 private blockRecover ::= !(text | lf_eof)
 
-singleLineStatement ::= keyword argument* lf_eof { extends=statement }
+singleLineStatement ::= keyword argument* lf_eof
 
 keyword ::= UNQUOTED_TEXT
 argument ::= text
