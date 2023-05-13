@@ -2,6 +2,19 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Rework lexer and parser and added some features
+- The lexer is now a LOT simpler
+- The parser is a little bit more complicated
+- Syntax highlighting is now annotator based instead of lexer based
+
+### Added
+
+- Matching curly braces are now highlighted in the editor
+- Code can now be commented with the "Comment with line/block comment" commands
+- Code is automatically indented correctly while editing
+
 ## [0.2.1] - 2023-03-31
 
 ### Changed

@@ -68,11 +68,11 @@ Search for "Structurizr" in the marketplace, and install the plugin. Please refe
 
 ### Features
 
-- ☑️ syntax highlighting
+- ✅ syntax highlighting
   - ✅ token based
-  - 🔳 annotator based
+  - ✅ annotator based
 - ✅ reformat code
-- 🔳 auto indentation
+- ✅ auto indentation
 - 🔳 go to definition
 - 🔳 rename refactoring for identifiers
 - 🔳 code validation
