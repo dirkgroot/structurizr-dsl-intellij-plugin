@@ -27,16 +27,4 @@ public class SDScriptBlockImpl extends ASTWrapperPsiElement implements SDScriptB
     else super.accept(visitor);
   }
 
-  @Override
-  @NotNull
-  public List<SDArgument> getArgumentList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDArgument.class);
-  }
-
-  @Override
-  @NotNull
-  public SDScriptContents getScriptContents() {
-    return findNotNullChildByClass(SDScriptContents.class);
-  }
-
 }

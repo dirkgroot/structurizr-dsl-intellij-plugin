@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+### Changed
+
+- Reworked the lexer and parser to be more generic, which should make it a bit easier to support future changes to the
+  Structurizr DSL
+- Syntax highlighting is now mostly annotator based instead of lexer based
+
+### Added
+
+- Matching curly braces are now highlighted in the editor
+- Code can now be commented with the "Comment with line/block comment" commands
+- Code is automatically indented correctly while editing
+
 ## [0.2.1] - 2023-03-31
 
 ### Changed

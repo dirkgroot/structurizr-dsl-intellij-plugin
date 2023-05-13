@@ -9,7 +9,7 @@ import nl.dirkgroot.structurizr.dsl.support.tokenize
 class ScriptBlockTest : StringSpec({
     "arguments, no block" {
         "!script kotlin arg2 arg3".tokenize() shouldContainExactly listOf(
-            SCRIPT_KEYWORD to "!script",
+            UNQUOTED_TEXT to "!script",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "kotlin",
             WHITE_SPACE to " ",
@@ -25,12 +25,10 @@ class ScriptBlockTest : StringSpec({
                 some arbitrary code
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            SCRIPT_KEYWORD to "!script",
+            UNQUOTED_TEXT to "!script",
             WHITE_SPACE to " ",
             BRACE1 to "{",
-            SCRIPT_TEXT to "\n",
-            SCRIPT_TEXT to "    some arbitrary code",
-            SCRIPT_TEXT to "\n",
+            SCRIPT_TEXT to "\n    some arbitrary code\n",
             BRACE2 to "}"
         )
     }
@@ -41,14 +39,12 @@ class ScriptBlockTest : StringSpec({
                 some arbitrary code
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            SCRIPT_KEYWORD to "!script",
+            UNQUOTED_TEXT to "!script",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "kotlin",
             WHITE_SPACE to " ",
             BRACE1 to "{",
-            SCRIPT_TEXT to "\n",
-            SCRIPT_TEXT to "    some arbitrary code",
-            SCRIPT_TEXT to "\n",
+            SCRIPT_TEXT to "\n    some arbitrary code\n",
             BRACE2 to "}"
         )
     }
@@ -60,13 +56,10 @@ class ScriptBlockTest : StringSpec({
             |    }
         """.trimMargin().tokenize() shouldContainExactly listOf(
             WHITE_SPACE to "    ",
-            SCRIPT_KEYWORD to "!script",
+            UNQUOTED_TEXT to "!script",
             WHITE_SPACE to " ",
             BRACE1 to "{",
-            SCRIPT_TEXT to "\n",
-            SCRIPT_TEXT to "        some arbitrary code",
-            SCRIPT_TEXT to "\n",
-            SCRIPT_TEXT to "    ",
+            SCRIPT_TEXT to "\n        some arbitrary code\n    ",
             BRACE2 to "}"
         )
     }

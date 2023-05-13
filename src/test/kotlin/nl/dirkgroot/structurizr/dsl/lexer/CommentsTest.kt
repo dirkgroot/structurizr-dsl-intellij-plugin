@@ -20,7 +20,7 @@ class CommentsTest : StringSpec({
 
     "line comment after other tokens" {
         "description text // comment\n".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             WHITE_SPACE to " ",
@@ -41,7 +41,7 @@ class CommentsTest : StringSpec({
 
     "block comment between other tokens" {
         "description /* */ text".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "/*",
             WHITE_SPACE to " ",
@@ -56,7 +56,7 @@ class CommentsTest : StringSpec({
             description text /* */
             description
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             WHITE_SPACE to " ",
@@ -64,7 +64,7 @@ class CommentsTest : StringSpec({
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "*/",
             CRLF to "\n",
-            DESCRIPTION_KEYWORD to "description"
+            UNQUOTED_TEXT to "description"
         )
     }
 

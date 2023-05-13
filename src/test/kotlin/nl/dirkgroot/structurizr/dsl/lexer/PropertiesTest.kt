@@ -15,7 +15,7 @@ class PropertiesTest : StringSpec({
                 properties description
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            PROPERTIES_KEYWORD to "properties",
+            UNQUOTED_TEXT to "properties",
             WHITE_SPACE to " ",
             BRACE1 to "{",
             CRLF to "\n",
@@ -45,7 +45,7 @@ class PropertiesTest : StringSpec({
                 name value // line comment
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            PROPERTIES_KEYWORD to "properties",
+            UNQUOTED_TEXT to "properties",
             WHITE_SPACE to " ",
             BRACE1 to "{",
             CRLF to "\n",
@@ -57,7 +57,11 @@ class PropertiesTest : StringSpec({
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "value",
             WHITE_SPACE to " ",
-            LINE_COMMENT to "// line comment",
+            UNQUOTED_TEXT to "//",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "line",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "comment",
             CRLF to "\n",
             BRACE2 to "}",
         )
@@ -73,7 +77,7 @@ class PropertiesTest : StringSpec({
                    comment */
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            PROPERTIES_KEYWORD to "properties",
+            UNQUOTED_TEXT to "properties",
             WHITE_SPACE to " ",
             BRACE1 to "{",
             CRLF to "\n",
@@ -85,12 +89,24 @@ class PropertiesTest : StringSpec({
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "value",
             WHITE_SPACE to " ",
-            BLOCK_COMMENT to "/* block comment */",
+            UNQUOTED_TEXT to "/*",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "block",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "comment",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "*/",
             CRLF to "\n",
             WHITE_SPACE to "    ",
             UNQUOTED_TEXT to "name",
             WHITE_SPACE to " ",
-            BLOCK_COMMENT to "/* block comment */",
+            UNQUOTED_TEXT to "/*",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "block",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "comment",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "*/",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "value",
             CRLF to "\n",

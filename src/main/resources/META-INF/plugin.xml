@@ -17,6 +17,12 @@
                                implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLParserDefinition"/>
         <lang.formatter language="StructurizrDSL"
                         implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDFormattingModelBuilder"/>
+        <lang.braceMatcher language="StructurizrDSL"
+                           implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDBraceMatcher"/>
+        <annotator language="StructurizrDSL"
+                   implementationClass="nl.dirkgroot.structurizr.dsl.syntax.SDHighlightingAnnotator"/>
+        <lang.commenter language="StructurizrDSL"
+                        implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDCommenter"/>
     </extensions>
 
     <actions>

@@ -22,7 +22,12 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
 
     @Test
     fun `line comment`() {
-        assertPsiTree("// comment", "PsiComment // comment")
+        assertPsiTree(
+            "// comment",
+            """
+                LineCommentStatement // comment
+            """.trimIndent()
+        )
     }
 
     @Test
@@ -33,9 +38,8 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
                 // another comment
             """.trimIndent(),
             """
-                PsiComment // comment
-                LeafPsiElement \n
-                PsiComment // another comment
+                LineCommentStatement // comment\n
+                LineCommentStatement // another comment
             """.trimIndent()
         )
     }
@@ -45,8 +49,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             "// comment\n",
             """
-                PsiComment // comment
-                LeafPsiElement \n
+                LineCommentStatement // comment\n
             """.trimIndent()
         )
     }
@@ -55,7 +58,9 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
     fun `block comment single line`() {
         assertPsiTree(
             "/* block comment */",
-            "PsiComment /* block comment */"
+            """
+                BlockCommentStatement /* block comment */
+            """.trimIndent()
         )
     }
 
@@ -66,7 +71,9 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
                 /* block
                    comment */
             """.trimIndent(),
-            """PsiComment /* block\n   comment */"""
+            """
+                BlockCommentStatement /* block\n   comment */
+            """.trimIndent()
         )
     }
 }

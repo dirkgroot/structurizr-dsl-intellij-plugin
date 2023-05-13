@@ -8,16 +8,16 @@ import nl.dirkgroot.structurizr.dsl.support.tokenize
 
 class IdentifierTest : StringSpec({
     "valid individual token" {
-        "valid_identifier".tokenize() shouldContainExactly listOf(IDENTIFIER to "valid_identifier")
+        "valid_identifier".tokenize() shouldContainExactly listOf(UNQUOTED_TEXT to "valid_identifier")
     }
 
     "identifier assignment" {
         "valid_identifier = softwareSystem name".tokenize() shouldContainExactly listOf(
-            IDENTIFIER to "valid_identifier",
+            UNQUOTED_TEXT to "valid_identifier",
             WHITE_SPACE to " ",
             EQUALS to "=",
             WHITE_SPACE to " ",
-            SOFTWARE_SYSTEM_KEYWORD to "softwareSystem",
+            UNQUOTED_TEXT to "softwareSystem",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "name",
         )

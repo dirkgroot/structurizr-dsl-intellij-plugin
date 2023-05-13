@@ -15,8 +15,9 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertyBlockStatement
-                        KeywordWithPropertyBlock $keyword
+                    PropertiesStatement
+                        PropertiesKeyword $keyword
+                        PropertiesBlock {\n}
                 """.trimIndent()
             )
         }
@@ -34,8 +35,9 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertyBlockStatement
-                        KeywordWithPropertyBlock $keyword
+                    PropertiesStatement
+                        PropertiesKeyword $keyword
+                        PropertiesBlock {\n\n\n\n}
                 """.trimIndent()
             )
         }
@@ -51,11 +53,12 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertyBlockStatement
-                        KeywordWithPropertyBlock $keyword
-                        KeyValuePair
-                            Key key
-                            Value value
+                    PropertiesStatement
+                        PropertiesKeyword $keyword
+                        PropertiesBlock
+                            PropertyDefinition
+                                PropertyKey key
+                                PropertyValue value
                 """.trimIndent()
             )
         }
@@ -74,20 +77,21 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    PropertyBlockStatement
-                        KeywordWithPropertyBlock $keyword
-                        KeyValuePair
-                            Key key1
-                            Value value1
-                        KeyValuePair
-                            Key key2
-                            Value "value 2"
-                        KeyValuePair
-                            Key "key 3"
-                            Value value3
-                        KeyValuePair
-                            Key "key 4"
-                            Value "value 4"
+                    PropertiesStatement
+                        PropertiesKeyword $keyword
+                        PropertiesBlock
+                            PropertyDefinition
+                                PropertyKey key1
+                                PropertyValue value1
+                            PropertyDefinition
+                                PropertyKey key2
+                                PropertyValue "value 2"
+                            PropertyDefinition
+                                PropertyKey "key 3"
+                                PropertyValue value3
+                            PropertyDefinition
+                                PropertyKey "key 4"
+                                PropertyValue "value 4"
                 """.trimIndent()
             )
         }

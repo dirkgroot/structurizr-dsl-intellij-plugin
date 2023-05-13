@@ -22,125 +22,67 @@
         brace2='}'
         equals='='
 
-        adrs_keyword='!adrs'
-        animation_keyword='animation'
-        auto_layout_keyword='autoLayout'
-        background_keyword='background'
-        border_keyword='border'
-        branding_keyword='branding'
-        color_keyword='color'
-        colour_keyword='colour'
-        component_keyword='component'
-        configuration_keyword='configuration'
-        constant_keyword='!constant'
-        container_instance='containerInstance'
-        container_keyword='container'
-        custom_keyword='custom'
-        deployment_environment_keyword='deploymentEnvironment'
-        deployment_group_keyword='deploymentGroup'
-        deployment_keyword='deployment'
-        deployment_node_keyword='deploymentNode'
-        description_keyword='description'
-        docs_keyword='!docs'
-        dynamic_keyword='dynamic'
-        element_keyword='element'
-        enterprise_keyword='enterprise'
-        exclude_element_keyword='exclude'
-        extends_keyword='extends'
-        filtered_keyword='filtered'
-        fontsize_keyword='fontSize'
-        group_keyword='group'
-        health_check_keyword='healthCheck'
-        height_keyword='height'
-        icon_keyword='icon'
-        identifiers_keyword='!identifiers'
-        implied_relationships_keyword='!impliedRelationships'
-        include_element_keyword='include'
-        include_file_keyword='!include'
-        infrastructure_node_keyword='infrastructureNode'
-        instances_keyword='instances'
-        metadata_keyword='metadata'
-        model_keyword='model'
-        opacity_keyword='opacity'
-        person_keyword='person'
-        perspectives_keyword='perspectives'
-        plugin_keyword='!plugin'
-        position_keyword='position'
-        properties_keyword='properties'
-        ref_keyword='!ref'
-        relationship_keyword='->'
-        routing_keyword='routing'
-        script_keyword='!script'
-        shape_keyword='shape'
-        software_system_instance_keyword='softwareSystemInstance'
-        software_system_keyword='softwareSystem'
-        stroke_keyword='stroke'
-        strokewidth_keyword='strokeWidth'
-        style_keyword='style'
-        styles_keyword='styles'
-        system_context_keyword='systemContext'
-        system_landscape_keyword='systemLandscape'
-        tags_keyword='tags'
-        technology_keyword='technology'
-        terminology_keyword='terminology'
-        theme_keyword='theme'
-        thickness_keyword='thickness'
-        title_keyword='title'
-        url_keyword='url'
-        users_keyword='users'
-        views_keyword='views'
-        width_keyword='width'
-        workspace_keyword='workspace'
-
         quoted_text='regexp:"[^"\r\n]*"'
         unquoted_text='regexp:[^\s"\r\n]+'
-
-        identifier='regexp:[a-zA-Z_0-9]+'
-
-        script_text='script_text'
     ]
+
+    extends(".*Statement")=statement
 }
 
-structurizrDSLFile ::= statement*
+structurizrDSLFile ::= expr*
 
-private statement ::= elementDefinition | scriptBlock | explicitRelationship | implicitRelationship | identifierReferences
+private expr ::=
+            scriptStatement
+            | explicitRelationshipStatement
+            | implicitRelationshipStatement
+            | animationStatement
+            | propertiesStatement
+            | identifierAssignmentStatement
+            | blockStatement
+            | singleLineStatement
+            | lineCommentStatement
+            | blockCommentStatement
 
-private elementDefinition ::= singleLineStatement | blockStatement | propertyBlockStatement | CRLF
+fake statement ::= expr
 
-singleLineStatement ::= identifierAssignment? keywordWithArguments lf_eof
-blockStatement ::= identifierAssignment? keywordWithArguments '{' CRLF statement* '}' lf_eof
+explicitRelationshipStatement ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
+implicitRelationshipStatement ::= relationshipKeyword relationshipDestination argument* block? lf_eof
+relationshipSource ::= UNQUOTED_TEXT
+relationshipKeyword ::= ARROW
+relationshipDestination ::= UNQUOTED_TEXT
 
-private identifierAssignment ::= identifierName '='
+animationStatement ::= animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
+animationKeyword ::= 'animation'
+identifierReferencesStatement ::= identifierReference* CRLF
 
-propertyBlockStatement ::= keywordWithPropertyBlock '{' CRLF keyValuePair* '}'
-keyValuePair ::= key value CRLF
-key ::= text
-value ::= text
+lineCommentStatement ::= LINE_COMMENT lf_eof
+blockCommentStatement ::= BLOCK_COMMENT lf_eof
 
-scriptBlock ::= '!script' argument* '{' scriptContents '}'
-scriptContents ::= SCRIPT_TEXT+
+scriptStatement ::= scriptKeyword argument* scriptBlock lf_eof
+scriptKeyword ::= '!script'
+scriptBlock ::= '{' SCRIPT_TEXT '}'
 
-explicitRelationship ::= identifierName '->' identifierName argument*
-implicitRelationship ::= '->' identifierName argument*
+propertiesStatement ::= propertiesKeyword propertiesBlock lf_eof
+propertiesKeyword ::= 'perspectives' | 'properties' | 'users'
+propertiesBlock ::= '{' CRLF propertyDefinition* '}'
+propertyDefinition ::= propertyKey propertyValue CRLF
+propertyKey ::= text
+propertyValue ::= text
 
-identifierReferences ::= identifierName+ lf_eof
+identifierAssignmentStatement ::= identifierReference '=' (blockStatement | singleLineStatement)
+identifierReference ::= UNQUOTED_TEXT
 
-private keywordWithArguments ::= keyword argument*
+blockStatement ::= keyword argument* block lf_eof
+block ::= '{' CRLF expr* '}' {
+    pin=1
+    recoverWhile=blockRecover
+}
+private blockRecover ::= !(text | lf_eof)
 
-keyword ::= '!adrs' | 'animation' | 'autoLayout' | 'background' | 'border' | 'color' | 'colour' | 'component' |
-            '!constant' | 'containerInstance' | 'container' | 'custom' | 'deploymentEnvironment' | 'deploymentGroup' |
-            'deployment' | 'deploymentNode' | 'description' | '!docs' | 'dynamic' | 'element' | 'enterprise' |
-            'exclude' | 'extends' | 'filtered' | 'fontSize' | 'group' | 'healthCheck' | 'height' | 'icon' |
-            '!identifiers' | '!impliedRelationships' | 'include' | '!include' | 'infrastructureNode' | 'instances' |
-            'metadata' | 'model' | 'opacity' | 'person' | 'perspectives' | '!plugin' | 'position' | '!ref' | '->' |
-            'routing' | '!script' | 'shape' | 'softwareSystemInstance' | 'softwareSystem' | 'stroke' | 'strokeWidth' |
-            'style' | 'styles' | 'systemContext' | 'systemLandscape' | 'tags' | 'technology' | 'theme' | 'thickness' |
-            'title' | 'url' | 'views' | 'width' | 'workspace'
+singleLineStatement ::= keyword argument* lf_eof
 
-keywordWithPropertyBlock ::= 'branding' | 'configuration' | 'properties' | 'terminology' | 'users'
-
+keyword ::= UNQUOTED_TEXT
 argument ::= text
-identifierName ::= IDENTIFIER
 
 private text ::= QUOTED_TEXT | UNQUOTED_TEXT
 private lf_eof ::= CRLF | <<eof>>

@@ -9,9 +9,10 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """a -> b""",
             """
-                ExplicitRelationship
-                    IdentifierName a
-                    IdentifierName b
+                ExplicitRelationshipStatement
+                    RelationshipSource a
+                    RelationshipKeyword ->
+                    RelationshipDestination b
             """.trimIndent()
         )
     }
@@ -21,8 +22,9 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """-> b""",
             """
-                ImplicitRelationship
-                    IdentifierName b
+                ImplicitRelationshipStatement
+                    RelationshipKeyword ->
+                    RelationshipDestination b
             """.trimIndent()
         )
     }
@@ -32,11 +34,30 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """a -> b arg1 arg2""",
             """
-                ExplicitRelationship
-                    IdentifierName a
-                    IdentifierName b
+                ExplicitRelationshipStatement
+                    RelationshipSource a
+                    RelationshipKeyword ->
+                    RelationshipDestination b
                     Argument arg1
                     Argument arg2
+            """.trimIndent()
+        )
+    }
+
+    @Test
+    fun `explicit relationship with block`() {
+        assertPsiTree(
+            """
+                a -> b arg1 {
+                }
+            """.trimIndent(),
+            """
+                ExplicitRelationshipStatement
+                    RelationshipSource a
+                    RelationshipKeyword ->
+                    RelationshipDestination b
+                    Argument arg1
+                    Block {\n}
             """.trimIndent()
         )
     }
@@ -46,10 +67,28 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             """-> b arg1 arg2""",
             """
-                ImplicitRelationship
-                    IdentifierName b
+                ImplicitRelationshipStatement
+                    RelationshipKeyword ->
+                    RelationshipDestination b
                     Argument arg1
                     Argument arg2
+            """.trimIndent()
+        )
+    }
+
+    @Test
+    fun `implicit relationship with block`() {
+        assertPsiTree(
+            """
+                -> b arg1 {
+                }
+            """.trimIndent(),
+            """
+                ImplicitRelationshipStatement
+                    RelationshipKeyword ->
+                    RelationshipDestination b
+                    Argument arg1
+                    Block {\n}
             """.trimIndent()
         )
     }

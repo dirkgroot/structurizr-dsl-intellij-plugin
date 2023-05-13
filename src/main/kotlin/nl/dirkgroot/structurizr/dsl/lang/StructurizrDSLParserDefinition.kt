@@ -16,7 +16,6 @@ import nl.dirkgroot.structurizr.dsl.psi.SDTypes
 class StructurizrDSLParserDefinition : ParserDefinition {
     companion object {
         val WHITE_SPACES = TokenSet.create(TokenType.WHITE_SPACE)
-        val COMMENTS = TokenSet.create(SDTypes.LINE_COMMENT, SDTypes.BLOCK_COMMENT)
 
         val FILE = IFileElementType(StructurizrDSLLanguage)
     }
@@ -25,7 +24,7 @@ class StructurizrDSLParserDefinition : ParserDefinition {
 
     override fun getWhitespaceTokens() = WHITE_SPACES
 
-    override fun getCommentTokens() = COMMENTS
+    override fun getCommentTokens(): TokenSet = TokenSet.EMPTY
 
     override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 

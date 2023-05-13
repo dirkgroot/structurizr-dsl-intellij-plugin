@@ -9,7 +9,7 @@ import nl.dirkgroot.structurizr.dsl.support.tokenize
 class MeaningfulLineTerminatorsTest : StringSpec({
     "carriage return" {
         "description text\r".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             CRLF to "\r"
@@ -18,7 +18,7 @@ class MeaningfulLineTerminatorsTest : StringSpec({
 
     "line feed" {
         "description text\n".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             CRLF to "\n"
@@ -27,7 +27,7 @@ class MeaningfulLineTerminatorsTest : StringSpec({
 
     "carriage return + line feed" {
         "description text\r\n".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to (" "),
             UNQUOTED_TEXT to "text",
             CRLF to "\r\n"

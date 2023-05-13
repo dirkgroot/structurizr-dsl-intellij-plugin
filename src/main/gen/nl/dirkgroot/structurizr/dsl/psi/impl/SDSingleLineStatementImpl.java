@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDSingleLineStatementImpl extends ASTWrapperPsiElement implements SDSingleLineStatement {
+public class SDSingleLineStatementImpl extends SDStatementImpl implements SDSingleLineStatement {
 
   public SDSingleLineStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
     visitor.visitSingleLineStatement(this);
   }
@@ -31,12 +31,6 @@ public class SDSingleLineStatementImpl extends ASTWrapperPsiElement implements S
   @NotNull
   public List<SDArgument> getArgumentList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, SDArgument.class);
-  }
-
-  @Override
-  @Nullable
-  public SDIdentifierName getIdentifierName() {
-    return findChildByClass(SDIdentifierName.class);
   }
 
   @Override

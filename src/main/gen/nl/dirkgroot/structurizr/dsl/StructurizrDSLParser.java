@@ -21,7 +21,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   public void parseLight(IElementType t, PsiBuilder b) {
     boolean r;
-    b = adapt_builder_(t, b, this, null);
+    b = adapt_builder_(t, b, this, EXTENDS_SETS_);
     Marker m = enter_section_(b, 0, _COLLAPSE_, null);
     r = parse_root_(t, b);
     exit_section_(b, 0, m, t, r, true, TRUE_CONDITION);
@@ -33,6 +33,59 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
 
   static boolean parse_root_(IElementType t, PsiBuilder b, int l) {
     return structurizrDSLFile(b, l + 1);
+  }
+
+  public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
+    create_token_set_(ANIMATION_STATEMENT, BLOCK_COMMENT_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP_STATEMENT,
+      IDENTIFIER_ASSIGNMENT_STATEMENT, IDENTIFIER_REFERENCES_STATEMENT, IMPLICIT_RELATIONSHIP_STATEMENT, LINE_COMMENT_STATEMENT,
+      PROPERTIES_STATEMENT, SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT),
+  };
+
+  /* ********************************************************** */
+  // 'animation'
+  public static boolean animationKeyword(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationKeyword")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ANIMATION_KEYWORD, "<animation keyword>");
+    r = consumeToken(b, "animation");
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
+  public static boolean animationStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationStatement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ANIMATION_STATEMENT, "<animation statement>");
+    r = animationKeyword(b, l + 1);
+    r = r && consumeTokens(b, 0, BRACE1, CRLF);
+    r = r && animationStatement_3(b, l + 1);
+    r = r && consumeToken(b, BRACE2);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)*
+  private static boolean animationStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationStatement_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!animationStatement_3_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "animationStatement_3", c)) break;
+    }
+    return true;
+  }
+
+  // identifierReferencesStatement | lineCommentStatement | blockCommentStatement
+  private static boolean animationStatement_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationStatement_3_0")) return false;
+    boolean r;
+    r = identifierReferencesStatement(b, l + 1);
+    if (!r) r = lineCommentStatement(b, l + 1);
+    if (!r) r = blockCommentStatement(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */
@@ -48,298 +101,253 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // identifierAssignment? keywordWithArguments '{' CRLF statement* '}' lf_eof
+  // '{' CRLF expr* '}'
+  public static boolean block(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "block")) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, BLOCK, "<block>");
+    r = consumeTokens(b, 1, BRACE1, CRLF);
+    p = r; // pin = 1
+    r = r && report_error_(b, block_2(b, l + 1));
+    r = p && consumeToken(b, BRACE2) && r;
+    exit_section_(b, l, m, r, p, StructurizrDSLParser::blockRecover);
+    return r || p;
+  }
+
+  // expr*
+  private static boolean block_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "block_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!expr(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "block_2", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // BLOCK_COMMENT lf_eof
+  public static boolean blockCommentStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockCommentStatement")) return false;
+    if (!nextTokenIs(b, BLOCK_COMMENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, BLOCK_COMMENT);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, BLOCK_COMMENT_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // !(text | lf_eof)
+  static boolean blockRecover(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockRecover")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !blockRecover_0(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // text | lf_eof
+  private static boolean blockRecover_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockRecover_0")) return false;
+    boolean r;
+    r = text(b, l + 1);
+    if (!r) r = lf_eof(b, l + 1);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // keyword argument* block lf_eof
   public static boolean blockStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "blockStatement")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, BLOCK_STATEMENT, "<block statement>");
-    r = blockStatement_0(b, l + 1);
-    r = r && keywordWithArguments(b, l + 1);
-    r = r && consumeTokens(b, 0, BRACE1, CRLF);
-    r = r && blockStatement_4(b, l + 1);
-    r = r && consumeToken(b, BRACE2);
+    Marker m = enter_section_(b);
+    r = keyword(b, l + 1);
+    r = r && blockStatement_1(b, l + 1);
+    r = r && block(b, l + 1);
     r = r && lf_eof(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    exit_section_(b, m, BLOCK_STATEMENT, r);
     return r;
   }
 
-  // identifierAssignment?
-  private static boolean blockStatement_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "blockStatement_0")) return false;
-    identifierAssignment(b, l + 1);
-    return true;
-  }
-
-  // statement*
-  private static boolean blockStatement_4(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "blockStatement_4")) return false;
+  // argument*
+  private static boolean blockStatement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "blockStatement_1")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!statement(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "blockStatement_4", c)) break;
+      if (!argument(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "blockStatement_1", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // singleLineStatement | blockStatement | propertyBlockStatement | CRLF
-  static boolean elementDefinition(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "elementDefinition")) return false;
+  // relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
+  public static boolean explicitRelationshipStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationshipStatement")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
     boolean r;
-    r = singleLineStatement(b, l + 1);
+    Marker m = enter_section_(b);
+    r = relationshipSource(b, l + 1);
+    r = r && relationshipKeyword(b, l + 1);
+    r = r && relationshipDestination(b, l + 1);
+    r = r && explicitRelationshipStatement_3(b, l + 1);
+    r = r && explicitRelationshipStatement_4(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, EXPLICIT_RELATIONSHIP_STATEMENT, r);
+    return r;
+  }
+
+  // argument*
+  private static boolean explicitRelationshipStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationshipStatement_3")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!argument(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "explicitRelationshipStatement_3", c)) break;
+    }
+    return true;
+  }
+
+  // block?
+  private static boolean explicitRelationshipStatement_4(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "explicitRelationshipStatement_4")) return false;
+    block(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // scriptStatement
+  //             | explicitRelationshipStatement
+  //             | implicitRelationshipStatement
+  //             | animationStatement
+  //             | propertiesStatement
+  //             | identifierAssignmentStatement
+  //             | blockStatement
+  //             | singleLineStatement
+  //             | lineCommentStatement
+  //             | blockCommentStatement
+  static boolean expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expr")) return false;
+    boolean r;
+    r = scriptStatement(b, l + 1);
+    if (!r) r = explicitRelationshipStatement(b, l + 1);
+    if (!r) r = implicitRelationshipStatement(b, l + 1);
+    if (!r) r = animationStatement(b, l + 1);
+    if (!r) r = propertiesStatement(b, l + 1);
+    if (!r) r = identifierAssignmentStatement(b, l + 1);
     if (!r) r = blockStatement(b, l + 1);
-    if (!r) r = propertyBlockStatement(b, l + 1);
-    if (!r) r = consumeToken(b, CRLF);
+    if (!r) r = singleLineStatement(b, l + 1);
+    if (!r) r = lineCommentStatement(b, l + 1);
+    if (!r) r = blockCommentStatement(b, l + 1);
     return r;
   }
 
   /* ********************************************************** */
-  // identifierName '->' identifierName argument*
-  public static boolean explicitRelationship(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "explicitRelationship")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+  // identifierReference '=' (blockStatement | singleLineStatement)
+  public static boolean identifierAssignmentStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierAssignmentStatement")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = identifierName(b, l + 1);
-    r = r && consumeToken(b, RELATIONSHIP_KEYWORD);
-    r = r && identifierName(b, l + 1);
-    r = r && explicitRelationship_3(b, l + 1);
-    exit_section_(b, m, EXPLICIT_RELATIONSHIP, r);
-    return r;
-  }
-
-  // argument*
-  private static boolean explicitRelationship_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "explicitRelationship_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "explicitRelationship_3", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // identifierName '='
-  static boolean identifierAssignment(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierAssignment")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = identifierName(b, l + 1);
+    r = identifierReference(b, l + 1);
     r = r && consumeToken(b, EQUALS);
-    exit_section_(b, m, null, r);
+    r = r && identifierAssignmentStatement_2(b, l + 1);
+    exit_section_(b, m, IDENTIFIER_ASSIGNMENT_STATEMENT, r);
+    return r;
+  }
+
+  // blockStatement | singleLineStatement
+  private static boolean identifierAssignmentStatement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierAssignmentStatement_2")) return false;
+    boolean r;
+    r = blockStatement(b, l + 1);
+    if (!r) r = singleLineStatement(b, l + 1);
     return r;
   }
 
   /* ********************************************************** */
-  // IDENTIFIER
-  public static boolean identifierName(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierName")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+  // UNQUOTED_TEXT
+  public static boolean identifierReference(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReference")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, IDENTIFIER);
-    exit_section_(b, m, IDENTIFIER_NAME, r);
+    r = consumeToken(b, UNQUOTED_TEXT);
+    exit_section_(b, m, IDENTIFIER_REFERENCE, r);
     return r;
   }
 
   /* ********************************************************** */
-  // identifierName+ lf_eof
-  public static boolean identifierReferences(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierReferences")) return false;
-    if (!nextTokenIs(b, IDENTIFIER)) return false;
+  // identifierReference* CRLF
+  public static boolean identifierReferencesStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReferencesStatement")) return false;
+    if (!nextTokenIs(b, "<identifier references statement>", CRLF, UNQUOTED_TEXT)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = identifierReferences_0(b, l + 1);
-    r = r && lf_eof(b, l + 1);
-    exit_section_(b, m, IDENTIFIER_REFERENCES, r);
-    return r;
-  }
-
-  // identifierName+
-  private static boolean identifierReferences_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "identifierReferences_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = identifierName(b, l + 1);
-    while (r) {
-      int c = current_position_(b);
-      if (!identifierName(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "identifierReferences_0", c)) break;
-    }
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // '->' identifierName argument*
-  public static boolean implicitRelationship(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "implicitRelationship")) return false;
-    if (!nextTokenIs(b, RELATIONSHIP_KEYWORD)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, RELATIONSHIP_KEYWORD);
-    r = r && identifierName(b, l + 1);
-    r = r && implicitRelationship_2(b, l + 1);
-    exit_section_(b, m, IMPLICIT_RELATIONSHIP, r);
-    return r;
-  }
-
-  // argument*
-  private static boolean implicitRelationship_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "implicitRelationship_2")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "implicitRelationship_2", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // text
-  public static boolean key(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "key")) return false;
-    if (!nextTokenIs(b, "<key>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, KEY, "<key>");
-    r = text(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // key value CRLF
-  public static boolean keyValuePair(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "keyValuePair")) return false;
-    if (!nextTokenIs(b, "<key value pair>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, KEY_VALUE_PAIR, "<key value pair>");
-    r = key(b, l + 1);
-    r = r && value(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, IDENTIFIER_REFERENCES_STATEMENT, "<identifier references statement>");
+    r = identifierReferencesStatement_0(b, l + 1);
     r = r && consumeToken(b, CRLF);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  /* ********************************************************** */
-  // '!adrs' | 'animation' | 'autoLayout' | 'background' | 'border' | 'color' | 'colour' | 'component' |
-  //             '!constant' | 'containerInstance' | 'container' | 'custom' | 'deploymentEnvironment' | 'deploymentGroup' |
-  //             'deployment' | 'deploymentNode' | 'description' | '!docs' | 'dynamic' | 'element' | 'enterprise' |
-  //             'exclude' | 'extends' | 'filtered' | 'fontSize' | 'group' | 'healthCheck' | 'height' | 'icon' |
-  //             '!identifiers' | '!impliedRelationships' | 'include' | '!include' | 'infrastructureNode' | 'instances' |
-  //             'metadata' | 'model' | 'opacity' | 'person' | 'perspectives' | '!plugin' | 'position' | '!ref' | '->' |
-  //             'routing' | '!script' | 'shape' | 'softwareSystemInstance' | 'softwareSystem' | 'stroke' | 'strokeWidth' |
-  //             'style' | 'styles' | 'systemContext' | 'systemLandscape' | 'tags' | 'technology' | 'theme' | 'thickness' |
-  //             'title' | 'url' | 'views' | 'width' | 'workspace'
-  public static boolean keyword(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "keyword")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, KEYWORD, "<keyword>");
-    r = consumeToken(b, ADRS_KEYWORD);
-    if (!r) r = consumeToken(b, ANIMATION_KEYWORD);
-    if (!r) r = consumeToken(b, AUTO_LAYOUT_KEYWORD);
-    if (!r) r = consumeToken(b, BACKGROUND_KEYWORD);
-    if (!r) r = consumeToken(b, BORDER_KEYWORD);
-    if (!r) r = consumeToken(b, COLOR_KEYWORD);
-    if (!r) r = consumeToken(b, COLOUR_KEYWORD);
-    if (!r) r = consumeToken(b, COMPONENT_KEYWORD);
-    if (!r) r = consumeToken(b, CONSTANT_KEYWORD);
-    if (!r) r = consumeToken(b, CONTAINER_INSTANCE);
-    if (!r) r = consumeToken(b, CONTAINER_KEYWORD);
-    if (!r) r = consumeToken(b, CUSTOM_KEYWORD);
-    if (!r) r = consumeToken(b, DEPLOYMENT_ENVIRONMENT_KEYWORD);
-    if (!r) r = consumeToken(b, DEPLOYMENT_GROUP_KEYWORD);
-    if (!r) r = consumeToken(b, DEPLOYMENT_KEYWORD);
-    if (!r) r = consumeToken(b, DEPLOYMENT_NODE_KEYWORD);
-    if (!r) r = consumeToken(b, DESCRIPTION_KEYWORD);
-    if (!r) r = consumeToken(b, DOCS_KEYWORD);
-    if (!r) r = consumeToken(b, DYNAMIC_KEYWORD);
-    if (!r) r = consumeToken(b, ELEMENT_KEYWORD);
-    if (!r) r = consumeToken(b, ENTERPRISE_KEYWORD);
-    if (!r) r = consumeToken(b, EXCLUDE_ELEMENT_KEYWORD);
-    if (!r) r = consumeToken(b, EXTENDS_KEYWORD);
-    if (!r) r = consumeToken(b, FILTERED_KEYWORD);
-    if (!r) r = consumeToken(b, FONTSIZE_KEYWORD);
-    if (!r) r = consumeToken(b, GROUP_KEYWORD);
-    if (!r) r = consumeToken(b, HEALTH_CHECK_KEYWORD);
-    if (!r) r = consumeToken(b, HEIGHT_KEYWORD);
-    if (!r) r = consumeToken(b, ICON_KEYWORD);
-    if (!r) r = consumeToken(b, IDENTIFIERS_KEYWORD);
-    if (!r) r = consumeToken(b, IMPLIED_RELATIONSHIPS_KEYWORD);
-    if (!r) r = consumeToken(b, INCLUDE_ELEMENT_KEYWORD);
-    if (!r) r = consumeToken(b, INCLUDE_FILE_KEYWORD);
-    if (!r) r = consumeToken(b, INFRASTRUCTURE_NODE_KEYWORD);
-    if (!r) r = consumeToken(b, INSTANCES_KEYWORD);
-    if (!r) r = consumeToken(b, METADATA_KEYWORD);
-    if (!r) r = consumeToken(b, MODEL_KEYWORD);
-    if (!r) r = consumeToken(b, OPACITY_KEYWORD);
-    if (!r) r = consumeToken(b, PERSON_KEYWORD);
-    if (!r) r = consumeToken(b, PERSPECTIVES_KEYWORD);
-    if (!r) r = consumeToken(b, PLUGIN_KEYWORD);
-    if (!r) r = consumeToken(b, POSITION_KEYWORD);
-    if (!r) r = consumeToken(b, REF_KEYWORD);
-    if (!r) r = consumeToken(b, RELATIONSHIP_KEYWORD);
-    if (!r) r = consumeToken(b, ROUTING_KEYWORD);
-    if (!r) r = consumeToken(b, SCRIPT_KEYWORD);
-    if (!r) r = consumeToken(b, SHAPE_KEYWORD);
-    if (!r) r = consumeToken(b, SOFTWARE_SYSTEM_INSTANCE_KEYWORD);
-    if (!r) r = consumeToken(b, SOFTWARE_SYSTEM_KEYWORD);
-    if (!r) r = consumeToken(b, STROKE_KEYWORD);
-    if (!r) r = consumeToken(b, STROKEWIDTH_KEYWORD);
-    if (!r) r = consumeToken(b, STYLE_KEYWORD);
-    if (!r) r = consumeToken(b, STYLES_KEYWORD);
-    if (!r) r = consumeToken(b, SYSTEM_CONTEXT_KEYWORD);
-    if (!r) r = consumeToken(b, SYSTEM_LANDSCAPE_KEYWORD);
-    if (!r) r = consumeToken(b, TAGS_KEYWORD);
-    if (!r) r = consumeToken(b, TECHNOLOGY_KEYWORD);
-    if (!r) r = consumeToken(b, THEME_KEYWORD);
-    if (!r) r = consumeToken(b, THICKNESS_KEYWORD);
-    if (!r) r = consumeToken(b, TITLE_KEYWORD);
-    if (!r) r = consumeToken(b, URL_KEYWORD);
-    if (!r) r = consumeToken(b, VIEWS_KEYWORD);
-    if (!r) r = consumeToken(b, WIDTH_KEYWORD);
-    if (!r) r = consumeToken(b, WORKSPACE_KEYWORD);
-    exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // keyword argument*
-  static boolean keywordWithArguments(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "keywordWithArguments")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = keyword(b, l + 1);
-    r = r && keywordWithArguments_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // argument*
-  private static boolean keywordWithArguments_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "keywordWithArguments_1")) return false;
+  // identifierReference*
+  private static boolean identifierReferencesStatement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "identifierReferencesStatement_0")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "keywordWithArguments_1", c)) break;
+      if (!identifierReference(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "identifierReferencesStatement_0", c)) break;
     }
     return true;
   }
 
   /* ********************************************************** */
-  // 'branding' | 'configuration' | 'properties' | 'terminology' | 'users'
-  public static boolean keywordWithPropertyBlock(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "keywordWithPropertyBlock")) return false;
+  // relationshipKeyword relationshipDestination argument* block? lf_eof
+  public static boolean implicitRelationshipStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationshipStatement")) return false;
+    if (!nextTokenIs(b, ARROW)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, KEYWORD_WITH_PROPERTY_BLOCK, "<keyword with property block>");
-    r = consumeToken(b, BRANDING_KEYWORD);
-    if (!r) r = consumeToken(b, CONFIGURATION_KEYWORD);
-    if (!r) r = consumeToken(b, PROPERTIES_KEYWORD);
-    if (!r) r = consumeToken(b, TERMINOLOGY_KEYWORD);
-    if (!r) r = consumeToken(b, USERS_KEYWORD);
-    exit_section_(b, l, m, r, false, null);
+    Marker m = enter_section_(b);
+    r = relationshipKeyword(b, l + 1);
+    r = r && relationshipDestination(b, l + 1);
+    r = r && implicitRelationshipStatement_2(b, l + 1);
+    r = r && implicitRelationshipStatement_3(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, IMPLICIT_RELATIONSHIP_STATEMENT, r);
+    return r;
+  }
+
+  // argument*
+  private static boolean implicitRelationshipStatement_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationshipStatement_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!argument(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "implicitRelationshipStatement_2", c)) break;
+    }
+    return true;
+  }
+
+  // block?
+  private static boolean implicitRelationshipStatement_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "implicitRelationshipStatement_3")) return false;
+    block(b, l + 1);
+    return true;
+  }
+
+  /* ********************************************************** */
+  // UNQUOTED_TEXT
+  public static boolean keyword(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "keyword")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, UNQUOTED_TEXT);
+    exit_section_(b, m, KEYWORD, r);
     return r;
   }
 
@@ -356,114 +364,223 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // keywordWithPropertyBlock '{' CRLF keyValuePair* '}'
-  public static boolean propertyBlockStatement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertyBlockStatement")) return false;
+  // LINE_COMMENT lf_eof
+  public static boolean lineCommentStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "lineCommentStatement")) return false;
+    if (!nextTokenIs(b, LINE_COMMENT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PROPERTY_BLOCK_STATEMENT, "<property block statement>");
-    r = keywordWithPropertyBlock(b, l + 1);
-    r = r && consumeTokens(b, 0, BRACE1, CRLF);
-    r = r && propertyBlockStatement_3(b, l + 1);
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LINE_COMMENT);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, LINE_COMMENT_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{' CRLF propertyDefinition* '}'
+  public static boolean propertiesBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertiesBlock")) return false;
+    if (!nextTokenIs(b, BRACE1)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, BRACE1, CRLF);
+    r = r && propertiesBlock_2(b, l + 1);
     r = r && consumeToken(b, BRACE2);
+    exit_section_(b, m, PROPERTIES_BLOCK, r);
+    return r;
+  }
+
+  // propertyDefinition*
+  private static boolean propertiesBlock_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertiesBlock_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!propertyDefinition(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "propertiesBlock_2", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // 'perspectives' | 'properties' | 'users'
+  public static boolean propertiesKeyword(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertiesKeyword")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PROPERTIES_KEYWORD, "<properties keyword>");
+    r = consumeToken(b, "perspectives");
+    if (!r) r = consumeToken(b, "properties");
+    if (!r) r = consumeToken(b, "users");
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // keyValuePair*
-  private static boolean propertyBlockStatement_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertyBlockStatement_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!keyValuePair(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "propertyBlockStatement_3", c)) break;
-    }
-    return true;
-  }
-
   /* ********************************************************** */
-  // '!script' argument* '{' scriptContents '}'
-  public static boolean scriptBlock(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "scriptBlock")) return false;
-    if (!nextTokenIs(b, SCRIPT_KEYWORD)) return false;
+  // propertiesKeyword propertiesBlock lf_eof
+  public static boolean propertiesStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertiesStatement")) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, SCRIPT_KEYWORD);
-    r = r && scriptBlock_1(b, l + 1);
-    r = r && consumeToken(b, BRACE1);
-    r = r && scriptContents(b, l + 1);
-    r = r && consumeToken(b, BRACE2);
-    exit_section_(b, m, SCRIPT_BLOCK, r);
-    return r;
-  }
-
-  // argument*
-  private static boolean scriptBlock_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "scriptBlock_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!argument(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "scriptBlock_1", c)) break;
-    }
-    return true;
-  }
-
-  /* ********************************************************** */
-  // SCRIPT_TEXT+
-  public static boolean scriptContents(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "scriptContents")) return false;
-    if (!nextTokenIs(b, SCRIPT_TEXT)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, SCRIPT_TEXT);
-    while (r) {
-      int c = current_position_(b);
-      if (!consumeToken(b, SCRIPT_TEXT)) break;
-      if (!empty_element_parsed_guard_(b, "scriptContents", c)) break;
-    }
-    exit_section_(b, m, SCRIPT_CONTENTS, r);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // identifierAssignment? keywordWithArguments lf_eof
-  public static boolean singleLineStatement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "singleLineStatement")) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, SINGLE_LINE_STATEMENT, "<single line statement>");
-    r = singleLineStatement_0(b, l + 1);
-    r = r && keywordWithArguments(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, PROPERTIES_STATEMENT, "<properties statement>");
+    r = propertiesKeyword(b, l + 1);
+    r = r && propertiesBlock(b, l + 1);
     r = r && lf_eof(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // identifierAssignment?
-  private static boolean singleLineStatement_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "singleLineStatement_0")) return false;
-    identifierAssignment(b, l + 1);
-    return true;
-  }
-
   /* ********************************************************** */
-  // elementDefinition | scriptBlock | explicitRelationship | implicitRelationship | identifierReferences
-  static boolean statement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement")) return false;
+  // propertyKey propertyValue CRLF
+  public static boolean propertyDefinition(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertyDefinition")) return false;
+    if (!nextTokenIs(b, "<property definition>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
     boolean r;
-    r = elementDefinition(b, l + 1);
-    if (!r) r = scriptBlock(b, l + 1);
-    if (!r) r = explicitRelationship(b, l + 1);
-    if (!r) r = implicitRelationship(b, l + 1);
-    if (!r) r = identifierReferences(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY_DEFINITION, "<property definition>");
+    r = propertyKey(b, l + 1);
+    r = r && propertyValue(b, l + 1);
+    r = r && consumeToken(b, CRLF);
+    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
   /* ********************************************************** */
-  // statement*
+  // text
+  public static boolean propertyKey(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertyKey")) return false;
+    if (!nextTokenIs(b, "<property key>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY_KEY, "<property key>");
+    r = text(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // text
+  public static boolean propertyValue(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertyValue")) return false;
+    if (!nextTokenIs(b, "<property value>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY_VALUE, "<property value>");
+    r = text(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // UNQUOTED_TEXT
+  public static boolean relationshipDestination(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationshipDestination")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, UNQUOTED_TEXT);
+    exit_section_(b, m, RELATIONSHIP_DESTINATION, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ARROW
+  public static boolean relationshipKeyword(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationshipKeyword")) return false;
+    if (!nextTokenIs(b, ARROW)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ARROW);
+    exit_section_(b, m, RELATIONSHIP_KEYWORD, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // UNQUOTED_TEXT
+  public static boolean relationshipSource(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "relationshipSource")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, UNQUOTED_TEXT);
+    exit_section_(b, m, RELATIONSHIP_SOURCE, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '{' SCRIPT_TEXT '}'
+  public static boolean scriptBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "scriptBlock")) return false;
+    if (!nextTokenIs(b, BRACE1)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, BRACE1, SCRIPT_TEXT, BRACE2);
+    exit_section_(b, m, SCRIPT_BLOCK, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // '!script'
+  public static boolean scriptKeyword(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "scriptKeyword")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, SCRIPT_KEYWORD, "<script keyword>");
+    r = consumeToken(b, "!script");
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // scriptKeyword argument* scriptBlock lf_eof
+  public static boolean scriptStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "scriptStatement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, SCRIPT_STATEMENT, "<script statement>");
+    r = scriptKeyword(b, l + 1);
+    r = r && scriptStatement_1(b, l + 1);
+    r = r && scriptBlock(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  // argument*
+  private static boolean scriptStatement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "scriptStatement_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!argument(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "scriptStatement_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // keyword argument* lf_eof
+  public static boolean singleLineStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "singleLineStatement")) return false;
+    if (!nextTokenIs(b, UNQUOTED_TEXT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = keyword(b, l + 1);
+    r = r && singleLineStatement_1(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, SINGLE_LINE_STATEMENT, r);
+    return r;
+  }
+
+  // argument*
+  private static boolean singleLineStatement_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "singleLineStatement_1")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!argument(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "singleLineStatement_1", c)) break;
+    }
+    return true;
+  }
+
+  /* ********************************************************** */
+  // expr*
   static boolean structurizrDSLFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "structurizrDSLFile")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!statement(b, l + 1)) break;
+      if (!expr(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "structurizrDSLFile", c)) break;
     }
     return true;
@@ -477,18 +594,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     boolean r;
     r = consumeToken(b, QUOTED_TEXT);
     if (!r) r = consumeToken(b, UNQUOTED_TEXT);
-    return r;
-  }
-
-  /* ********************************************************** */
-  // text
-  public static boolean value(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "value")) return false;
-    if (!nextTokenIs(b, "<value>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
-    boolean r;
-    Marker m = enter_section_(b, l, _NONE_, VALUE, "<value>");
-    r = text(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
     return r;
   }
 
