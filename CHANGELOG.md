@@ -2,14 +2,14 @@
 
 ## [Unreleased]
 
-### Changed
+## [0.3.1] - 2023-05-13
 
+### Changed
 - Reworked the lexer and parser to be more generic, which should make it a bit easier to support future changes to the
   Structurizr DSL
 - Syntax highlighting is now mostly annotator based instead of lexer based
 
 ### Added
-
 - Matching curly braces are now highlighted in the editor
 - Code can now be commented with the "Comment with line/block comment" commands
 - Code is automatically indented correctly while editing
@@ -51,7 +51,8 @@
 ### Added
 - Token based syntax highlighting
 
-[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.1...HEAD
+[0.3.1]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.1...v0.3.1
 [0.2.1]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.3-alpha...v0.2.0
 [0.1.3-alpha]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.2-alpha...v0.1.3-alpha
