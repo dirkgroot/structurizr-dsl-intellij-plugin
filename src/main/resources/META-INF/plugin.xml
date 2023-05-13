@@ -20,7 +20,7 @@
         <lang.braceMatcher language="StructurizrDSL"
                            implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDBraceMatcher"/>
         <annotator language="StructurizrDSL"
-                   implementationClass="nl.dirkgroot.structurizr.dsl.syntax.SDAnnotator"/>
+                   implementationClass="nl.dirkgroot.structurizr.dsl.syntax.SDHighlightingAnnotator"/>
         <lang.commenter language="StructurizrDSL"
                         implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDCommenter"/>
     </extensions>

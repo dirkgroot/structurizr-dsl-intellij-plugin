@@ -9,21 +9,21 @@ import com.intellij.openapi.editor.colors.TextAttributesKey
 import com.intellij.psi.PsiElement
 import nl.dirkgroot.structurizr.dsl.psi.*
 
-class SDAnnotator : Annotator {
+class SDHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
             is SDKeyword, is SDPropertiesKeyword, is SDScriptKeyword, is SDRelationshipKeyword, is SDAnimationKeyword ->
-                holder.createAnnotation(element, KEYWORD)
+                holder.createAnnotation(KEYWORD)
 
-            is SDArgument, is SDPropertyDefinition -> holder.createAnnotation(element, STRING)
-            is SDScriptBlock -> holder.createAnnotation(element, EditorColors.INJECTED_LANGUAGE_FRAGMENT)
-            is SDIdentifierReference -> holder.createAnnotation(element, IDENTIFIER)
+            is SDArgument, is SDPropertyKey, is SDPropertyValue -> holder.createAnnotation(STRING)
+            is SDScriptBlock -> holder.createAnnotation(EditorColors.INJECTED_LANGUAGE_FRAGMENT)
+            is SDIdentifierReference, is SDRelationshipSource, is SDRelationshipDestination ->
+                holder.createAnnotation(IDENTIFIER)
         }
     }
 
-    private fun AnnotationHolder.createAnnotation(element: PsiElement, textAttributesKey: TextAttributesKey) {
+    private fun AnnotationHolder.createAnnotation(textAttributesKey: TextAttributesKey) {
         newSilentAnnotation(HighlightSeverity.INFORMATION)
-            .range(element)
             .textAttributes(textAttributesKey)
             .create()
     }
