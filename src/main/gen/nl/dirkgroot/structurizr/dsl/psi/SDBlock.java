@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDValue extends PsiElement {
+public interface SDBlock extends PsiElement {
+
+  @NotNull
+  List<SDStatement> getStatementList();
 
 }

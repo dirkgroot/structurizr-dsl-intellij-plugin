@@ -33,7 +33,7 @@ class SpacingTest : FormatterTest() {
     fun `identifier assignment`() {
         assertFormattingResult(
             """
-                a=softwareSystem system
+                a   =   softwareSystem system
             """.trimIndent(),
             """
                 a = softwareSystem system

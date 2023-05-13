@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDIdentifierReferencesImpl extends ASTWrapperPsiElement implements SDIdentifierReferences {
+public class SDIdentifierReferencesImpl extends SDStatementImpl implements SDIdentifierReferences {
 
   public SDIdentifierReferencesImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
     visitor.visitIdentifierReferences(this);
   }
@@ -29,8 +29,8 @@ public class SDIdentifierReferencesImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public List<SDIdentifierName> getIdentifierNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierName.class);
+  public List<SDIdentifierReference> getIdentifierReferenceList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierReference.class);
   }
 
 }

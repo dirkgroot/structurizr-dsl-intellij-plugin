@@ -5,6 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDKey extends PsiElement {
+public interface SDPropertyDefinition extends PsiElement {
+
+  @NotNull
+  SDPropertyKey getPropertyKey();
+
+  @NotNull
+  SDPropertyValue getPropertyValue();
 
 }

@@ -9,15 +9,18 @@ class SDFormattingModelBuilder : FormattingModelBuilder {
     override fun createModel(formattingContext: FormattingContext): FormattingModel =
         FormattingModelProvider.createFormattingModelForPsiFile(
             formattingContext.containingFile,
-            SDBlock(formattingContext.node, createSpacingBuilder(formattingContext.codeStyleSettings)),
+            SDBlock(formattingContext.node, spacingBuilder = createSpacingBuilder(formattingContext.codeStyleSettings)),
             formattingContext.codeStyleSettings
         )
 
     private fun createSpacingBuilder(codeStyleSettings: CodeStyleSettings) =
         SpacingBuilder(codeStyleSettings, StructurizrDSLLanguage)
+            .before(SDTypes.LINE_COMMENT).none()
+            .before(SDTypes.BLOCK).spaces(1)
+            .before(SDTypes.PROPERTIES_BLOCK).spaces(1)
+            .before(SDTypes.PROPERTY_KEY).spaces(1)
+            .before(SDTypes.PROPERTY_VALUE).spaces(1)
+            .around(SDTypes.RELATIONSHIP_KEYWORD).spaces(1)
             .around(SDTypes.EQUALS).spaces(1)
-            .around(SDTypes.IDENTIFIER_NAME).spaces(1)
             .before(SDTypes.ARGUMENT).spaces(1)
-            .before(SDTypes.BRACE1).spaces(1)
-            .between(SDTypes.KEY, SDTypes.VALUE).spaces(1)
 }

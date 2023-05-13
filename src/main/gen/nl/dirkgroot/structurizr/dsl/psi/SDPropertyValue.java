@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDPropertyBlockStatement extends PsiElement {
-
-  @NotNull
-  List<SDKeyValuePair> getKeyValuePairList();
-
-  @NotNull
-  SDKeywordWithPropertyBlock getKeywordWithPropertyBlock();
+public interface SDPropertyValue extends PsiElement {
 
 }

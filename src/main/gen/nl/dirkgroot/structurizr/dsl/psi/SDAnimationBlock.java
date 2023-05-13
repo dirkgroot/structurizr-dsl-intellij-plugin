@@ -5,6 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDScriptContents extends PsiElement {
+public interface SDAnimationBlock extends SDStatement {
+
+  @NotNull
+  SDAnimationKeyword getAnimationKeyword();
+
+  @NotNull
+  List<SDStatement> getStatementList();
 
 }

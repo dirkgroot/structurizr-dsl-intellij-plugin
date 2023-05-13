@@ -10,12 +10,13 @@ class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
     fun `identifier assignment to single line element`() = KEYWORDS.map { (keyword, _) ->
         dynamicTest(keyword) {
             assertPsiTree(
-                """identifier = softwareSystem blaat""",
+                """identifier = $keyword blaat""",
                 """
-                    SingleLineStatement
-                        IdentifierName identifier
-                        Keyword softwareSystem
-                        Argument blaat
+                    IdentifierAssignment
+                        IdentifierReference identifier
+                        SingleLineStatement
+                            Keyword $keyword
+                            Argument blaat
                 """.trimIndent()
             )
         }
@@ -31,13 +32,15 @@ class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
                     }
                 """.trimIndent(),
                 """
-                    BlockStatement
-                        IdentifierName identifier
-                        Keyword softwareSystem
-                        Argument blaat
-                        SingleLineStatement
-                            Keyword container
-                            Argument containerName
+                    IdentifierAssignment
+                        IdentifierReference identifier
+                        BlockStatement
+                            Keyword softwareSystem
+                            Argument blaat
+                            Block
+                                SingleLineStatement
+                                    Keyword container
+                                    Argument containerName
                  """.trimIndent()
             )
         }
@@ -55,10 +58,12 @@ class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
                 """
                     BlockStatement
                         Keyword model
-                        SingleLineStatement
-                            IdentifierName identifier
-                            Keyword softwareSystem
-                            Argument name
+                        Block
+                            IdentifierAssignment
+                                IdentifierReference identifier
+                                SingleLineStatement
+                                    Keyword softwareSystem
+                                    Argument name
                 """.trimIndent()
             )
         }

@@ -11,14 +11,14 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDKeyImpl extends ASTWrapperPsiElement implements SDKey {
+public class SDIdentifierReferenceImpl extends ASTWrapperPsiElement implements SDIdentifierReference {
 
-  public SDKeyImpl(@NotNull ASTNode node) {
+  public SDIdentifierReferenceImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitKey(this);
+    visitor.visitIdentifierReference(this);
   }
 
   @Override

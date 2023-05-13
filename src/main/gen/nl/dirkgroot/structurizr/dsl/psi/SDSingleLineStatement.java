@@ -5,13 +5,10 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDSingleLineStatement extends PsiElement {
+public interface SDSingleLineStatement extends SDStatement {
 
   @NotNull
   List<SDArgument> getArgumentList();
-
-  @Nullable
-  SDIdentifierName getIdentifierName();
 
   @NotNull
   SDKeyword getKeyword();

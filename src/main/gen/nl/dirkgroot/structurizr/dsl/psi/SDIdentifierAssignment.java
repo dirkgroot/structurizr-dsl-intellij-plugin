@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDIdentifierName extends PsiElement {
+public interface SDIdentifierAssignment extends SDStatement {
+
+  @NotNull
+  SDIdentifierReference getIdentifierReference();
 
 }

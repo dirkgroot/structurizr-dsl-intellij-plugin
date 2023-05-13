@@ -10,8 +10,9 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
             """a -> b""",
             """
                 ExplicitRelationship
-                    IdentifierName a
-                    IdentifierName b
+                    RelationshipSource a
+                    RelationshipKeyword ->
+                    RelationshipDestination b
             """.trimIndent()
         )
     }
@@ -22,7 +23,8 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
             """-> b""",
             """
                 ImplicitRelationship
-                    IdentifierName b
+                    RelationshipKeyword ->
+                    RelationshipDestination b
             """.trimIndent()
         )
     }
@@ -33,8 +35,9 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
             """a -> b arg1 arg2""",
             """
                 ExplicitRelationship
-                    IdentifierName a
-                    IdentifierName b
+                    RelationshipSource a
+                    RelationshipKeyword ->
+                    RelationshipDestination b
                     Argument arg1
                     Argument arg2
             """.trimIndent()
@@ -47,7 +50,8 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
             """-> b arg1 arg2""",
             """
                 ImplicitRelationship
-                    IdentifierName b
+                    RelationshipKeyword ->
+                    RelationshipDestination b
                     Argument arg1
                     Argument arg2
             """.trimIndent()

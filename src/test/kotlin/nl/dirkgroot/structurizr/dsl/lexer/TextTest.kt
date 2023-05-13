@@ -9,7 +9,7 @@ import nl.dirkgroot.structurizr.dsl.support.tokenize
 class TextTest : StringSpec({
     "unquoted text" {
         "description unquoted text words".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "unquoted",
             WHITE_SPACE to " ",
@@ -21,7 +21,7 @@ class TextTest : StringSpec({
 
     "quoted text" {
         "description \"unquoted text words\"".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             QUOTED_TEXT to "\"unquoted text words\"",
         )
@@ -29,7 +29,7 @@ class TextTest : StringSpec({
 
     "quoted text without closing quotes" {
         "description \"unquoted text words".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             QUOTED_TEXT to "\"unquoted text words",
         )
@@ -37,7 +37,7 @@ class TextTest : StringSpec({
 
     "quoted text without closing quotes and crlf" {
         "description \"unquoted text words\n".tokenize() shouldContainExactly listOf(
-            DESCRIPTION_KEYWORD to "description",
+            UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             QUOTED_TEXT to "\"unquoted text words",
             CRLF to "\n"

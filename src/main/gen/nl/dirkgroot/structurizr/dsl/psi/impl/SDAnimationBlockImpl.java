@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDKeyValuePairImpl extends ASTWrapperPsiElement implements SDKeyValuePair {
+public class SDAnimationBlockImpl extends SDStatementImpl implements SDAnimationBlock {
 
-  public SDKeyValuePairImpl(@NotNull ASTNode node) {
+  public SDAnimationBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitKeyValuePair(this);
+    visitor.visitAnimationBlock(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class SDKeyValuePairImpl extends ASTWrapperPsiElement implements SDKeyVal
 
   @Override
   @NotNull
-  public SDKey getKey() {
-    return findNotNullChildByClass(SDKey.class);
+  public SDAnimationKeyword getAnimationKeyword() {
+    return findNotNullChildByClass(SDAnimationKeyword.class);
   }
 
   @Override
   @NotNull
-  public SDValue getValue() {
-    return findNotNullChildByClass(SDValue.class);
+  public List<SDStatement> getStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDStatement.class);
   }
 
 }

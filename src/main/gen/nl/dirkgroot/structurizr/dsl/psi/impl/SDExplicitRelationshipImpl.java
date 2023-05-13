@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDExplicitRelationshipImpl extends ASTWrapperPsiElement implements SDExplicitRelationship {
+public class SDExplicitRelationshipImpl extends SDStatementImpl implements SDExplicitRelationship {
 
   public SDExplicitRelationshipImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
     visitor.visitExplicitRelationship(this);
   }
@@ -35,8 +35,20 @@ public class SDExplicitRelationshipImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public List<SDIdentifierName> getIdentifierNameList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierName.class);
+  public SDRelationshipDestination getRelationshipDestination() {
+    return findNotNullChildByClass(SDRelationshipDestination.class);
+  }
+
+  @Override
+  @NotNull
+  public SDRelationshipKeyword getRelationshipKeyword() {
+    return findNotNullChildByClass(SDRelationshipKeyword.class);
+  }
+
+  @Override
+  @NotNull
+  public SDRelationshipSource getRelationshipSource() {
+    return findNotNullChildByClass(SDRelationshipSource.class);
   }
 
 }

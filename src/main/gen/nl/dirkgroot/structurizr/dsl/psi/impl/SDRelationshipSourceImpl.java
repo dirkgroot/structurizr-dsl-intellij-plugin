@@ -11,32 +11,20 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDPropertyBlockStatementImpl extends ASTWrapperPsiElement implements SDPropertyBlockStatement {
+public class SDRelationshipSourceImpl extends ASTWrapperPsiElement implements SDRelationshipSource {
 
-  public SDPropertyBlockStatementImpl(@NotNull ASTNode node) {
+  public SDRelationshipSourceImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitPropertyBlockStatement(this);
+    visitor.visitRelationshipSource(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof SDVisitor) accept((SDVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @NotNull
-  public List<SDKeyValuePair> getKeyValuePairList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDKeyValuePair.class);
-  }
-
-  @Override
-  @NotNull
-  public SDKeywordWithPropertyBlock getKeywordWithPropertyBlock() {
-    return findNotNullChildByClass(SDKeywordWithPropertyBlock.class);
   }
 
 }

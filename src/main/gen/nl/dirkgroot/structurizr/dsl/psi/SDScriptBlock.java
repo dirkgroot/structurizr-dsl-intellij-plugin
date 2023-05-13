@@ -7,10 +7,4 @@ import com.intellij.psi.PsiElement;
 
 public interface SDScriptBlock extends PsiElement {
 
-  @NotNull
-  List<SDArgument> getArgumentList();
-
-  @NotNull
-  SDScriptContents getScriptContents();
-
 }

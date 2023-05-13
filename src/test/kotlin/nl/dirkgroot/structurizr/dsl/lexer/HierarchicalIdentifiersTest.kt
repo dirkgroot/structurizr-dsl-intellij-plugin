@@ -9,17 +9,17 @@ import nl.dirkgroot.structurizr.dsl.support.tokenize
 class HierarchicalIdentifiersTest : StringSpec({
     "one level" {
         "identifier1.child".tokenize() shouldContainExactly listOf(
-            IDENTIFIER to "identifier1.child"
+            UNQUOTED_TEXT to "identifier1.child"
         )
     }
 
     "as relationship destination" {
         "system1.frontend -> system2.backend description".tokenize() shouldContainExactly listOf(
-            IDENTIFIER to "system1.frontend",
+            UNQUOTED_TEXT to "system1.frontend",
             WHITE_SPACE to " ",
-            RELATIONSHIP_KEYWORD to "->",
+            ARROW to "->",
             WHITE_SPACE to " ",
-            IDENTIFIER to "system2.backend",
+            UNQUOTED_TEXT to "system2.backend",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "description"
         )

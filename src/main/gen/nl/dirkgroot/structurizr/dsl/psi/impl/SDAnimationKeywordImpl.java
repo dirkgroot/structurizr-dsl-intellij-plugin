@@ -11,14 +11,14 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDValueImpl extends ASTWrapperPsiElement implements SDValue {
+public class SDAnimationKeywordImpl extends ASTWrapperPsiElement implements SDAnimationKeyword {
 
-  public SDValueImpl(@NotNull ASTNode node) {
+  public SDAnimationKeywordImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitValue(this);
+    visitor.visitAnimationKeyword(this);
   }
 
   @Override

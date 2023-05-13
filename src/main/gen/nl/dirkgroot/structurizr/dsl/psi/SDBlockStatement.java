@@ -5,36 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDBlockStatement extends PsiElement {
+public interface SDBlockStatement extends SDStatement {
 
   @NotNull
   List<SDArgument> getArgumentList();
 
   @NotNull
-  List<SDBlockStatement> getBlockStatementList();
-
-  @NotNull
-  List<SDExplicitRelationship> getExplicitRelationshipList();
-
-  @Nullable
-  SDIdentifierName getIdentifierName();
-
-  @NotNull
-  List<SDIdentifierReferences> getIdentifierReferencesList();
-
-  @NotNull
-  List<SDImplicitRelationship> getImplicitRelationshipList();
+  SDBlock getBlock();
 
   @NotNull
   SDKeyword getKeyword();
-
-  @NotNull
-  List<SDPropertyBlockStatement> getPropertyBlockStatementList();
-
-  @NotNull
-  List<SDScriptBlock> getScriptBlockList();
-
-  @NotNull
-  List<SDSingleLineStatement> getSingleLineStatementList();
 
 }

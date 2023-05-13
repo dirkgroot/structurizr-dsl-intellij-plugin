@@ -8,17 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDScriptContentsImpl extends ASTWrapperPsiElement implements SDScriptContents {
+public class SDLineCommentStatementImpl extends SDStatementImpl implements SDLineCommentStatement {
 
-  public SDScriptContentsImpl(@NotNull ASTNode node) {
+  public SDLineCommentStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitScriptContents(this);
+    visitor.visitLineCommentStatement(this);
   }
 
   @Override

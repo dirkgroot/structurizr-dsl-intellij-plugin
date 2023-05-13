@@ -5,6 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDKeywordWithPropertyBlock extends PsiElement {
+public interface SDScriptDefinition extends SDStatement {
+
+  @NotNull
+  List<SDArgument> getArgumentList();
+
+  @NotNull
+  SDScriptBlock getScriptBlock();
+
+  @NotNull
+  SDScriptKeyword getScriptKeyword();
 
 }

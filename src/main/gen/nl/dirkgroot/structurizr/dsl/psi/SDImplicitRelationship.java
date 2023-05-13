@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDImplicitRelationship extends PsiElement {
+public interface SDImplicitRelationship extends SDStatement {
 
   @NotNull
   List<SDArgument> getArgumentList();
 
   @NotNull
-  SDIdentifierName getIdentifierName();
+  SDRelationshipDestination getRelationshipDestination();
+
+  @NotNull
+  SDRelationshipKeyword getRelationshipKeyword();
 
 }

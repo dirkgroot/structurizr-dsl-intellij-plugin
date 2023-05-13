@@ -5,31 +5,34 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType.WHITE_SPACE
 import com.intellij.psi.formatter.common.AbstractBlock
 import com.intellij.psi.tree.TokenSet
+import nl.dirkgroot.structurizr.dsl.psi.SDStatement
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 
 class SDBlock(
     node: ASTNode,
-    private val spacingBuilder: SpacingBuilder,
-    private val indent: Indent = Indent.getNoneIndent(),
     wrap: Wrap = Wrap.createWrap(WrapType.NONE, false),
-    alignment: Alignment = Alignment.createAlignment()
+    alignment: Alignment? = null,
+    private val spacingBuilder: SpacingBuilder,
+    private val indent: Indent = Indent.getNoneIndent()
 ) : AbstractBlock(node, wrap, alignment) {
-    override fun buildChildren(): MutableList<Block> {
-        val result = mutableListOf<Block>()
-        var child = myNode.firstChildNode
-        while (child != null) {
-            if (child.elementType != WHITE_SPACE && child.elementType != CRLF) {
-                val indent = if (child.elementType in INDENT_TOKEN_TYPES && myNode.treeParent != null)
-                    Indent.getNormalIndent(true)
-                else
-                    Indent.getNoneIndent()
-                val block = SDBlock(child, spacingBuilder, indent)
-                result.add(block)
-            }
-            child = child.treeNext
-        }
-        return result
-    }
+    override fun buildChildren() =
+        if (myNode.elementType == SCRIPT_BLOCK)
+            emptyList()
+        else
+            generateSequence(myNode.firstChildNode) { it.treeNext }
+                .mapNotNull { child ->
+                    if (child.elementType != WHITE_SPACE && child.elementType != CRLF)
+                        SDBlock(child, spacingBuilder = spacingBuilder, indent = calculateIndent(child))
+                    else
+                        null
+                }
+                .toList()
+
+    private fun calculateIndent(child: ASTNode) =
+        if ((child.elementType in INDENT_TOKEN_TYPES || child.psi is SDStatement) && myNode.treeParent != null)
+            Indent.getNormalIndent()
+        else
+            Indent.getNoneIndent()
 
     override fun getIndent() = indent
 
@@ -37,18 +40,13 @@ class SDBlock(
 
     override fun isLeaf() = myNode.firstChildNode == null
 
+    override fun getChildAttributes(newChildIndex: Int) =
+        if (myNode.elementType in INDENT_TOKEN_TYPES || myNode.psi is SDStatement)
+            ChildAttributes(Indent.getNormalIndent(), null)
+        else
+            ChildAttributes(Indent.getNoneIndent(), null)
+
     companion object {
-        private val INDENT_TOKEN_TYPES = TokenSet.create(
-            BLOCK_COMMENT,
-            BLOCK_STATEMENT,
-            EXPLICIT_RELATIONSHIP,
-            IDENTIFIER_REFERENCES,
-            IMPLICIT_RELATIONSHIP,
-            KEY_VALUE_PAIR,
-            LINE_COMMENT,
-            PROPERTY_BLOCK_STATEMENT,
-            SCRIPT_BLOCK,
-            SINGLE_LINE_STATEMENT,
-        )
+        private val INDENT_TOKEN_TYPES = TokenSet.create(PROPERTIES_BLOCK, BLOCK, PROPERTY_DEFINITION)
     }
 }

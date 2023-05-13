@@ -17,6 +17,7 @@ class ElementsWithBlocksOfElementsTest : StructurizrDSLCodeInsightTest() {
                 """
                     BlockStatement
                         Keyword $keyword
+                        Block {\n}
                 """.trimIndent()
             )
         }
@@ -35,6 +36,7 @@ class ElementsWithBlocksOfElementsTest : StructurizrDSLCodeInsightTest() {
                 """
                     BlockStatement
                         Keyword $keyword
+                        Block {\n\n\n}
                 """.trimIndent()
             )
         }
@@ -53,9 +55,10 @@ class ElementsWithBlocksOfElementsTest : StructurizrDSLCodeInsightTest() {
                 """
                     BlockStatement
                         Keyword $keyword
-                        SingleLineStatement
-                            Keyword $elementKeyword
-                            Argument arg1
+                        Block
+                            SingleLineStatement
+                                Keyword $elementKeyword
+                                Argument arg1
                 """.trimIndent()
             )
         }
@@ -77,15 +80,16 @@ class ElementsWithBlocksOfElementsTest : StructurizrDSLCodeInsightTest() {
                 """
                     BlockStatement
                         Keyword $keyword
-                        SingleLineStatement
-                            Keyword $elementKeyword
-                            Argument arg1
-                        SingleLineStatement
-                            Keyword $elementKeyword
-                            Argument arg2
-                        SingleLineStatement
-                            Keyword $elementKeyword
-                            Argument arg3
+                        Block
+                            SingleLineStatement
+                                Keyword $elementKeyword
+                                Argument arg1
+                            SingleLineStatement
+                                Keyword $elementKeyword
+                                Argument arg2
+                            SingleLineStatement
+                                Keyword $elementKeyword
+                                Argument arg3
                 """.trimIndent()
             )
         }
@@ -107,12 +111,15 @@ class ElementsWithBlocksOfElementsTest : StructurizrDSLCodeInsightTest() {
                 """
                     BlockStatement
                         Keyword $keyword
-                        BlockStatement
-                            Keyword $elementKeyword
-                            Argument arg1
-                        BlockStatement
-                            Keyword $elementKeyword
-                            Argument arg2
+                        Block
+                            BlockStatement
+                                Keyword $elementKeyword
+                                Argument arg1
+                                Block {\n    }
+                            BlockStatement
+                                Keyword $elementKeyword
+                                Argument arg2
+                                Block {\n    }
                 """.trimIndent()
             )
         }
