@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDAnimationKeywordImpl extends ASTWrapperPsiElement implements SDAnimationKeyword {
+public class SDAnimationKeywordImpl extends SDKeywordImpl implements SDAnimationKeyword {
 
   public SDAnimationKeywordImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
     visitor.visitAnimationKeyword(this);
   }

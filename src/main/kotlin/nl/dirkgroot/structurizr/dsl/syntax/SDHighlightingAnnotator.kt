@@ -12,9 +12,7 @@ import nl.dirkgroot.structurizr.dsl.psi.*
 class SDHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
-            is SDKeyword, is SDPropertiesKeyword, is SDScriptKeyword, is SDRelationshipKeyword, is SDAnimationKeyword ->
-                holder.createAnnotation(KEYWORD)
-
+            is SDKeyword -> holder.createAnnotation(KEYWORD)
             is SDArgument, is SDPropertyKey, is SDPropertyValue -> holder.createAnnotation(STRING)
             is SDScriptBlock -> holder.createAnnotation(EditorColors.INJECTED_LANGUAGE_FRAGMENT)
             is SDIdentifierReference, is SDRelationshipSource, is SDRelationshipDestination ->

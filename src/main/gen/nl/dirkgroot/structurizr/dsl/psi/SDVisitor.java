@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public class SDVisitor extends PsiElementVisitor {
 
   public void visitAnimationKeyword(@NotNull SDAnimationKeyword o) {
-    visitPsiElement(o);
+    visitKeyword(o);
   }
 
   public void visitAnimationStatement(@NotNull SDAnimationStatement o) {
@@ -64,7 +64,7 @@ public class SDVisitor extends PsiElementVisitor {
   }
 
   public void visitPropertiesKeyword(@NotNull SDPropertiesKeyword o) {
-    visitPsiElement(o);
+    visitKeyword(o);
   }
 
   public void visitPropertiesStatement(@NotNull SDPropertiesStatement o) {
@@ -88,7 +88,7 @@ public class SDVisitor extends PsiElementVisitor {
   }
 
   public void visitRelationshipKeyword(@NotNull SDRelationshipKeyword o) {
-    visitPsiElement(o);
+    visitKeyword(o);
   }
 
   public void visitRelationshipSource(@NotNull SDRelationshipSource o) {
@@ -100,7 +100,7 @@ public class SDVisitor extends PsiElementVisitor {
   }
 
   public void visitScriptKeyword(@NotNull SDScriptKeyword o) {
-    visitPsiElement(o);
+    visitKeyword(o);
   }
 
   public void visitScriptStatement(@NotNull SDScriptStatement o) {

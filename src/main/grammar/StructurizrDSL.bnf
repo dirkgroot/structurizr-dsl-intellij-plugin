@@ -26,6 +26,7 @@
         unquoted_text='regexp:[^\s"\r\n]+'
     ]
 
+    extends(".*Keyword")=keyword
     extends(".*Statement")=statement
 }
 
