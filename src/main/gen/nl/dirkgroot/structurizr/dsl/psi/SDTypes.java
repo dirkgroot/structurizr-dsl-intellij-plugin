@@ -36,7 +36,7 @@ public interface SDTypes {
   IElementType SINGLE_LINE_STATEMENT = new SDElement("SINGLE_LINE_STATEMENT");
   IElementType STATEMENT = new SDElement("STATEMENT");
 
-  IElementType ARROW = new SDToken("ARROW");
+  IElementType ARROW = new SDToken("->");
   IElementType BLOCK_COMMENT = new SDToken("BLOCK_COMMENT");
   IElementType BRACE1 = new SDToken("{");
   IElementType BRACE2 = new SDToken("}");

@@ -453,7 +453,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ARROW
+  // '->'
   public static boolean relationshipKeyword(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "relationshipKeyword")) return false;
     if (!nextTokenIs(b, ARROW)) return false;

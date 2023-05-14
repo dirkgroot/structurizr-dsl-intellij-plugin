@@ -21,6 +21,7 @@
         brace1='{'
         brace2='}'
         equals='='
+        arrow='->'
 
         quoted_text='regexp:"[^"\r\n]*"'
         unquoted_text='regexp:[^\s"\r\n]+'
@@ -46,7 +47,7 @@ statement ::= scriptStatement
 explicitRelationshipStatement ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
 implicitRelationshipStatement ::= relationshipKeyword relationshipDestination argument* block? lf_eof
 relationshipSource ::= UNQUOTED_TEXT
-relationshipKeyword ::= ARROW
+relationshipKeyword ::= '->'
 relationshipDestination ::= UNQUOTED_TEXT
 
 animationStatement ::= animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
