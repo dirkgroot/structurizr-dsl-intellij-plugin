@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+### Added
+- Blocks delimited by `{` and `}` can now be collapsed
+
 ## [0.3.1] - 2023-05-13
 
 ### Changed

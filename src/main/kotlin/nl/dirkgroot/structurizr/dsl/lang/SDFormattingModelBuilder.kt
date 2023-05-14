@@ -9,7 +9,7 @@ class SDFormattingModelBuilder : FormattingModelBuilder {
     override fun createModel(formattingContext: FormattingContext): FormattingModel =
         FormattingModelProvider.createFormattingModelForPsiFile(
             formattingContext.containingFile,
-            SDBlock(formattingContext.node, spacingBuilder = createSpacingBuilder(formattingContext.codeStyleSettings)),
+            SDFormattingBlock(formattingContext.node, spacingBuilder = createSpacingBuilder(formattingContext.codeStyleSettings)),
             formattingContext.codeStyleSettings
         )
 

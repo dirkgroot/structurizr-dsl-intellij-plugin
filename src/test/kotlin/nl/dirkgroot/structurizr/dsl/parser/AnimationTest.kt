@@ -15,8 +15,9 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
             """
                 AnimationStatement
                     AnimationKeyword animation
-                    IdentifierReferencesStatement
-                        IdentifierReference someIdentifier
+                    AnimationBlock
+                        IdentifierReferencesStatement
+                            IdentifierReference someIdentifier
             """.trimIndent()
         )
     }
@@ -32,9 +33,10 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
             """
                 AnimationStatement
                     AnimationKeyword animation
-                    IdentifierReferencesStatement
-                        IdentifierReference someIdentifier1
-                        IdentifierReference someIdentifier2
+                    AnimationBlock
+                        IdentifierReferencesStatement
+                            IdentifierReference someIdentifier1
+                            IdentifierReference someIdentifier2
             """.trimIndent()
         )
     }
@@ -52,13 +54,14 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
             """
                 AnimationStatement
                     AnimationKeyword animation
-                    IdentifierReferencesStatement
-                        IdentifierReference someIdentifier1
-                        IdentifierReference someIdentifier2
-                    IdentifierReferencesStatement
-                        IdentifierReference someIdentifier3
-                    IdentifierReferencesStatement
-                        IdentifierReference someIdentifier4
+                    AnimationBlock
+                        IdentifierReferencesStatement
+                            IdentifierReference someIdentifier1
+                            IdentifierReference someIdentifier2
+                        IdentifierReferencesStatement
+                            IdentifierReference someIdentifier3
+                        IdentifierReferencesStatement
+                            IdentifierReference someIdentifier4
             """.trimIndent()
         )
     }

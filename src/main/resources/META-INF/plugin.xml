@@ -11,18 +11,20 @@
                   fieldName="INSTANCE"
                   language="StructurizrDSL"
                   extensions="dsl"/>
-        <lang.syntaxHighlighterFactory language="StructurizrDSL"
-                                       implementationClass="nl.dirkgroot.structurizr.dsl.syntax.StructurizrDSLSyntaxHighlighterFactory"/>
-        <lang.parserDefinition language="StructurizrDSL"
-                               implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLParserDefinition"/>
-        <lang.formatter language="StructurizrDSL"
-                        implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDFormattingModelBuilder"/>
-        <lang.braceMatcher language="StructurizrDSL"
-                           implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDBraceMatcher"/>
         <annotator language="StructurizrDSL"
                    implementationClass="nl.dirkgroot.structurizr.dsl.syntax.SDHighlightingAnnotator"/>
+        <lang.braceMatcher language="StructurizrDSL"
+                           implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDBraceMatcher"/>
         <lang.commenter language="StructurizrDSL"
                         implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDCommenter"/>
+        <lang.foldingBuilder language="StructurizrDSL"
+                             implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDFoldingBuilder"/>
+        <lang.formatter language="StructurizrDSL"
+                        implementationClass="nl.dirkgroot.structurizr.dsl.lang.SDFormattingModelBuilder"/>
+        <lang.parserDefinition language="StructurizrDSL"
+                               implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="StructurizrDSL"
+                                       implementationClass="nl.dirkgroot.structurizr.dsl.syntax.StructurizrDSLSyntaxHighlighterFactory"/>
     </extensions>
 
     <actions>

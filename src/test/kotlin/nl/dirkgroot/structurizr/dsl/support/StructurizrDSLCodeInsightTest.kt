@@ -18,6 +18,7 @@ abstract class StructurizrDSLCodeInsightTest {
     fun setUp() {
         val fixtureFactory = IdeaTestFixtureFactory.getFixtureFactory()
         fixture = fixtureFactory.createCodeInsightFixture(fixtureFactory.createLightFixtureBuilder("test").fixture)
+        fixture.testDataPath = "src/test/testData"
         fixture.setUp()
         project = fixture.project
     }

@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class SDVisitor extends PsiElementVisitor {
 
+  public void visitAnimationBlock(@NotNull SDAnimationBlock o) {
+    visitBlock(o);
+  }
+
   public void visitAnimationKeyword(@NotNull SDAnimationKeyword o) {
     visitKeyword(o);
   }
@@ -60,7 +64,7 @@ public class SDVisitor extends PsiElementVisitor {
   }
 
   public void visitPropertiesBlock(@NotNull SDPropertiesBlock o) {
-    visitPsiElement(o);
+    visitBlock(o);
   }
 
   public void visitPropertiesKeyword(@NotNull SDPropertiesKeyword o) {
@@ -96,7 +100,7 @@ public class SDVisitor extends PsiElementVisitor {
   }
 
   public void visitScriptBlock(@NotNull SDScriptBlock o) {
-    visitPsiElement(o);
+    visitBlock(o);
   }
 
   public void visitScriptKeyword(@NotNull SDScriptKeyword o) {

@@ -36,12 +36,48 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   public static final TokenSet[] EXTENDS_SETS_ = new TokenSet[] {
+    create_token_set_(ANIMATION_BLOCK, BLOCK, PROPERTIES_BLOCK, SCRIPT_BLOCK),
     create_token_set_(ANIMATION_KEYWORD, KEYWORD, PROPERTIES_KEYWORD, RELATIONSHIP_KEYWORD,
       SCRIPT_KEYWORD),
     create_token_set_(ANIMATION_STATEMENT, BLOCK_COMMENT_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP_STATEMENT,
       IDENTIFIER_ASSIGNMENT_STATEMENT, IDENTIFIER_REFERENCES_STATEMENT, IMPLICIT_RELATIONSHIP_STATEMENT, LINE_COMMENT_STATEMENT,
       PROPERTIES_STATEMENT, SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT, STATEMENT),
   };
+
+  /* ********************************************************** */
+  // '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}'
+  public static boolean animationBlock(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationBlock")) return false;
+    if (!nextTokenIs(b, BRACE1)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokens(b, 0, BRACE1, CRLF);
+    r = r && animationBlock_2(b, l + 1);
+    r = r && consumeToken(b, BRACE2);
+    exit_section_(b, m, ANIMATION_BLOCK, r);
+    return r;
+  }
+
+  // (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)*
+  private static boolean animationBlock_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationBlock_2")) return false;
+    while (true) {
+      int c = current_position_(b);
+      if (!animationBlock_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "animationBlock_2", c)) break;
+    }
+    return true;
+  }
+
+  // identifierReferencesStatement | lineCommentStatement | blockCommentStatement
+  private static boolean animationBlock_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "animationBlock_2_0")) return false;
+    boolean r;
+    r = identifierReferencesStatement(b, l + 1);
+    if (!r) r = lineCommentStatement(b, l + 1);
+    if (!r) r = blockCommentStatement(b, l + 1);
+    return r;
+  }
 
   /* ********************************************************** */
   // 'animation'
@@ -55,38 +91,15 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
+  // animationKeyword animationBlock lf_eof
   public static boolean animationStatement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "animationStatement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, ANIMATION_STATEMENT, "<animation statement>");
     r = animationKeyword(b, l + 1);
-    r = r && consumeTokens(b, 0, BRACE1, CRLF);
-    r = r && animationStatement_3(b, l + 1);
-    r = r && consumeToken(b, BRACE2);
+    r = r && animationBlock(b, l + 1);
     r = r && lf_eof(b, l + 1);
     exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)*
-  private static boolean animationStatement_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "animationStatement_3")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!animationStatement_3_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "animationStatement_3", c)) break;
-    }
-    return true;
-  }
-
-  // identifierReferencesStatement | lineCommentStatement | blockCommentStatement
-  private static boolean animationStatement_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "animationStatement_3_0")) return false;
-    boolean r;
-    r = identifierReferencesStatement(b, l + 1);
-    if (!r) r = lineCommentStatement(b, l + 1);
-    if (!r) r = blockCommentStatement(b, l + 1);
     return r;
   }
 

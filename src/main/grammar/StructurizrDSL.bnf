@@ -27,6 +27,7 @@
         unquoted_text='regexp:[^\s"\r\n]+'
     ]
 
+    extends(".*Block")=block
     extends(".*Keyword")=keyword
     extends(".*Statement")=statement
 }
@@ -50,7 +51,8 @@ relationshipSource ::= UNQUOTED_TEXT
 relationshipKeyword ::= '->'
 relationshipDestination ::= UNQUOTED_TEXT
 
-animationStatement ::= animationKeyword '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}' lf_eof
+animationStatement ::= animationKeyword animationBlock lf_eof
+animationBlock ::= '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}'
 animationKeyword ::= 'animation'
 identifierReferencesStatement ::= identifierReference* CRLF
 

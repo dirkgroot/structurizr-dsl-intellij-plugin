@@ -8,15 +8,15 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDPropertiesBlockImpl extends ASTWrapperPsiElement implements SDPropertiesBlock {
+public class SDPropertiesBlockImpl extends SDBlockImpl implements SDPropertiesBlock {
 
   public SDPropertiesBlockImpl(@NotNull ASTNode node) {
     super(node);
   }
 
+  @Override
   public void accept(@NotNull SDVisitor visitor) {
     visitor.visitPropertiesBlock(this);
   }

@@ -8,7 +8,7 @@ import com.intellij.psi.tree.TokenSet
 import nl.dirkgroot.structurizr.dsl.psi.SDStatement
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 
-class SDBlock(
+class SDFormattingBlock(
     node: ASTNode,
     wrap: Wrap = Wrap.createWrap(WrapType.NONE, false),
     alignment: Alignment? = null,
@@ -22,7 +22,7 @@ class SDBlock(
             generateSequence(myNode.firstChildNode) { it.treeNext }
                 .mapNotNull { child ->
                     if (child.elementType != WHITE_SPACE && child.elementType != CRLF)
-                        SDBlock(child, spacingBuilder = spacingBuilder, indent = calculateIndent(child))
+                        SDFormattingBlock(child, spacingBuilder = spacingBuilder, indent = calculateIndent(child))
                     else
                         null
                 }

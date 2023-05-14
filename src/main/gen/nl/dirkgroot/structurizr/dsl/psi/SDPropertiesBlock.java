@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface SDPropertiesBlock extends PsiElement {
+public interface SDPropertiesBlock extends SDBlock {
 
   @NotNull
   List<SDPropertyDefinition> getPropertyDefinitionList();

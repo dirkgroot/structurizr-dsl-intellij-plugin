@@ -8,9 +8,9 @@ import com.intellij.psi.PsiElement;
 public interface SDAnimationStatement extends SDStatement {
 
   @NotNull
-  SDAnimationKeyword getAnimationKeyword();
+  SDAnimationBlock getAnimationBlock();
 
   @NotNull
-  List<SDStatement> getStatementList();
+  SDAnimationKeyword getAnimationKeyword();
 
 }

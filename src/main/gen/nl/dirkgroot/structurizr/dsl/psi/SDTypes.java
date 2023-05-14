@@ -8,6 +8,7 @@ import nl.dirkgroot.structurizr.dsl.psi.impl.*;
 
 public interface SDTypes {
 
+  IElementType ANIMATION_BLOCK = new SDElement("ANIMATION_BLOCK");
   IElementType ANIMATION_KEYWORD = new SDElement("ANIMATION_KEYWORD");
   IElementType ANIMATION_STATEMENT = new SDElement("ANIMATION_STATEMENT");
   IElementType ARGUMENT = new SDElement("ARGUMENT");
@@ -50,7 +51,10 @@ public interface SDTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-      if (type == ANIMATION_KEYWORD) {
+      if (type == ANIMATION_BLOCK) {
+        return new SDAnimationBlockImpl(node);
+      }
+      else if (type == ANIMATION_KEYWORD) {
         return new SDAnimationKeywordImpl(node);
       }
       else if (type == ANIMATION_STATEMENT) {
