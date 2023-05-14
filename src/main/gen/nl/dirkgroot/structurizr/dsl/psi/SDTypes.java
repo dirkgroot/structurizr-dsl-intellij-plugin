@@ -34,6 +34,7 @@ public interface SDTypes {
   IElementType SCRIPT_KEYWORD = new SDElement("SCRIPT_KEYWORD");
   IElementType SCRIPT_STATEMENT = new SDElement("SCRIPT_STATEMENT");
   IElementType SINGLE_LINE_STATEMENT = new SDElement("SINGLE_LINE_STATEMENT");
+  IElementType STATEMENT = new SDElement("STATEMENT");
 
   IElementType ARROW = new SDToken("ARROW");
   IElementType BLOCK_COMMENT = new SDToken("BLOCK_COMMENT");

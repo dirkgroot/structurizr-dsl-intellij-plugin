@@ -29,10 +29,9 @@
     extends(".*Statement")=statement
 }
 
-structurizrDSLFile ::= expr*
+structurizrDSLFile ::= statement*
 
-private expr ::=
-            scriptStatement
+statement ::= scriptStatement
             | explicitRelationshipStatement
             | implicitRelationshipStatement
             | animationStatement
@@ -42,8 +41,6 @@ private expr ::=
             | singleLineStatement
             | lineCommentStatement
             | blockCommentStatement
-
-fake statement ::= expr
 
 explicitRelationshipStatement ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
 implicitRelationshipStatement ::= relationshipKeyword relationshipDestination argument* block? lf_eof
@@ -73,7 +70,7 @@ identifierAssignmentStatement ::= identifierReference '=' (blockStatement | sing
 identifierReference ::= UNQUOTED_TEXT
 
 blockStatement ::= keyword argument* block lf_eof
-block ::= '{' CRLF expr* '}' {
+block ::= '{' CRLF statement* '}' {
     pin=1
     recoverWhile=blockRecover
 }

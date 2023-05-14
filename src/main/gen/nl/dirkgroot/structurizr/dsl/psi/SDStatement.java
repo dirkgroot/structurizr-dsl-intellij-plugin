@@ -7,7 +7,4 @@ import com.intellij.psi.PsiElement;
 
 public interface SDStatement extends PsiElement {
 
-  @NotNull
-  SDStatement getStatement();
-
 }

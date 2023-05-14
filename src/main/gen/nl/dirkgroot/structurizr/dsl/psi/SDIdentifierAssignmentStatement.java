@@ -10,4 +10,7 @@ public interface SDIdentifierAssignmentStatement extends SDStatement {
   @NotNull
   SDIdentifierReference getIdentifierReference();
 
+  @NotNull
+  SDStatement getStatement();
+
 }

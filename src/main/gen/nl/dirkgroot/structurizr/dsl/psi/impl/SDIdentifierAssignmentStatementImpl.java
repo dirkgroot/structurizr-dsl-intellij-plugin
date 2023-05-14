@@ -33,4 +33,10 @@ public class SDIdentifierAssignmentStatementImpl extends SDStatementImpl impleme
     return findNotNullChildByClass(SDIdentifierReference.class);
   }
 
+  @Override
+  @NotNull
+  public SDStatement getStatement() {
+    return findNotNullChildByClass(SDStatement.class);
+  }
+
 }
