@@ -29,14 +29,8 @@ public class SDPropertyDefinitionImpl extends ASTWrapperPsiElement implements SD
 
   @Override
   @NotNull
-  public SDPropertyKey getPropertyKey() {
-    return findNotNullChildByClass(SDPropertyKey.class);
-  }
-
-  @Override
-  @NotNull
-  public SDPropertyValue getPropertyValue() {
-    return findNotNullChildByClass(SDPropertyValue.class);
+  public List<SDPropertyDefinitionPart> getPropertyDefinitionPartList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDPropertyDefinitionPart.class);
   }
 
 }

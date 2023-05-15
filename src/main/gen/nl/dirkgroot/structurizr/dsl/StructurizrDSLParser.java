@@ -416,38 +416,40 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // propertyKey propertyValue CRLF
+  // propertyDefinitionPart+ CRLF
   public static boolean propertyDefinition(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "propertyDefinition")) return false;
     if (!nextTokenIs(b, "<property definition>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, PROPERTY_DEFINITION, "<property definition>");
-    r = propertyKey(b, l + 1);
-    r = r && propertyValue(b, l + 1);
+    r = propertyDefinition_0(b, l + 1);
     r = r && consumeToken(b, CRLF);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  /* ********************************************************** */
-  // text
-  public static boolean propertyKey(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertyKey")) return false;
-    if (!nextTokenIs(b, "<property key>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
+  // propertyDefinitionPart+
+  private static boolean propertyDefinition_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertyDefinition_0")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PROPERTY_KEY, "<property key>");
-    r = text(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    Marker m = enter_section_(b);
+    r = propertyDefinitionPart(b, l + 1);
+    while (r) {
+      int c = current_position_(b);
+      if (!propertyDefinitionPart(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "propertyDefinition_0", c)) break;
+    }
+    exit_section_(b, m, null, r);
     return r;
   }
 
   /* ********************************************************** */
   // text
-  public static boolean propertyValue(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertyValue")) return false;
-    if (!nextTokenIs(b, "<property value>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
+  public static boolean propertyDefinitionPart(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertyDefinitionPart")) return false;
+    if (!nextTokenIs(b, "<property definition part>", QUOTED_TEXT, UNQUOTED_TEXT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, PROPERTY_VALUE, "<property value>");
+    Marker m = enter_section_(b, l, _NONE_, PROPERTY_DEFINITION_PART, "<property definition part>");
     r = text(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;

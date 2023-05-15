@@ -5,6 +5,10 @@
 ### Added
 - Blocks delimited by `{` and `}` can now be collapsed
 
+### Changed
+- Made parsing property blocks more permissive, so they will always be highlighted as property blocks, regardless of
+  whether a property definition is complete
+
 ## [0.3.1] - 2023-05-13
 
 ### Changed

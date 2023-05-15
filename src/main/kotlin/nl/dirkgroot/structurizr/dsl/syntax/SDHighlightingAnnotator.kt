@@ -13,7 +13,7 @@ class SDHighlightingAnnotator : Annotator {
     override fun annotate(element: PsiElement, holder: AnnotationHolder) {
         when (element) {
             is SDKeyword -> holder.createAnnotation(KEYWORD)
-            is SDArgument, is SDPropertyKey, is SDPropertyValue -> holder.createAnnotation(STRING)
+            is SDArgument, is SDPropertyDefinitionPart -> holder.createAnnotation(STRING)
             is SDScriptBlock -> holder.createAnnotation(EditorColors.INJECTED_LANGUAGE_FRAGMENT)
             is SDIdentifierReference, is SDRelationshipSource, is SDRelationshipDestination ->
                 holder.createAnnotation(IDENTIFIER)

@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface SDPropertyDefinition extends PsiElement {
 
   @NotNull
-  SDPropertyKey getPropertyKey();
-
-  @NotNull
-  SDPropertyValue getPropertyValue();
+  List<SDPropertyDefinitionPart> getPropertyDefinitionPartList();
 
 }

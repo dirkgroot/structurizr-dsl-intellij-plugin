@@ -79,11 +79,7 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitPropertyKey(@NotNull SDPropertyKey o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPropertyValue(@NotNull SDPropertyValue o) {
+  public void visitPropertyDefinitionPart(@NotNull SDPropertyDefinitionPart o) {
     visitPsiElement(o);
   }
 

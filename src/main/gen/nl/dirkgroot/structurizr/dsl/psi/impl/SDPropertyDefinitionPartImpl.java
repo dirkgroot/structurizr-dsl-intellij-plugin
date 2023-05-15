@@ -11,14 +11,14 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import nl.dirkgroot.structurizr.dsl.psi.*;
 
-public class SDPropertyValueImpl extends ASTWrapperPsiElement implements SDPropertyValue {
+public class SDPropertyDefinitionPartImpl extends ASTWrapperPsiElement implements SDPropertyDefinitionPart {
 
-  public SDPropertyValueImpl(@NotNull ASTNode node) {
+  public SDPropertyDefinitionPartImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull SDVisitor visitor) {
-    visitor.visitPropertyValue(this);
+    visitor.visitPropertyDefinitionPart(this);
   }
 
   @Override

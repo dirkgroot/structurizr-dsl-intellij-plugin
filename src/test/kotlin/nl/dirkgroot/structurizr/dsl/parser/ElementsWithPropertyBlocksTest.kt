@@ -57,8 +57,50 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                         PropertiesKeyword $keyword
                         PropertiesBlock
                             PropertyDefinition
-                                PropertyKey key
-                                PropertyValue value
+                                PropertyDefinitionPart key
+                                PropertyDefinitionPart value
+                """.trimIndent()
+            )
+        }
+    }
+
+    @TestFactory
+    fun `block with incomplete property inside`() = KEYWORDS_WITH_PROPERTY_BLOCKS.map { (keyword, _) ->
+        dynamicTest(keyword) {
+            assertPsiTree(
+                """
+                    $keyword {
+                        key
+                    }
+                """.trimIndent(),
+                """
+                    PropertiesStatement
+                        PropertiesKeyword $keyword
+                        PropertiesBlock
+                            PropertyDefinition
+                                PropertyDefinitionPart key
+                """.trimIndent()
+            )
+        }
+    }
+
+    @TestFactory
+    fun `block with overcomplete property inside`() = KEYWORDS_WITH_PROPERTY_BLOCKS.map { (keyword, _) ->
+        dynamicTest(keyword) {
+            assertPsiTree(
+                """
+                    $keyword {
+                        key value extra
+                    }
+                """.trimIndent(),
+                """
+                    PropertiesStatement
+                        PropertiesKeyword $keyword
+                        PropertiesBlock
+                            PropertyDefinition
+                                PropertyDefinitionPart key
+                                PropertyDefinitionPart value
+                                PropertyDefinitionPart extra
                 """.trimIndent()
             )
         }
@@ -81,17 +123,17 @@ class ElementsWithPropertyBlocksTest : StructurizrDSLCodeInsightTest() {
                         PropertiesKeyword $keyword
                         PropertiesBlock
                             PropertyDefinition
-                                PropertyKey key1
-                                PropertyValue value1
+                                PropertyDefinitionPart key1
+                                PropertyDefinitionPart value1
                             PropertyDefinition
-                                PropertyKey key2
-                                PropertyValue "value 2"
+                                PropertyDefinitionPart key2
+                                PropertyDefinitionPart "value 2"
                             PropertyDefinition
-                                PropertyKey "key 3"
-                                PropertyValue value3
+                                PropertyDefinitionPart "key 3"
+                                PropertyDefinitionPart value3
                             PropertyDefinition
-                                PropertyKey "key 4"
-                                PropertyValue "value 4"
+                                PropertyDefinitionPart "key 4"
+                                PropertyDefinitionPart "value 4"
                 """.trimIndent()
             )
         }
