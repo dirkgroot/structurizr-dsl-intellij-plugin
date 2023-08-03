@@ -8,6 +8,7 @@
 ### Changed
 - Made parsing property blocks more permissive, so they will always be highlighted as property blocks, regardless of
   whether a property definition is complete
+- Made the plugin compatible with IntelliJ 2023.2 (fixes #78)
 
 ## [0.3.1] - 2023-05-13
 
