@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.2] - 2023-08-03
+
 ### Added
 - Blocks delimited by `{` and `}` can now be collapsed
 
@@ -59,7 +61,8 @@
 ### Added
 - Token based syntax highlighting
 
-[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.1...HEAD
+[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.2...HEAD
+[0.3.2]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.1...v0.3.1
 [0.2.1]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.1.3-alpha...v0.2.0
