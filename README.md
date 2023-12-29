@@ -15,8 +15,7 @@
 
 <!-- Plugin description -->
 
-Adds [Structurizr DSL](https://github.com/structurizr/dsl/blob/master/docs/language-reference.md) language support to
-IntelliJ.
+Adds [Structurizr DSL](https://docs.structurizr.com/dsl) language support to IntelliJ.
 
 Structurizr DSL is a domain specific language for creating architecture models and diagrams
 using [Simon Brown](https://twitter.com/simonbrown)'s [C4 model](https://c4model.com).
