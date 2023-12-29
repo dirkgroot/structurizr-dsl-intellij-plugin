@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.intellij") version "1.16.1"
     id("org.jetbrains.changelog") version "2.2.0"
     id("org.jetbrains.kotlinx.kover") version "0.7.5"
-    id("org.jetbrains.grammarkit") version "2022.3.2"
+    id("org.jetbrains.grammarkit") version "2022.3.2.1"
 }
 
 group = properties("pluginGroup")
