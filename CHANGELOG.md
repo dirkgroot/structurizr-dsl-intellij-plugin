@@ -1,6 +1,7 @@
 # Structurizr DSL Language Support Changelog
 
 ## [Unreleased]
+- Made the plugin compatible with IntelliJ 2023.3 (fixes #103)
 
 ## [0.3.2] - 2023-08-03
 
