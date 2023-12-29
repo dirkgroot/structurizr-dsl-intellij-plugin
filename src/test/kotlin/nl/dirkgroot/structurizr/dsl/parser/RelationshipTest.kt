@@ -1,11 +1,9 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.Test
 
 class RelationshipTest : StructurizrDSLCodeInsightTest() {
-    @Test
-    fun `explicit without arguments`() {
+    fun `test explicit without arguments`() {
         assertPsiTree(
             """a -> b""",
             """
@@ -17,8 +15,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `implicit without arguments`() {
+    fun `test implicit without arguments`() {
         assertPsiTree(
             """-> b""",
             """
@@ -29,8 +26,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `explicit with arguments`() {
+    fun `test explicit with arguments`() {
         assertPsiTree(
             """a -> b arg1 arg2""",
             """
@@ -44,8 +40,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `explicit relationship with block`() {
+    fun `test explicit relationship with block`() {
         assertPsiTree(
             """
                 a -> b arg1 {
@@ -62,8 +57,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `implicit with arguments`() {
+    fun `test implicit with arguments`() {
         assertPsiTree(
             """-> b arg1 arg2""",
             """
@@ -76,8 +70,7 @@ class RelationshipTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `implicit relationship with block`() {
+    fun `test implicit relationship with block`() {
         assertPsiTree(
             """
                 -> b arg1 {

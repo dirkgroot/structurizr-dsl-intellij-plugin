@@ -1,11 +1,9 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.Test
 
 class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
-    @Test
-    fun `empty script block`() {
+    fun `test empty script block`() {
         assertPsiTree(
             """
                 !script {
@@ -19,8 +17,7 @@ class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `empty script block with arguments`() {
+    fun `test empty script block with arguments`() {
         assertPsiTree(
             """
                 !script kotlin arg2 {
@@ -36,8 +33,7 @@ class ScriptBlockTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `script block with content`() {
+    fun `test script block with content`() {
         assertPsiTree(
             """
                 !script kotlin {

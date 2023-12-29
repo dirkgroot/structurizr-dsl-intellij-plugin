@@ -1,13 +1,14 @@
 package nl.dirkgroot.structurizr.dsl.lexer
 
 import com.intellij.psi.TokenType.WHITE_SPACE
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 import nl.dirkgroot.structurizr.dsl.support.tokenize
+import org.junit.Test
 
-class TextTest : StringSpec({
-    "unquoted text" {
+class TextTest {
+    @Test
+    fun `unquoted text`() {
         "description unquoted text words".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -19,7 +20,8 @@ class TextTest : StringSpec({
         )
     }
 
-    "quoted text" {
+    @Test
+    fun `quoted text`() {
         "description \"unquoted text words\"".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -27,7 +29,8 @@ class TextTest : StringSpec({
         )
     }
 
-    "quoted text without closing quotes" {
+    @Test
+    fun `quoted text without closing quotes`() {
         "description \"unquoted text words".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -35,7 +38,8 @@ class TextTest : StringSpec({
         )
     }
 
-    "quoted text without closing quotes and crlf" {
+    @Test
+    fun `quoted text without closing quotes and crlf`() {
         "description \"unquoted text words\n".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -43,4 +47,4 @@ class TextTest : StringSpec({
             CRLF to "\n"
         )
     }
-})
+}

@@ -1,13 +1,14 @@
 package nl.dirkgroot.structurizr.dsl.lexer
 
 import com.intellij.psi.TokenType.WHITE_SPACE
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 import nl.dirkgroot.structurizr.dsl.support.tokenize
+import org.junit.Test
 
-class MeaningfulLineTerminatorsTest : StringSpec({
-    "carriage return" {
+class MeaningfulLineTerminatorsTest {
+    @Test
+    fun `carriage return`() {
         "description text\r".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -16,7 +17,8 @@ class MeaningfulLineTerminatorsTest : StringSpec({
         )
     }
 
-    "line feed" {
+    @Test
+    fun `line feed`() {
         "description text\n".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -25,7 +27,8 @@ class MeaningfulLineTerminatorsTest : StringSpec({
         )
     }
 
-    "carriage return + line feed" {
+    @Test
+    fun `carriage return + line feed`() {
         "description text\r\n".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to (" "),
@@ -33,4 +36,4 @@ class MeaningfulLineTerminatorsTest : StringSpec({
             CRLF to "\r\n"
         )
     }
-})
+}

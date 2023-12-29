@@ -1,11 +1,9 @@
 package nl.dirkgroot.structurizr.dsl.editing
 
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.Test
 
 class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
-    @Test
-    fun `on a new block`() {
+    fun `test on a new block`() {
         checkEditor(
             """
                 workspace <caret>
@@ -19,8 +17,7 @@ class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `on an existing empty block`() {
+    fun `test on an existing empty block`() {
         checkEditor(
             """
                 workspace {<caret>
@@ -35,8 +32,7 @@ class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `on an existing non-empty block`() {
+    fun `test on an existing non-empty block`() {
         checkEditor(
             """
                 workspace {<caret>
@@ -55,8 +51,7 @@ class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `inside an existing non-empty block`() {
+    fun `test inside an existing non-empty block`() {
         checkEditor(
             """
                 workspace {
@@ -76,8 +71,8 @@ class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
     }
 
     private fun checkEditor(initialState: String, type: String, expectedState: String) {
-        fixture.configureByText("test.dsl", initialState)
-        fixture.type(type)
-        fixture.checkResult(expectedState)
+        myFixture.configureByText("test.dsl", initialState)
+        myFixture.type(type)
+        myFixture.checkResult(expectedState)
     }
 }

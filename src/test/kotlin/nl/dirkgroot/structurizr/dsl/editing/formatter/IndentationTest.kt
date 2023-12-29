@@ -1,10 +1,7 @@
 package nl.dirkgroot.structurizr.dsl.editing.formatter
 
-import org.junit.jupiter.api.Test
-
 class IndentationTest : FormatterTest() {
-    @Test
-    fun `block with single line element`() {
+    fun `test block with single line element`() {
         assertFormattingResult(
             """
                 softwareSystem name description {
@@ -19,8 +16,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `nested blocks`() {
+    fun `test nested blocks`() {
         assertFormattingResult(
             """
                 softwareSystem name description {
@@ -39,8 +35,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `property block`() {
+    fun `test property block`() {
         assertFormattingResult(
             """
                 properties {
@@ -57,8 +52,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `nested property block`() {
+    fun `test nested property block`() {
         assertFormattingResult(
             """
                 softwareSystem system {
@@ -79,8 +73,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `block with assigned identifier`() {
+    fun `test block with assigned identifier`() {
         assertFormattingResult(
             """
                 systemIdentifier = softwareSystem system {
@@ -95,8 +88,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `script block`() {
+    fun `test script block`() {
         assertFormattingResult(
             """
                 !script kotlin {
@@ -111,8 +103,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `nested script block`() {
+    fun `test nested script block`() {
         assertFormattingResult(
             """
                 workspace {
@@ -131,8 +122,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `explicit relationships`() {
+    fun `test explicit relationships`() {
         assertFormattingResult(
             """
                 model {
@@ -151,8 +141,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `implicit relationships`() {
+    fun `test implicit relationships`() {
         assertFormattingResult(
             """
                 model {
@@ -173,8 +162,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `line comments`() {
+    fun `test line comments`() {
         assertFormattingResult(
             """
                 model {
@@ -189,8 +177,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `block comments`() {
+    fun `test block comments`() {
         assertFormattingResult(
             """
                 model {
@@ -209,8 +196,7 @@ class IndentationTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `identifier references`() {
+    fun `test identifier references`() {
         assertFormattingResult(
             """
                 animation {

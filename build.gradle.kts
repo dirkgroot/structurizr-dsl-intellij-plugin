@@ -21,7 +21,11 @@ repositories {
 }
 
 kotlin {
-    jvmToolchain(17)
+    @Suppress("UnstableApiUsage")
+    jvmToolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+        vendor = JvmVendorSpec.JETBRAINS
+    }
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -51,8 +55,6 @@ koverReport {
 sourceSets["main"].java.srcDirs("src/main/gen")
 
 dependencies {
-    testImplementation(kotlin("test"))
-    testImplementation("io.kotest:kotest-runner-junit5:5.8.0")
     testImplementation("io.kotest:kotest-assertions-core:5.8.0")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.0")
 }
@@ -60,10 +62,6 @@ dependencies {
 tasks {
     wrapper {
         gradleVersion = properties("gradleVersion")
-    }
-
-    test {
-        useJUnitPlatform()
     }
 
     withType<KotlinCompile> {

@@ -2,70 +2,72 @@ package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.lexer.KEYWORDS
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.DynamicTest.dynamicTest
-import org.junit.jupiter.api.TestFactory
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-class IdentifierAssignmentTest : StructurizrDSLCodeInsightTest() {
-    @TestFactory
-    fun `identifier assignment to single line element`() = KEYWORDS.map { (keyword, _) ->
-        dynamicTest(keyword) {
-            assertPsiTree(
-                """identifier = $keyword blaat""",
-                """
-                    IdentifierAssignmentStatement
-                        IdentifierReference identifier
-                        SingleLineStatement
-                            Keyword $keyword
-                            Argument blaat
-                """.trimIndent()
-            )
-        }
+@RunWith(Parameterized::class)
+class IdentifierAssignmentTest(private val keyword: String) : StructurizrDSLCodeInsightTest() {
+    companion object {
+        @Parameterized.Parameters
+        @JvmStatic
+        fun keywords(): Collection<Array<Any>> = KEYWORDS.map { (keyword, _) -> arrayOf(keyword) }
     }
 
-    @TestFactory
-    fun `identifier assignment to block element`() = KEYWORDS.map { (keyword, _) ->
-        dynamicTest(keyword) {
-            assertPsiTree(
-                """
-                    identifier = softwareSystem blaat {
-                        container containerName
-                    }
-                """.trimIndent(),
-                """
-                    IdentifierAssignmentStatement
-                        IdentifierReference identifier
-                        BlockStatement
-                            Keyword softwareSystem
-                            Argument blaat
-                            Block
-                                SingleLineStatement
-                                    Keyword container
-                                    Argument containerName
-                 """.trimIndent()
-            )
-        }
+    @Test
+    fun `identifier assignment to single line element`() {
+        assertPsiTree(
+            """identifier = $keyword blaat""",
+            """
+                IdentifierAssignmentStatement
+                    IdentifierReference identifier
+                    SingleLineStatement
+                        Keyword $keyword
+                        Argument blaat
+            """.trimIndent()
+        )
     }
 
-    @TestFactory
-    fun `identifier assignment inside block`() = KEYWORDS.map { (keyword, _) ->
-        dynamicTest(keyword) {
-            assertPsiTree(
-                """
-                    model {
-                        identifier = softwareSystem name
-                    }
-                """.trimIndent(),
-                """
+    @Test
+    fun `identifier assignment to block element`() {
+        assertPsiTree(
+            """
+                identifier = softwareSystem blaat {
+                    container containerName
+                }
+            """.trimIndent(),
+            """
+                IdentifierAssignmentStatement
+                    IdentifierReference identifier
                     BlockStatement
-                        Keyword model
+                        Keyword softwareSystem
+                        Argument blaat
                         Block
-                            IdentifierAssignmentStatement
-                                IdentifierReference identifier
-                                SingleLineStatement
-                                    Keyword softwareSystem
-                                    Argument name
-                """.trimIndent()
-            )
-        }
+                            SingleLineStatement
+                                Keyword container
+                                Argument containerName
+             """.trimIndent()
+        )
+    }
+
+    @Test
+    fun `identifier assignment inside block`() {
+        assertPsiTree(
+            """
+                model {
+                    identifier = softwareSystem name
+                }
+            """.trimIndent(),
+            """
+                BlockStatement
+                    Keyword model
+                    Block
+                        IdentifierAssignmentStatement
+                            IdentifierReference identifier
+                            SingleLineStatement
+                                Keyword softwareSystem
+                                Argument name
+            """.trimIndent()
+        )
     }
 }

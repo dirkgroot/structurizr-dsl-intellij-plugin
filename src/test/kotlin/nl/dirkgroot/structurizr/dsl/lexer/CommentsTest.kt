@@ -1,13 +1,14 @@
 package nl.dirkgroot.structurizr.dsl.lexer
 
 import com.intellij.psi.TokenType.WHITE_SPACE
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 import nl.dirkgroot.structurizr.dsl.support.tokenize
+import org.junit.Test
 
-class CommentsTest : StringSpec({
-    "full line comment" {
+class CommentsTest {
+    @Test
+    fun `full line comment`() {
         "//".tokenize() shouldContainExactly listOf(LINE_COMMENT to "//")
         "#".tokenize() shouldContainExactly listOf(LINE_COMMENT to "#")
         "//\n".tokenize() shouldContainExactly listOf(LINE_COMMENT to "//", CRLF to "\n")
@@ -18,7 +19,8 @@ class CommentsTest : StringSpec({
         "// line comment\n".tokenize() shouldContainExactly listOf(LINE_COMMENT to "// line comment", CRLF to "\n")
     }
 
-    "line comment after other tokens" {
+    @Test
+    fun `line comment after other tokens`() {
         "description text // comment\n".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -31,7 +33,8 @@ class CommentsTest : StringSpec({
         )
     }
 
-    "block comment" {
+    @Test
+    fun `block comment`() {
         "/* */".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* */")
         "/* **/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* **/")
         "/*\n*/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/*\n*/")
@@ -39,7 +42,8 @@ class CommentsTest : StringSpec({
         "/* text\n*/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* text\n*/")
     }
 
-    "block comment between other tokens" {
+    @Test
+    fun `block comment between other tokens`() {
         "description /* */ text".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
@@ -51,7 +55,8 @@ class CommentsTest : StringSpec({
         )
     }
 
-    "block comment between other tokens on successive lines" {
+    @Test
+    fun `block comment between other tokens on successive lines`() {
         """
             description text /* */
             description
@@ -68,7 +73,8 @@ class CommentsTest : StringSpec({
         )
     }
 
-    "unterminated block comment" {
+    @Test
+    fun `unterminated block comment`() {
         """
             /*
             workspace
@@ -76,4 +82,4 @@ class CommentsTest : StringSpec({
             BLOCK_COMMENT to "/*\nworkspace",
         )
     }
-})
+}

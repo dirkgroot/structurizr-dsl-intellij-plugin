@@ -1,16 +1,13 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.Test
 
 class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
-    @Test
-    fun `empty line`() {
+    fun `test empty line`() {
         assertPsiTree("\n", """PsiWhiteSpace \n""")
     }
 
-    @Test
-    fun `empty lines`() {
+    fun `test empty lines`() {
         assertPsiTree(
             "\n\n",
             """
@@ -20,8 +17,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `line comment`() {
+    fun `test line comment`() {
         assertPsiTree(
             "// comment",
             """
@@ -30,8 +26,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `line comments`() {
+    fun `test line comments`() {
         assertPsiTree(
             """
                 // comment
@@ -44,8 +39,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `line comment with trailing newline`() {
+    fun `test line comment with trailing newline`() {
         assertPsiTree(
             "// comment\n",
             """
@@ -54,8 +48,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `block comment single line`() {
+    fun `test block comment single line`() {
         assertPsiTree(
             "/* block comment */",
             """
@@ -64,8 +57,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `block comment multiple lines`() {
+    fun `test block comment multiple lines`() {
         assertPsiTree(
             """
                 /* block

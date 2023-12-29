@@ -1,11 +1,9 @@
 package nl.dirkgroot.structurizr.dsl.parser
 
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.Test
 
 class AnimationTest : StructurizrDSLCodeInsightTest() {
-    @Test
-    fun `single identifier reference on one line`() {
+    fun `test single identifier reference on one line`() {
         assertPsiTree(
             """
                 animation {
@@ -22,8 +20,7 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `multiple identifier references on one line`() {
+    fun `test multiple identifier references on one line`() {
         assertPsiTree(
             """
                 animation {
@@ -41,8 +38,7 @@ class AnimationTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `multiple lines with identifier references`() {
+    fun `test multiple lines with identifier references`() {
         assertPsiTree(
             """
                 animation {

@@ -1,22 +1,33 @@
 package nl.dirkgroot.structurizr.dsl.lexer
 
 import com.intellij.psi.TokenType.WHITE_SPACE
+import com.intellij.psi.tree.IElementType
 import io.kotest.matchers.collections.shouldContainExactly
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 import nl.dirkgroot.structurizr.dsl.support.tokenize
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.Parameterized
 
-class PropertiesTest {
+@RunWith(Parameterized::class)
+class KeywordsWithPropertyBlocksTest(private val keyword: String, private val token: IElementType) {
+    companion object {
+        @Parameterized.Parameters
+        @JvmStatic
+        fun keywords(): Collection<Array<Any>> =
+            KEYWORDS_WITH_PROPERTY_BLOCKS.map { (keyword, token) -> arrayOf(keyword, token) }
+    }
+
     @Test
     fun `properties block`() {
         """
-            properties {
+            $keyword {
                 name value
                 "quoted name" "quoted value"
                 properties description
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            UNQUOTED_TEXT to "properties",
+            token to keyword,
             WHITE_SPACE to " ",
             BRACE1 to "{",
             CRLF to "\n",
@@ -42,12 +53,12 @@ class PropertiesTest {
     @Test
     fun `properties block with line comments`() {
         """
-            properties {
+            $keyword {
                 // line comment
                 name value // line comment
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            UNQUOTED_TEXT to "properties",
+            token to keyword,
             WHITE_SPACE to " ",
             BRACE1 to "{",
             CRLF to "\n",
@@ -72,7 +83,7 @@ class PropertiesTest {
     @Test
     fun `properties block with block comments`() {
         """
-            properties {
+            $keyword {
                 /* block comment */
                 name value /* block comment */
                 name /* block comment */ value
@@ -80,7 +91,7 @@ class PropertiesTest {
                    comment */
             }
         """.trimIndent().tokenize() shouldContainExactly listOf(
-            UNQUOTED_TEXT to "properties",
+            token to keyword,
             WHITE_SPACE to " ",
             BRACE1 to "{",
             CRLF to "\n",

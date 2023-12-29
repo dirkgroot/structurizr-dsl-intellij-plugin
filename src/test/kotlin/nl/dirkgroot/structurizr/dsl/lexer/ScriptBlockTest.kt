@@ -1,13 +1,14 @@
 package nl.dirkgroot.structurizr.dsl.lexer
 
 import com.intellij.psi.TokenType.WHITE_SPACE
-import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.collections.shouldContainExactly
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 import nl.dirkgroot.structurizr.dsl.support.tokenize
+import org.junit.Test
 
-class ScriptBlockTest : StringSpec({
-    "arguments, no block" {
+class ScriptBlockTest {
+    @Test
+    fun `arguments, no block`() {
         "!script kotlin arg2 arg3".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "!script",
             WHITE_SPACE to " ",
@@ -19,7 +20,8 @@ class ScriptBlockTest : StringSpec({
         )
     }
 
-    "no arguments, block" {
+    @Test
+    fun `no arguments, block`() {
         """
             !script {
                 some arbitrary code
@@ -33,7 +35,8 @@ class ScriptBlockTest : StringSpec({
         )
     }
 
-    "arguments, block" {
+    @Test
+    fun `arguments, block`() {
         """
             !script kotlin {
                 some arbitrary code
@@ -49,7 +52,8 @@ class ScriptBlockTest : StringSpec({
         )
     }
 
-    "indented block" {
+    @Test
+    fun `indented block`() {
         """
             |    !script {
             |        some arbitrary code
@@ -63,4 +67,4 @@ class ScriptBlockTest : StringSpec({
             BRACE2 to "}"
         )
     }
-})
+}

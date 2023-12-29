@@ -1,18 +1,14 @@
 package nl.dirkgroot.structurizr.dsl.editing.formatter
 
-import org.junit.jupiter.api.Test
-
 class SpacingTest : FormatterTest() {
-    @Test
-    fun arguments() {
+    fun `test arguments`() {
         assertFormattingResult(
             "softwareSystem  name  description",
             "softwareSystem name description"
         )
     }
 
-    @Test
-    fun `key value pair`() {
+    fun `test key value pair`() {
         assertFormattingResult(
             """
                 properties {
@@ -29,8 +25,7 @@ class SpacingTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `identifier assignment`() {
+    fun `test identifier assignment`() {
         assertFormattingResult(
             """
                 a   =   softwareSystem system
@@ -41,16 +36,14 @@ class SpacingTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `identifier references`() {
+    fun `test identifier references`() {
         assertFormattingResult(
             "a    b   c",
             "a b c"
         )
     }
 
-    @Test
-    fun relationships() {
+    fun `test relationships`() {
         assertFormattingResult(
             """
                 a   ->  b   Uses
@@ -63,8 +56,7 @@ class SpacingTest : FormatterTest() {
         )
     }
 
-    @Test
-    fun `before opening brace`() {
+    fun `test before opening brace`() {
         assertFormattingResult(
             """
                 properties    {

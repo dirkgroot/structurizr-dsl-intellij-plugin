@@ -1,16 +1,13 @@
 package nl.dirkgroot.structurizr.dsl.editing
 
 import nl.dirkgroot.structurizr.dsl.support.StructurizrDSLCodeInsightTest
-import org.junit.jupiter.api.Test
 
 class HighlightingAnnotatorTest : StructurizrDSLCodeInsightTest() {
-    @Test
-    fun `generic keyword`() {
+    fun `test generic keyword`() {
         checkHighlighting("${asKeyword("softwareSystem")} name")
     }
 
-    @Test
-    fun `properties keyword`() {
+    fun `test properties keyword`() {
         checkHighlighting(
             """
                 ${asKeyword("properties")} {
@@ -19,8 +16,7 @@ class HighlightingAnnotatorTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `script keyword`() {
+    fun `test script keyword`() {
         checkHighlighting(
             """
                 ${asKeyword("!script")} kotlin {
@@ -29,8 +25,7 @@ class HighlightingAnnotatorTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `script contents`() {
+    fun `test script contents`() {
         checkHighlighting(
             """
                 !script kotlin ${highlight("{\nsome kotlin code\n}", "INJECTED_LANGUAGE_FRAGMENT")}
@@ -38,13 +33,11 @@ class HighlightingAnnotatorTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `relationship keyword`() {
+    fun `test relationship keyword`() {
         checkHighlighting("a ${asKeyword("->")} b uses")
     }
 
-    @Test
-    fun `animation keyword`() {
+    fun `test animation keyword`() {
         checkHighlighting(
             """
                 ${asKeyword("animation")} {
@@ -53,27 +46,24 @@ class HighlightingAnnotatorTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun arguments() {
+    fun `test arguments`() {
         checkHighlighting("container ${asString("unquoted")} ${asString("\"quoted\"")}")
     }
 
-    @Test
-    fun `property definitions`() {
+    fun `test property definitions`() {
         checkHighlighting(
             """
                 properties {
-                    ${asString("key1")} ${asString("value1")}   
-                    ${asString("\"key 2\"")} ${asString("value2")}   
-                    ${asString("key3")} ${asString("\"value 3\"")}   
-                    ${asString("\"key 4\"")} ${asString("\"value 4\"")}   
+                    ${asString("key1")} ${asString("value1")}
+                    ${asString("\"key 2\"")} ${asString("value2")}
+                    ${asString("key3")} ${asString("\"value 3\"")}
+                    ${asString("\"key 4\"")} ${asString("\"value 4\"")}
                 }
             """.trimIndent()
         )
     }
 
-    @Test
-    fun `relationship identifiers`() {
+    fun `test relationship identifiers`() {
         checkHighlighting(
             """
                 -> ${asIdentifier("destination")} uses
@@ -82,14 +72,13 @@ class HighlightingAnnotatorTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
-    @Test
-    fun `identifier definition`() {
+    fun `test identifier definition`() {
         checkHighlighting("${asIdentifier("someId")} = container name")
     }
 
     private fun checkHighlighting(code: String) {
-        fixture.configureByText("test.dsl", code)
-        fixture.checkHighlighting(false, true, false, true)
+        myFixture.configureByText("test.dsl", code)
+        myFixture.checkHighlighting(false, true, false, true)
     }
 
     private fun asKeyword(keyword: String) = highlight(keyword, "DEFAULT_KEYWORD")
