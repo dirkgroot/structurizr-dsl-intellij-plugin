@@ -27,6 +27,7 @@ public interface SDTypes {
   IElementType PROPERTIES_STATEMENT = new SDElement("PROPERTIES_STATEMENT");
   IElementType PROPERTY_DEFINITION = new SDElement("PROPERTY_DEFINITION");
   IElementType PROPERTY_DEFINITION_PART = new SDElement("PROPERTY_DEFINITION_PART");
+  IElementType RAW_BLOCK_STATEMENT = new SDElement("RAW_BLOCK_STATEMENT");
   IElementType RELATIONSHIP_DESTINATION = new SDElement("RELATIONSHIP_DESTINATION");
   IElementType RELATIONSHIP_KEYWORD = new SDElement("RELATIONSHIP_KEYWORD");
   IElementType RELATIONSHIP_SOURCE = new SDElement("RELATIONSHIP_SOURCE");
@@ -106,6 +107,9 @@ public interface SDTypes {
       }
       else if (type == PROPERTY_DEFINITION_PART) {
         return new SDPropertyDefinitionPartImpl(node);
+      }
+      else if (type == RAW_BLOCK_STATEMENT) {
+        return new SDRawBlockStatementImpl(node);
       }
       else if (type == RELATIONSHIP_DESTINATION) {
         return new SDRelationshipDestinationImpl(node);

@@ -42,6 +42,7 @@ statement ::= scriptStatement
             | identifierAssignmentStatement
             | blockStatement
             | singleLineStatement
+            | rawBlockStatement
             | lineCommentStatement
             | blockCommentStatement
 
@@ -74,6 +75,7 @@ identifierAssignmentStatement ::= identifierReference '=' (blockStatement | sing
 identifierReference ::= UNQUOTED_TEXT
 
 blockStatement ::= keyword argument* block lf_eof
+rawBlockStatement ::= block lf_eof
 block ::= '{' CRLF statement* '}' {
     pin=1
     recoverWhile=blockRecover

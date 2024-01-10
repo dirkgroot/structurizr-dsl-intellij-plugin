@@ -41,7 +41,8 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
       SCRIPT_KEYWORD),
     create_token_set_(ANIMATION_STATEMENT, BLOCK_COMMENT_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP_STATEMENT,
       IDENTIFIER_ASSIGNMENT_STATEMENT, IDENTIFIER_REFERENCES_STATEMENT, IMPLICIT_RELATIONSHIP_STATEMENT, LINE_COMMENT_STATEMENT,
-      PROPERTIES_STATEMENT, SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT, STATEMENT),
+      PROPERTIES_STATEMENT, RAW_BLOCK_STATEMENT, SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT,
+      STATEMENT),
   };
 
   /* ********************************************************** */
@@ -467,6 +468,19 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // block lf_eof
+  public static boolean rawBlockStatement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "rawBlockStatement")) return false;
+    if (!nextTokenIs(b, BRACE1)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = block(b, l + 1);
+    r = r && lf_eof(b, l + 1);
+    exit_section_(b, m, RAW_BLOCK_STATEMENT, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // UNQUOTED_TEXT
   public static boolean relationshipDestination(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "relationshipDestination")) return false;
@@ -584,6 +598,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   //             | identifierAssignmentStatement
   //             | blockStatement
   //             | singleLineStatement
+  //             | rawBlockStatement
   //             | lineCommentStatement
   //             | blockCommentStatement
   public static boolean statement(PsiBuilder b, int l) {
@@ -598,6 +613,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     if (!r) r = identifierAssignmentStatement(b, l + 1);
     if (!r) r = blockStatement(b, l + 1);
     if (!r) r = singleLineStatement(b, l + 1);
+    if (!r) r = rawBlockStatement(b, l + 1);
     if (!r) r = lineCommentStatement(b, l + 1);
     if (!r) r = blockCommentStatement(b, l + 1);
     exit_section_(b, l, m, r, false, null);

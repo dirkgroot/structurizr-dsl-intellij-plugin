@@ -70,6 +70,22 @@ class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
         )
     }
 
+    fun `test on a raw block`() {
+        checkEditor(
+            """
+                dynamic * {
+                    <caret>
+                }
+            """.trimIndent(),
+            "{",
+            """
+                dynamic * {
+                    {<caret>}
+                }
+            """.trimIndent()
+        )
+    }
+
     private fun checkEditor(initialState: String, type: String, expectedState: String) {
         myFixture.configureByText("test.dsl", initialState)
         myFixture.type(type)

@@ -83,6 +83,10 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitRawBlockStatement(@NotNull SDRawBlockStatement o) {
+    visitStatement(o);
+  }
+
   public void visitRelationshipDestination(@NotNull SDRelationshipDestination o) {
     visitPsiElement(o);
   }

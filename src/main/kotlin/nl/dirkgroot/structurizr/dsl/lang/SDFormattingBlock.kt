@@ -5,6 +5,7 @@ import com.intellij.lang.ASTNode
 import com.intellij.psi.TokenType.WHITE_SPACE
 import com.intellij.psi.formatter.common.AbstractBlock
 import com.intellij.psi.tree.TokenSet
+import nl.dirkgroot.structurizr.dsl.psi.SDRawBlockStatement
 import nl.dirkgroot.structurizr.dsl.psi.SDStatement
 import nl.dirkgroot.structurizr.dsl.psi.SDTypes.*
 
@@ -29,7 +30,9 @@ class SDFormattingBlock(
                 .toList()
 
     private fun calculateIndent(child: ASTNode) =
-        if ((child.elementType in INDENT_TOKEN_TYPES || child.psi is SDStatement) && myNode.treeParent != null)
+        if ((child.elementType in INDENT_TOKEN_TYPES || child.psi is SDStatement) &&
+            myNode.treeParent != null && child.psi !is SDRawBlockStatement
+        )
             Indent.getNormalIndent()
         else
             Indent.getNoneIndent()
