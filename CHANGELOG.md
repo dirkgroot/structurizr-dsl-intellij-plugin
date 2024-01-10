@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.3.4] - 2024-01-10
+
 ### Fixed
 
 - Allow line and block comments inside `properties`, `perspectives` and `users` blocks
@@ -82,7 +84,8 @@
 
 - Token based syntax highlighting
 
-[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.3...HEAD
+[Unreleased]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.4...HEAD
+[0.3.4]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.3...v0.3.4
 [0.3.3]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.2...v0.3.3
 [0.3.2]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.3.1...v0.3.2
 [0.3.1]: https://github.com/dirkgroot/structurizr-dsl-intellij-plugin/compare/v0.2.1...v0.3.1
