@@ -49,6 +49,40 @@ class ElementsWithPropertyBlocksTest(private val keyword: String) : StructurizrD
     }
 
     @Test
+    fun `block with line comment inside`() {
+        assertPsiTree(
+            """
+                $keyword {
+                    // line comment
+                }
+            """.trimIndent(),
+            """
+                PropertiesStatement
+                    PropertiesKeyword $keyword
+                    PropertiesBlock
+                        LineCommentStatement // line comment\n
+            """.trimIndent()
+        )
+    }
+
+    @Test
+    fun `block with block comment inside`() {
+        assertPsiTree(
+            """
+                $keyword {
+                    /* block comment */
+                }
+            """.trimIndent(),
+            """
+                PropertiesStatement
+                    PropertiesKeyword $keyword
+                    PropertiesBlock
+                        BlockCommentStatement /* block comment */\n
+            """.trimIndent()
+        )
+    }
+
+    @Test
     fun `block with single property inside`() {
         assertPsiTree(
             """

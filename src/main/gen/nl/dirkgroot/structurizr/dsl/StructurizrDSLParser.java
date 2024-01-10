@@ -365,7 +365,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '{' CRLF propertyDefinition* '}'
+  // '{' CRLF propertiesBlockElement* '}'
   public static boolean propertiesBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "propertiesBlock")) return false;
     if (!nextTokenIs(b, BRACE1)) return false;
@@ -378,15 +378,26 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // propertyDefinition*
+  // propertiesBlockElement*
   private static boolean propertiesBlock_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "propertiesBlock_2")) return false;
     while (true) {
       int c = current_position_(b);
-      if (!propertyDefinition(b, l + 1)) break;
+      if (!propertiesBlockElement(b, l + 1)) break;
       if (!empty_element_parsed_guard_(b, "propertiesBlock_2", c)) break;
     }
     return true;
+  }
+
+  /* ********************************************************** */
+  // propertyDefinition | lineCommentStatement | blockCommentStatement
+  static boolean propertiesBlockElement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "propertiesBlockElement")) return false;
+    boolean r;
+    r = propertyDefinition(b, l + 1);
+    if (!r) r = lineCommentStatement(b, l + 1);
+    if (!r) r = blockCommentStatement(b, l + 1);
+    return r;
   }
 
   /* ********************************************************** */

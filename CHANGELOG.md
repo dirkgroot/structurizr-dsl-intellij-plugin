@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- Allow line and block comments inside `properties`, `perspectives` and `users` blocks
+
 ## [0.3.3] - 2023-12-29
 
 - Made the plugin compatible with IntelliJ 2023.3 (fixes #103)

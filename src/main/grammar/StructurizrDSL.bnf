@@ -65,7 +65,8 @@ scriptBlock ::= '{' SCRIPT_TEXT '}'
 
 propertiesStatement ::= propertiesKeyword propertiesBlock lf_eof
 propertiesKeyword ::= 'perspectives' | 'properties' | 'users'
-propertiesBlock ::= '{' CRLF propertyDefinition* '}'
+propertiesBlock ::= '{' CRLF propertiesBlockElement* '}'
+private propertiesBlockElement ::= propertyDefinition | lineCommentStatement | blockCommentStatement
 propertyDefinition ::= propertyDefinitionPart+ CRLF
 propertyDefinitionPart ::= text
 
