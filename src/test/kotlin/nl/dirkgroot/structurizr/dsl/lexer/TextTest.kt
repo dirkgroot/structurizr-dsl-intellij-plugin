@@ -47,4 +47,13 @@ class TextTest {
             CRLF to "\n"
         )
     }
+
+    @Test
+    fun `unquoted text with curly braces inside`() {
+        "description ${"$"}{SOME_CONSTANT}".tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "description",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "${"$"}{SOME_CONSTANT}"
+        )
+    }
 }

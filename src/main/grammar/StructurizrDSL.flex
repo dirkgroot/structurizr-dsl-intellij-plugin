@@ -44,7 +44,7 @@ CRLF=\r|\n|\r\n
 WHITE_SPACE=[\ \t\f]+
 
 QUOTED_TEXT=\" [^\"\r\n]* \"?
-UNQUOTED_TEXT=[^\s\"\r\n{}]+
+UNQUOTED_TEXT=[^\s\"\r\n]+
 
 LINE_COMMENT=("//"|"#") [^\r\n]*
 BLOCK_COMMENT="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
@@ -68,6 +68,7 @@ SCRIPT_TEXT=[^\r\n{}]+
 <EXPECT_NON_COMMENT> {
 "{"                      { return BRACE1; }
 "}"                      { return BRACE2; }
+"{}"                     { yypushback(1); return BRACE1;}
 "="                      { return EQUALS; }
 "->"                     { return ARROW; }
 

@@ -15,4 +15,12 @@ class BracesTest {
     fun `closing brace`() {
         "}".tokenize() shouldContainExactly listOf(SDTypes.BRACE2 to "}")
     }
+
+    @Test
+    fun `opening and closing brace`() {
+        "{}".tokenize() shouldContainExactly listOf(
+            SDTypes.BRACE1 to "{",
+            SDTypes.BRACE2 to "}"
+        )
+    }
 }

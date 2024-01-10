@@ -5,6 +5,7 @@
 ### Fixed
 
 - Allow line and block comments inside `properties`, `perspectives` and `users` blocks
+- Parser error when using unquoted arguments containing curly braces (fixes #58)
 
 ## [0.3.3] - 2023-12-29
 
