@@ -43,10 +43,16 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 CrLf=\r|\n|\r\n
 WhiteSpace=[\ \t\f]+
 
+_MultiLineSeparator=\\\R
+// Dot (.) matches [^\r\n\u2028\u2029\u000B\u000C\u0085]
+// see https://jflex.de/manual.html#Semantics
+_EscapedSymbol=\\.
+_NonCrLf=([^\r\n\\]|{_MultiLineSeparator}|{_EscapedSymbol})
+
 QuotedText=\" [^\"\r\n]* \"?
 UnquotedText=[^\s\"\r\n]+
 
-LineComment=("//"|"#") [^\r\n]*
+LineComment=("//"|"#") {_NonCrLf}*
 BlockComment="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
 
 ScriptText=[^\r\n{}]+

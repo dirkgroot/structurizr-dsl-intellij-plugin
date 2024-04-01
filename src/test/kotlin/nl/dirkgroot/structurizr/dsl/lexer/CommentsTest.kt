@@ -16,6 +16,7 @@ class CommentsTest {
         "//   ".tokenize() shouldContainExactly listOf(LINE_COMMENT to "//   ")
         "//   \n".tokenize() shouldContainExactly listOf(LINE_COMMENT to "//   ", CRLF to "\n")
         "// line comment".tokenize() shouldContainExactly listOf(LINE_COMMENT to "// line comment")
+        "// li\\\n  ne \\\n   com\\\n  ment".tokenize() shouldContainExactly listOf(LINE_COMMENT to "// li\\\n  ne \\\n   com\\\n  ment")
         "// line comment\n".tokenize() shouldContainExactly listOf(LINE_COMMENT to "// line comment", CRLF to "\n")
     }
 
