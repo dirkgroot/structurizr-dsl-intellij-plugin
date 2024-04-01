@@ -37,8 +37,8 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 %type IElementType
 %unicode
 
-%state EXPECT_NON_COMMENT EXPECT_SCRIPT_ARGUMENTS EXPECT_SCRIPT
-%xstate BLOCK_COMMENT_BODY
+%state EXPECT_NON_COMMENT EXPECT_SCRIPT_ARGUMENTS
+%xstate BLOCK_COMMENT_BODY EXPECT_SCRIPT
 
 EOL=[\r\n]
 NonEOL=[^{EOL}]
