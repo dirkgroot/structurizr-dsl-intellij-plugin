@@ -44,11 +44,9 @@ EOL=[\r\n]
 NonEOL=[^{EOL}]
 CrLf=\r\n|{EOL}
 Space=[\p{Whitespace}--{EOL}]
-WhiteSpace={Space}+
-
 MultiLineSeparator=\\{CrLf}
-
 SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
+WhiteSpace={Space}{SpaceOrMultiLineSeparator}*
 MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
 
 EscapedSymbol=\\\S
