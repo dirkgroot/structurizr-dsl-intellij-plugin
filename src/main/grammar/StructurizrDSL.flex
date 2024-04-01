@@ -43,6 +43,7 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 %xstate BLOCK_COMMENT_BODY
 
 EOL=[\r\n]
+NonEOL=[^{EOL}]
 CrLf=\r\n|{EOL}
 Space=[\p{Whitespace}--{EOL}]
 WhiteSpace={Space}+
@@ -52,10 +53,8 @@ MultiLineSeparator=\\{CrLf}
 SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
 MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
 
-// Dot (.) matches [^\r\n\u2028\u2029\u000B\u000C\u0085]
-// see https://jflex.de/manual.html#Semantics
-_EscapedSymbol=\\.
-NonCrLf=([^\r\n\\]|{MultiLineSeparator}|{_EscapedSymbol})
+_EscapedSymbol=\\{NonEOL}
+NonCrLf=([{NonEOL}--[\\]]|{MultiLineSeparator}|{_EscapedSymbol})
 
 QuotedText=\" [^\"\r\n]* \"?
 UnquotedText=[^\s\"\r\n]+
