@@ -57,7 +57,7 @@ NonCrLf=({EscapeOrMultiLineSeparator}|{NonEOL})
 QuotedText=\" ({EscapeOrMultiLineSeparator}|[{NonEOL}--[\"]])* \"?
 UnquotedText=({EscapedSymbol}|[^\s\"])({MultiLineSeparatorsWithSpaces}?({EscapedSymbol}|\S))*
 
-LineComment=("//"|"#") {NonCrLf}*
+LineComment=("/"{MultiLineSeparatorsWithSpaces}?"/"|"#") {NonCrLf}*
 BlockCommentStart="/"{MultiLineSeparatorsWithSpaces}?"*"
 BlockCommentEnd="*"{MultiLineSeparatorsWithSpaces}?"/"
 
