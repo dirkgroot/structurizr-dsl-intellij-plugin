@@ -37,10 +37,32 @@ class CommentsTest {
     @Test
     fun `block comment`() {
         "/* */".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* */")
+        "/\\\n* */".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/\\\n* */")
+        "/* *\\\n/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* *\\\n/")
         "/* **/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* **/")
         "/*\n*/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/*\n*/")
         "/*text\n*/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/*text\n*/")
         "/* text\n*/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* text\n*/")
+        "/* */ \\\n \n".tokenize() shouldContainExactly listOf(
+            BLOCK_COMMENT to "/* */",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "\\",
+            CRLF to "\n",
+            WHITE_SPACE to " \n",
+        )
+        "/* */ \\\n test".tokenize() shouldContainExactly listOf(
+            BLOCK_COMMENT to "/* */ \\\n test",
+        )
+        "/* */ test".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* */ test")
+        "/* */ test\n*/".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* */ test\n*/")
+        "/* */ test\n*/ test".tokenize() shouldContainExactly listOf(BLOCK_COMMENT to "/* */ test\n*/ test")
+        "/* */ test\n*/ \n test".tokenize() shouldContainExactly listOf(
+            BLOCK_COMMENT to "/* */ test\n*/",
+            WHITE_SPACE to " ",
+            CRLF to "\n",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "test"
+        )
     }
 
     @Test

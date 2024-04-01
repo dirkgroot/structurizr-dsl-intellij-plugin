@@ -1,6 +1,7 @@
 package nl.dirkgroot.structurizr.dsl;
 
 import com.intellij.lexer.FlexLexer;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.tree.IElementType;
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
@@ -39,21 +40,29 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 %state EXPECT_NON_COMMENT
 %state EXPECT_SCRIPT_ARGUMENTS
 %state EXPECT_SCRIPT
+%xstate BLOCK_COMMENT_BODY
 
-CrLf=\r|\n|\r\n
-WhiteSpace=[\ \t\f]+
+EOL=[\r\n]
+CrLf=\r\n|{EOL}
+Space=[\p{Whitespace}--{EOL}]
+WhiteSpace={Space}+
 
-_MultiLineSeparator=\\\R
+MultiLineSeparator=\\{CrLf}
+
+SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
+MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
+
 // Dot (.) matches [^\r\n\u2028\u2029\u000B\u000C\u0085]
 // see https://jflex.de/manual.html#Semantics
 _EscapedSymbol=\\.
-_NonCrLf=([^\r\n\\]|{_MultiLineSeparator}|{_EscapedSymbol})
+NonCrLf=([^\r\n\\]|{MultiLineSeparator}|{_EscapedSymbol})
 
 QuotedText=\" [^\"\r\n]* \"?
 UnquotedText=[^\s\"\r\n]+
 
-LineComment=("//"|"#") {_NonCrLf}*
-BlockComment="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
+LineComment=("//"|"#") {NonCrLf}*
+BlockCommentStart="/"{MultiLineSeparatorsWithSpaces}?"*"
+BlockCommentEnd="*"{MultiLineSeparatorsWithSpaces}?"/"
 
 ScriptText=[^\r\n{}]+
 
@@ -65,10 +74,26 @@ ScriptText=[^\r\n{}]+
 }
 
 <YYINITIAL> {
-{BlockComment}           { return BLOCK_COMMENT; }
+{BlockCommentStart}      { yybegin(BLOCK_COMMENT_BODY); }
 {LineComment}            { return LINE_COMMENT; }
 
-[^]                      { yypushback(yytext().length()); yybegin(EXPECT_NON_COMMENT); }
+[^]                      { yypushback(yylength()); yybegin(EXPECT_NON_COMMENT); }
+}
+
+<BLOCK_COMMENT_BODY> {
+    // block comments must end with '*/' at the end of the line
+    {NonCrLf}*{BlockCommentEnd}{SpaceOrMultiLineSeparator}*{CrLf}? {
+        int closingSlashPos = StringUtil.lastIndexOf(yytext(), '/', 0, yylength());
+        yypushback(yylength() - 1 - closingSlashPos);
+        yybegin(YYINITIAL);
+        return BLOCK_COMMENT;
+    }
+    {NonCrLf}*{CrLf}  { }
+    {NonCrLf}+ {
+          // EOF met
+          yybegin(YYINITIAL);
+          return BLOCK_COMMENT;
+    }
 }
 
 <EXPECT_NON_COMMENT> {
@@ -90,7 +115,7 @@ ScriptText=[^\r\n{}]+
 "{"                { startScript(); return BRACE1; }
 {QuotedText}       { return QUOTED_TEXT; }
 {UnquotedText}     { return UNQUOTED_TEXT; }
-[^]                { yybegin(YYINITIAL); yypushback(yytext().length()); }
+[^]                { yybegin(YYINITIAL); yypushback(yylength()); }
 }
 
 <EXPECT_SCRIPT> {
