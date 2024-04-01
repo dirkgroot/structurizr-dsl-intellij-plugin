@@ -40,27 +40,27 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 %state EXPECT_SCRIPT_ARGUMENTS
 %state EXPECT_SCRIPT
 
-CRLF=\r|\n|\r\n
-WHITE_SPACE=[\ \t\f]+
+CrLf=\r|\n|\r\n
+WhiteSpace=[\ \t\f]+
 
-QUOTED_TEXT=\" [^\"\r\n]* \"?
-UNQUOTED_TEXT=[^\s\"\r\n]+
+QuotedText=\" [^\"\r\n]* \"?
+UnquotedText=[^\s\"\r\n]+
 
-LINE_COMMENT=("//"|"#") [^\r\n]*
-BLOCK_COMMENT="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
+LineComment=("//"|"#") [^\r\n]*
+BlockComment="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
 
-SCRIPT_TEXT=[^\r\n{}]+
+ScriptText=[^\r\n{}]+
 
 %%
 
 <YYINITIAL,EXPECT_NON_COMMENT,EXPECT_SCRIPT_ARGUMENTS> {
-{WHITE_SPACE}            { return WHITE_SPACE; }
-^{WHITE_SPACE}? {CRLF}   { return WHITE_SPACE; }
+{WhiteSpace}             { return WHITE_SPACE; }
+^{WhiteSpace}? {CrLf}    { return WHITE_SPACE; }
 }
 
 <YYINITIAL> {
-{BLOCK_COMMENT}          { return BLOCK_COMMENT; }
-{LINE_COMMENT}           { return LINE_COMMENT; }
+{BlockComment}           { return BLOCK_COMMENT; }
+{LineComment}            { return LINE_COMMENT; }
 
 [^]                      { yypushback(yytext().length()); yybegin(EXPECT_NON_COMMENT); }
 }
@@ -74,16 +74,16 @@ SCRIPT_TEXT=[^\r\n{}]+
 
 "!script"                { yybegin(EXPECT_SCRIPT_ARGUMENTS); return UNQUOTED_TEXT; }
 
-{QUOTED_TEXT}            { return QUOTED_TEXT; }
-{UNQUOTED_TEXT}          { return UNQUOTED_TEXT; }
+{QuotedText}             { return QUOTED_TEXT; }
+{UnquotedText}           { return UNQUOTED_TEXT; }
 
-{CRLF}                   { yybegin(YYINITIAL); return CRLF; }
+{CrLf}                   { yybegin(YYINITIAL); return CRLF; }
 }
 
 <EXPECT_SCRIPT_ARGUMENTS> {
 "{"                { startScript(); return BRACE1; }
-{QUOTED_TEXT}      { return QUOTED_TEXT; }
-{UNQUOTED_TEXT}    { return UNQUOTED_TEXT; }
+{QuotedText}       { return QUOTED_TEXT; }
+{UnquotedText}     { return UNQUOTED_TEXT; }
 [^]                { yybegin(YYINITIAL); yypushback(yytext().length()); }
 }
 
@@ -97,8 +97,8 @@ SCRIPT_TEXT=[^\r\n{}]+
                      }
                      braces--;
                    }
-{CRLF}             { }
-{SCRIPT_TEXT}      { }
+{CrLf}             { }
+{ScriptText}       { }
 }
 
 [^]                      { return BAD_CHARACTER; }
