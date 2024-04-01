@@ -10,6 +10,7 @@ class CommentsTest {
     @Test
     fun `full line comment`() {
         "//".tokenize() shouldContainExactly listOf(LINE_COMMENT to "//")
+        "/\\\n/".tokenize() shouldContainExactly listOf(LINE_COMMENT to "/\\\n/")
         "#".tokenize() shouldContainExactly listOf(LINE_COMMENT to "#")
         "//\n".tokenize() shouldContainExactly listOf(LINE_COMMENT to "//", WHITE_SPACE to "\n")
         "  //\n".tokenize() shouldContainExactly listOf(WHITE_SPACE to "  ", LINE_COMMENT to "//", WHITE_SPACE to "\n")
