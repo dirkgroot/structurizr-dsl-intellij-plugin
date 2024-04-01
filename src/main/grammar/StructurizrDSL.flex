@@ -13,20 +13,6 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
     public StructurizrDSLLexer() {
         this(null);
     }
-
-    private void startScript() {
-        braces = 0;
-        yybegin(EXPECT_SCRIPT);
-    }
-
-    private void endScript() {
-        braces = 0;
-        yybegin(YYINITIAL);
-    }
-%}
-
-%{
-    private int braces = 0;
 %}
 
 %ignorecase
@@ -61,7 +47,7 @@ LineComment=("/"{MultiLineSeparatorsWithSpaces}?"/"|"#") {NonCrLf}*
 BlockCommentStart="/"{MultiLineSeparatorsWithSpaces}?"*"
 BlockCommentEnd="*"{MultiLineSeparatorsWithSpaces}?"/"
 
-ScriptText=[{NonEOL}--[{}]]+
+ScriptText=({EscapeOrMultiLineSeparator}|{NonEOL})
 
 Arrow=-{MultiLineSeparatorsWithSpaces}?>
 %%
@@ -85,17 +71,18 @@ Arrow=-{MultiLineSeparatorsWithSpaces}?>
 }
 
 <EXPECT_SCRIPT> {
-    "{"                { braces++; }
-    "}"                {
-                         if (braces == 0) {
-                             endScript();
-                             yypushback(1);
-                             return SCRIPT_TEXT;
-                         }
-                         braces--;
-                       }
-    {CrLf}             { }
-    {ScriptText}       { }
+    {SpaceOrMultiLineSeparator}*\}{SpaceOrMultiLineSeparator}*{CrLf}? {
+           int rbracePosExclusive = StringUtil.lastIndexOf(yytext(), '}', 0, yylength());
+           yypushback(yylength() - rbracePosExclusive);
+           yybegin(EXPECT_NON_COMMENT);
+           return SCRIPT_TEXT;
+    }
+    {ScriptText}*{CrLf} { }
+    {ScriptText}+ {
+        // EOF met
+        yybegin(YYINITIAL);
+        return SCRIPT_TEXT;
+    }
 }
 
 // STATES
@@ -126,7 +113,7 @@ Arrow=-{MultiLineSeparatorsWithSpaces}?>
 }
 
 <EXPECT_SCRIPT_ARGUMENTS> {
-"{"                { startScript(); return BRACE1; }
+"{"                { yybegin(EXPECT_SCRIPT); return BRACE1; }
 {QuotedText}       { return QUOTED_TEXT; }
 {UnquotedText}     { return UNQUOTED_TEXT; }
 [^]                { yybegin(YYINITIAL); yypushback(yylength()); }
