@@ -53,17 +53,18 @@ MultiLineSeparator=\\{CrLf}
 SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
 MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
 
-_EscapedSymbol=\\{NonEOL}
-NonCrLf=([{NonEOL}--[\\]]|{MultiLineSeparator}|{_EscapedSymbol})
+EscapedSymbol=\\{NonEOL}
+EscapeOrMultiLineSeparator={EscapedSymbol}|{MultiLineSeparator}
+NonCrLf=([{NonEOL}--[\\]]|{EscapeOrMultiLineSeparator})
 
-QuotedText=\" [^\"\r\n]* \"?
+QuotedText=\" ([{NonEOL}--[\"\\]]|{EscapeOrMultiLineSeparator})* \"?
 UnquotedText=[^\s\"\r\n]+
 
 LineComment=("//"|"#") {NonCrLf}*
 BlockCommentStart="/"{MultiLineSeparatorsWithSpaces}?"*"
 BlockCommentEnd="*"{MultiLineSeparatorsWithSpaces}?"/"
 
-ScriptText=[^\r\n{}]+
+ScriptText=[{NonEOL}--[{}]]+
 
 %%
 

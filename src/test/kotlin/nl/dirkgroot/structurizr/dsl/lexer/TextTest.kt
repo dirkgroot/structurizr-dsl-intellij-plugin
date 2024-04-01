@@ -30,6 +30,39 @@ class TextTest {
     }
 
     @Test
+    fun `quoted text with escaped quote`() {
+        "description \"unquoted \\\" text words\"".tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "description",
+            WHITE_SPACE to " ",
+            QUOTED_TEXT to "\"unquoted \\\" text words\"",
+        )
+    }
+
+    @Test
+    fun `multiline quoted text`() {
+        "description \"unquoted \\\n text words\"".tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "description",
+            WHITE_SPACE to " ",
+            QUOTED_TEXT to "\"unquoted \\\n text words\"",
+        )
+    }
+
+    @Test
+    fun `quoted text with end of line`() {
+        "description \"unquoted \n text words\"".tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "description",
+            WHITE_SPACE to " ",
+            QUOTED_TEXT to "\"unquoted ",
+            CRLF to "\n",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "text",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "words",
+            QUOTED_TEXT to "\""
+        )
+    }
+
+    @Test
     fun `quoted text without closing quotes`() {
         "description \"unquoted text words".tokenize() shouldContainExactly listOf(
             UNQUOTED_TEXT to "description",
