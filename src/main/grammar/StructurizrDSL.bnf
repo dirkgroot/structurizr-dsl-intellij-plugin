@@ -43,8 +43,6 @@ statement ::= scriptStatement
             | blockStatement
             | singleLineStatement
             | rawBlockStatement
-            | lineCommentStatement
-            | blockCommentStatement
 
 explicitRelationshipStatement ::= relationshipSource relationshipKeyword relationshipDestination argument* block? lf_eof
 implicitRelationshipStatement ::= relationshipKeyword relationshipDestination argument* block? lf_eof
@@ -53,12 +51,9 @@ relationshipKeyword ::= '->'
 relationshipDestination ::= UNQUOTED_TEXT
 
 animationStatement ::= animationKeyword animationBlock lf_eof
-animationBlock ::= '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}'
+animationBlock ::= '{' CRLF (identifierReferencesStatement)* '}'
 animationKeyword ::= 'animation'
 identifierReferencesStatement ::= identifierReference* CRLF
-
-lineCommentStatement ::= LINE_COMMENT lf_eof
-blockCommentStatement ::= BLOCK_COMMENT lf_eof
 
 scriptStatement ::= scriptKeyword argument* scriptBlock lf_eof
 scriptKeyword ::= '!script'
@@ -67,7 +62,7 @@ scriptBlock ::= '{' SCRIPT_TEXT '}'
 propertiesStatement ::= propertiesKeyword propertiesBlock lf_eof
 propertiesKeyword ::= 'perspectives' | 'properties' | 'users'
 propertiesBlock ::= '{' CRLF propertiesBlockElement* '}'
-private propertiesBlockElement ::= propertyDefinition | lineCommentStatement | blockCommentStatement
+private propertiesBlockElement ::= propertyDefinition
 propertyDefinition ::= propertyDefinitionPart+ CRLF
 propertyDefinitionPart ::= text
 

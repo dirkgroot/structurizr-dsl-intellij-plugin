@@ -27,10 +27,6 @@ public class SDVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitBlockCommentStatement(@NotNull SDBlockCommentStatement o) {
-    visitStatement(o);
-  }
-
   public void visitBlockStatement(@NotNull SDBlockStatement o) {
     visitStatement(o);
   }
@@ -57,10 +53,6 @@ public class SDVisitor extends PsiElementVisitor {
 
   public void visitKeyword(@NotNull SDKeyword o) {
     visitPsiElement(o);
-  }
-
-  public void visitLineCommentStatement(@NotNull SDLineCommentStatement o) {
-    visitStatement(o);
   }
 
   public void visitPropertiesBlock(@NotNull SDPropertiesBlock o) {

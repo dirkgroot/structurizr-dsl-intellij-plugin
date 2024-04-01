@@ -59,8 +59,7 @@ class ElementsWithPropertyBlocksTest(private val keyword: String) : StructurizrD
             """
                 PropertiesStatement
                     PropertiesKeyword $keyword
-                    PropertiesBlock
-                        LineCommentStatement // line comment\n
+                    PropertiesBlock {\n    // line comment\n}
             """.trimIndent()
         )
     }
@@ -76,8 +75,7 @@ class ElementsWithPropertyBlocksTest(private val keyword: String) : StructurizrD
             """
                 PropertiesStatement
                     PropertiesKeyword $keyword
-                    PropertiesBlock
-                        BlockCommentStatement /* block comment */\n
+                    PropertiesBlock {\n    /* block comment */\n}
             """.trimIndent()
         )
     }

@@ -13,7 +13,6 @@ public interface SDTypes {
   IElementType ANIMATION_STATEMENT = new SDElement("ANIMATION_STATEMENT");
   IElementType ARGUMENT = new SDElement("ARGUMENT");
   IElementType BLOCK = new SDElement("BLOCK");
-  IElementType BLOCK_COMMENT_STATEMENT = new SDElement("BLOCK_COMMENT_STATEMENT");
   IElementType BLOCK_STATEMENT = new SDElement("BLOCK_STATEMENT");
   IElementType EXPLICIT_RELATIONSHIP_STATEMENT = new SDElement("EXPLICIT_RELATIONSHIP_STATEMENT");
   IElementType IDENTIFIER_ASSIGNMENT_STATEMENT = new SDElement("IDENTIFIER_ASSIGNMENT_STATEMENT");
@@ -21,7 +20,6 @@ public interface SDTypes {
   IElementType IDENTIFIER_REFERENCES_STATEMENT = new SDElement("IDENTIFIER_REFERENCES_STATEMENT");
   IElementType IMPLICIT_RELATIONSHIP_STATEMENT = new SDElement("IMPLICIT_RELATIONSHIP_STATEMENT");
   IElementType KEYWORD = new SDElement("KEYWORD");
-  IElementType LINE_COMMENT_STATEMENT = new SDElement("LINE_COMMENT_STATEMENT");
   IElementType PROPERTIES_BLOCK = new SDElement("PROPERTIES_BLOCK");
   IElementType PROPERTIES_KEYWORD = new SDElement("PROPERTIES_KEYWORD");
   IElementType PROPERTIES_STATEMENT = new SDElement("PROPERTIES_STATEMENT");
@@ -38,12 +36,12 @@ public interface SDTypes {
   IElementType STATEMENT = new SDElement("STATEMENT");
 
   IElementType ARROW = new SDToken("->");
-  IElementType BLOCK_COMMENT = new SDToken("BLOCK_COMMENT");
+  IElementType BLOCK_COMMENT = new SDToken("block_comment");
   IElementType BRACE1 = new SDToken("{");
   IElementType BRACE2 = new SDToken("}");
   IElementType CRLF = new SDToken("CRLF");
   IElementType EQUALS = new SDToken("=");
-  IElementType LINE_COMMENT = new SDToken("LINE_COMMENT");
+  IElementType LINE_COMMENT = new SDToken("line_comment");
   IElementType QUOTED_TEXT = new SDToken("QUOTED_TEXT");
   IElementType SCRIPT_TEXT = new SDToken("SCRIPT_TEXT");
   IElementType UNQUOTED_TEXT = new SDToken("UNQUOTED_TEXT");
@@ -66,9 +64,6 @@ public interface SDTypes {
       else if (type == BLOCK) {
         return new SDBlockImpl(node);
       }
-      else if (type == BLOCK_COMMENT_STATEMENT) {
-        return new SDBlockCommentStatementImpl(node);
-      }
       else if (type == BLOCK_STATEMENT) {
         return new SDBlockStatementImpl(node);
       }
@@ -89,9 +84,6 @@ public interface SDTypes {
       }
       else if (type == KEYWORD) {
         return new SDKeywordImpl(node);
-      }
-      else if (type == LINE_COMMENT_STATEMENT) {
-        return new SDLineCommentStatementImpl(node);
       }
       else if (type == PROPERTIES_BLOCK) {
         return new SDPropertiesBlockImpl(node);
