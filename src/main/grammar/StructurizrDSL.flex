@@ -51,12 +51,12 @@ MultiLineSeparator=\\{CrLf}
 SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
 MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
 
-EscapedSymbol=\\{NonEOL}
+EscapedSymbol=\\\S
 EscapeOrMultiLineSeparator={EscapedSymbol}|{MultiLineSeparator}
-NonCrLf=([{NonEOL}--[\\]]|{EscapeOrMultiLineSeparator})
+NonCrLf=({EscapeOrMultiLineSeparator}|{NonEOL})
 
-QuotedText=\" ([{NonEOL}--[\"\\]]|{EscapeOrMultiLineSeparator})* \"?
-UnquotedText=[^\s\"\r\n]+
+QuotedText=\" ({EscapeOrMultiLineSeparator}|[{NonEOL}--[\"]])* \"?
+UnquotedText=({EscapedSymbol}|[^\s\"])({MultiLineSeparatorsWithSpaces}?({EscapedSymbol}|\S))*
 
 LineComment=("//"|"#") {NonCrLf}*
 BlockCommentStart="/"{MultiLineSeparatorsWithSpaces}?"*"
