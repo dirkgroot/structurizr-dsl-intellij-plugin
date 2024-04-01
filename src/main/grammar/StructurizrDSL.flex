@@ -46,8 +46,9 @@ CrLf=\r\n|{EOL}
 Space=[\p{Whitespace}--{EOL}]
 MultiLineSeparator=\\{CrLf}
 SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
-WhiteSpace={Space}{SpaceOrMultiLineSeparator}*
+WhiteSpace={SpaceOrMultiLineSeparator}+
 MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
+WhiteSpaceWithNewLines=({CrLf}|{SpaceOrMultiLineSeparator})+
 
 EscapedSymbol=\\\S
 EscapeOrMultiLineSeparator={EscapedSymbol}|{MultiLineSeparator}
@@ -64,17 +65,17 @@ ScriptText=[{NonEOL}--[{}]]+
 
 %%
 
-<YYINITIAL,EXPECT_NON_COMMENT,EXPECT_SCRIPT_ARGUMENTS> {
-{WhiteSpace}             { return WHITE_SPACE; }
-^{WhiteSpace}? {CrLf}    { return WHITE_SPACE; }
+<YYINITIAL, EXPECT_NON_COMMENT, EXPECT_SCRIPT_ARGUMENTS> {
+    {WhiteSpace}             { return WHITE_SPACE; }
 }
-
 <YYINITIAL> {
-{BlockCommentStart}      { yybegin(BLOCK_COMMENT_BODY); }
-{LineComment}            { return LINE_COMMENT; }
-
-[^]                      { yypushback(yylength()); yybegin(EXPECT_NON_COMMENT); }
+    {WhiteSpaceWithNewLines} { yybegin(YYINITIAL); return WHITE_SPACE;}
+    {BlockCommentStart}      { yybegin(BLOCK_COMMENT_BODY); }
+    {LineComment}            { return LINE_COMMENT; }
+    [^]                      { yypushback(yylength()); yybegin(EXPECT_NON_COMMENT); }
 }
+
+{WhiteSpaceWithNewLines}     { yybegin(YYINITIAL); yypushback(yylength()); return CRLF; }
 
 <BLOCK_COMMENT_BODY> {
     // block comments must end with '*/' at the end of the line
@@ -103,8 +104,6 @@ ScriptText=[{NonEOL}--[{}]]+
 
 {QuotedText}             { return QUOTED_TEXT; }
 {UnquotedText}           { return UNQUOTED_TEXT; }
-
-{CrLf}                   { yybegin(YYINITIAL); return CRLF; }
 }
 
 <EXPECT_SCRIPT_ARGUMENTS> {
