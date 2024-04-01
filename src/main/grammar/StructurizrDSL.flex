@@ -63,6 +63,7 @@ BlockCommentEnd="*"{MultiLineSeparatorsWithSpaces}?"/"
 
 ScriptText=[{NonEOL}--[{}]]+
 
+Arrow=-{MultiLineSeparatorsWithSpaces}?>
 %%
 
 // XSTATES
@@ -116,7 +117,7 @@ ScriptText=[{NonEOL}--[{}]]+
 "}"                      { return BRACE2; }
 "{}"                     { yypushback(1); return BRACE1;}
 "="                      { return EQUALS; }
-"->"                     { return ARROW; }
+{Arrow}                  { return ARROW; }
 
 "!script"                { yybegin(EXPECT_SCRIPT_ARGUMENTS); return UNQUOTED_TEXT; }
 
