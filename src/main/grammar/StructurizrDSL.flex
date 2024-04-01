@@ -65,6 +65,40 @@ ScriptText=[{NonEOL}--[{}]]+
 
 %%
 
+// XSTATES
+
+<BLOCK_COMMENT_BODY> {
+    // block comments must end with '*/' at the end of the line
+    {NonCrLf}*{BlockCommentEnd}{SpaceOrMultiLineSeparator}*{CrLf}? {
+        int closingSlashPos = StringUtil.lastIndexOf(yytext(), '/', 0, yylength());
+        yypushback(yylength() - 1 - closingSlashPos);
+        yybegin(YYINITIAL);
+        return BLOCK_COMMENT;
+    }
+    {NonCrLf}*{CrLf}   { }
+    {NonCrLf}+         {
+          // EOF met
+          yybegin(YYINITIAL);
+          return BLOCK_COMMENT;
+    }
+}
+
+<EXPECT_SCRIPT> {
+    "{"                { braces++; }
+    "}"                {
+                         if (braces == 0) {
+                             endScript();
+                             yypushback(1);
+                             return SCRIPT_TEXT;
+                         }
+                         braces--;
+                       }
+    {CrLf}             { }
+    {ScriptText}       { }
+}
+
+// STATES
+
 <YYINITIAL, EXPECT_NON_COMMENT, EXPECT_SCRIPT_ARGUMENTS> {
     {WhiteSpace}             { return WHITE_SPACE; }
 }
@@ -76,22 +110,6 @@ ScriptText=[{NonEOL}--[{}]]+
 }
 
 {WhiteSpaceWithNewLines}     { yybegin(YYINITIAL); yypushback(yylength()); return CRLF; }
-
-<BLOCK_COMMENT_BODY> {
-    // block comments must end with '*/' at the end of the line
-    {NonCrLf}*{BlockCommentEnd}{SpaceOrMultiLineSeparator}*{CrLf}? {
-        int closingSlashPos = StringUtil.lastIndexOf(yytext(), '/', 0, yylength());
-        yypushback(yylength() - 1 - closingSlashPos);
-        yybegin(YYINITIAL);
-        return BLOCK_COMMENT;
-    }
-    {NonCrLf}*{CrLf}  { }
-    {NonCrLf}+ {
-          // EOF met
-          yybegin(YYINITIAL);
-          return BLOCK_COMMENT;
-    }
-}
 
 <EXPECT_NON_COMMENT> {
 "{"                      { return BRACE1; }
@@ -111,20 +129,6 @@ ScriptText=[{NonEOL}--[{}]]+
 {QuotedText}       { return QUOTED_TEXT; }
 {UnquotedText}     { return UNQUOTED_TEXT; }
 [^]                { yybegin(YYINITIAL); yypushback(yylength()); }
-}
-
-<EXPECT_SCRIPT> {
-"{"                { braces++; }
-"}"                {
-                     if (braces == 0) {
-                         endScript();
-                         yypushback(1);
-                         return SCRIPT_TEXT;
-                     }
-                     braces--;
-                   }
-{CrLf}             { }
-{ScriptText}       { }
 }
 
 [^]                      { return BAD_CHARACTER; }
