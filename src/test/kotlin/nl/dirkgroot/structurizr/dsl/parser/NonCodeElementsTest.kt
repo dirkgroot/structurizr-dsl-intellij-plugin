@@ -11,8 +11,7 @@ class NonCodeElementsTest : StructurizrDSLCodeInsightTest() {
         assertPsiTree(
             "\n\n",
             """
-                PsiWhiteSpace \n
-                PsiWhiteSpace \n
+                PsiWhiteSpace \n\n
             """.trimIndent()
         )
     }

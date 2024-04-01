@@ -80,7 +80,7 @@ class AutoIndentationTest : StructurizrDSLCodeInsightTest() {
             "{",
             """
                 dynamic * {
-                    {<caret>}
+                    {<caret>
                 }
             """.trimIndent()
         )

@@ -53,8 +53,8 @@ class TextTest {
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             QUOTED_TEXT to "\"unquoted ",
-            CRLF to "\n",
-            WHITE_SPACE to " ",
+            CRLF to "",
+            WHITE_SPACE to "\n ",
             UNQUOTED_TEXT to "text",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "words\"",
@@ -76,7 +76,8 @@ class TextTest {
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             QUOTED_TEXT to "\"unquoted text words",
-            CRLF to "\n"
+            CRLF to "",
+            WHITE_SPACE to "\n",
         )
     }
 
