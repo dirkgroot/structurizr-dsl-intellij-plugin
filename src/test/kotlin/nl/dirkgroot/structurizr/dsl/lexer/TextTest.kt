@@ -57,8 +57,7 @@ class TextTest {
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
             WHITE_SPACE to " ",
-            UNQUOTED_TEXT to "words",
-            QUOTED_TEXT to "\""
+            UNQUOTED_TEXT to "words\"",
         )
     }
 
