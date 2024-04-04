@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Made the plugin compatible with IntelliJ 2024.1
+
 ## [0.3.4] - 2024-01-10
 
 ### Fixed
