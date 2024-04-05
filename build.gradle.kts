@@ -52,7 +52,10 @@ koverReport {
     }
 }
 
-sourceSets["main"].java.srcDirs("src/main/gen")
+sourceSets["main"].java.srcDirs(
+    "src/main/lexer",
+    "src/main/parser",
+)
 
 dependencies {
     testImplementation("io.kotest:kotest-assertions-core:5.8.1")
@@ -102,7 +105,10 @@ tasks {
         sourceFile.set(File("src/main/grammar/StructurizrDSL.flex"))
 
         // target directory for lexer
-        targetOutputDir.set(File("src/main/gen/nl/dirkgroot/structurizr/dsl/"))
+        targetOutputDir.set(File("src/main/lexer/nl/dirkgroot/structurizr/dsl/"))
+
+        // if set, plugin will remove a lexer output file before generating new one. Default: false
+        purgeOldFiles.set(true)
     }
 
     signPlugin {
