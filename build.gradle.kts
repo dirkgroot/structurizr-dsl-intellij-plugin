@@ -102,10 +102,7 @@ tasks {
         sourceFile.set(File("src/main/grammar/StructurizrDSL.flex"))
 
         // target directory for lexer
-        targetDir.set("src/main/gen/nl/dirkgroot/structurizr/dsl/")
-
-        // target classname, target file will be targetDir/targetClass.java
-        targetClass.set("StructurizrDSLLexer")
+        targetOutputDir.set(File("src/main/gen/nl/dirkgroot/structurizr/dsl/"))
 
         // if set, plugin will remove a lexer output file before generating new one. Default: false
         purgeOldFiles.set(true)
