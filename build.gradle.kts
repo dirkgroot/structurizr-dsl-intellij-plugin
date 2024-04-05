@@ -103,9 +103,6 @@ tasks {
 
         // target directory for lexer
         targetOutputDir.set(File("src/main/gen/nl/dirkgroot/structurizr/dsl/"))
-
-        // if set, plugin will remove a lexer output file before generating new one. Default: false
-        purgeOldFiles.set(true)
     }
 
     signPlugin {
