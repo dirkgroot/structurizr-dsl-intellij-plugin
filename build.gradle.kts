@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.intellij") version "1.17.3"
     id("org.jetbrains.changelog") version "2.2.0"
     id("org.jetbrains.kotlinx.kover") version "0.7.6"
-    id("org.jetbrains.grammarkit") version "2022.3.2.1"
+    id("org.jetbrains.grammarkit") version "2022.3.2.2"
 }
 
 group = properties("pluginGroup")
@@ -102,13 +102,7 @@ tasks {
         sourceFile.set(File("src/main/grammar/StructurizrDSL.flex"))
 
         // target directory for lexer
-        targetDir.set("src/main/gen/nl/dirkgroot/structurizr/dsl/")
-
-        // target classname, target file will be targetDir/targetClass.java
-        targetClass.set("StructurizrDSLLexer")
-
-        // if set, plugin will remove a lexer output file before generating new one. Default: false
-        purgeOldFiles.set(true)
+        targetOutputDir.set(File("src/main/gen/nl/dirkgroot/structurizr/dsl/"))
     }
 
     signPlugin {
