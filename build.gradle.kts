@@ -44,10 +44,12 @@ changelog {
     repositoryUrl.set(properties("pluginRepositoryUrl"))
 }
 
-koverReport {
-    defaults {
-        xml {
-            onCheck = true
+kover {
+    reports {
+        total {
+            xml {
+                onCheck.set(true)
+            }
         }
     }
 }
