@@ -60,7 +60,7 @@ sourceSets["main"].java.srcDirs(
 )
 
 dependencies {
-    testImplementation("io.kotest:kotest-assertions-core:5.9.0")
+    testImplementation("io.kotest:kotest-assertions-core:5.9.1")
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.1")
 }
 
