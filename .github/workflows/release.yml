@@ -67,7 +67,7 @@ jobs:
         run: gh release upload ${{ github.event.release.tag_name }} ./build/distributions/*
 
       - name: Upload a Build Artifact
-        uses: actions/upload-artifact@v4.3.4
+        uses: actions/upload-artifact@v4.3.5
         with:
           # Artifact name
           name: distribution
