@@ -26,7 +26,4 @@
         <lang.syntaxHighlighterFactory language="StructurizrDSL"
                                        implementationClass="nl.dirkgroot.structurizr.dsl.syntax.StructurizrDSLSyntaxHighlighterFactory"/>
     </extensions>
-
-    <actions>
-    </actions>
 </idea-plugin>

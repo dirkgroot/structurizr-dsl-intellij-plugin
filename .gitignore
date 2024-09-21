@@ -1,5 +1,6 @@
 .gradle/
 .idea/
+.intellijPlatform/
 build/
 
 # Ignore the Lexer code, as it is being generated at build time

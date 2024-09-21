@@ -1,10 +1,10 @@
 package nl.dirkgroot.structurizr.dsl.support
 
 import com.intellij.psi.PsiFileFactory
-import com.intellij.testFramework.fixtures.LightJavaCodeInsightFixtureTestCase
+import com.intellij.testFramework.fixtures.BasePlatformTestCase
 import nl.dirkgroot.structurizr.dsl.StructurizrDSLFileType
 
-abstract class StructurizrDSLCodeInsightTest : LightJavaCodeInsightFixtureTestCase() {
+abstract class StructurizrDSLCodeInsightTest : BasePlatformTestCase() {
     private fun parse(text: String) = PsiFileFactory.getInstance(project)
         .createFileFromText("test.dsl", StructurizrDSLFileType, text)
 

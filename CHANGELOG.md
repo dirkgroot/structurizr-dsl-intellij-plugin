@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- Upgrade the IntelliJ Platform Gradle Plugin
+
 ## [0.3.6] - 2024-08-08
 
 - Made the plugin compatible with IntelliJ 2024.2
