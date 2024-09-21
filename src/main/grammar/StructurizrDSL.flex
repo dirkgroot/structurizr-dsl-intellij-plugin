@@ -1,6 +1,7 @@
 package nl.dirkgroot.structurizr.dsl;
 
 import com.intellij.lexer.FlexLexer;
+import com.intellij.openapi.util.text.StringUtil;
 import com.intellij.psi.tree.IElementType;
 import static com.intellij.psi.TokenType.BAD_CHARACTER;
 import static com.intellij.psi.TokenType.WHITE_SPACE;
@@ -12,20 +13,6 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
     public StructurizrDSLLexer() {
         this(null);
     }
-
-    private void startScript() {
-        braces = 0;
-        yybegin(EXPECT_SCRIPT);
-    }
-
-    private void endScript() {
-        braces = 0;
-        yybegin(YYINITIAL);
-    }
-%}
-
-%{
-    private int braces = 0;
 %}
 
 %ignorecase
@@ -36,69 +23,100 @@ import static nl.dirkgroot.structurizr.dsl.psi.SDTypes.*;
 %type IElementType
 %unicode
 
-%state EXPECT_NON_COMMENT
-%state EXPECT_SCRIPT_ARGUMENTS
-%state EXPECT_SCRIPT
+%state EXPECT_NON_COMMENT EXPECT_SCRIPT_ARGUMENTS
+%xstate BLOCK_COMMENT_BODY EXPECT_SCRIPT
 
-CRLF=\r|\n|\r\n
-WHITE_SPACE=[\ \t\f]+
+EOL=[\r\n]
+NonEOL=[^{EOL}]
+CrLf=\r\n|{EOL}
+Space=[\p{Whitespace}--{EOL}]
+MultiLineSeparator=\\{CrLf}
+SpaceOrMultiLineSeparator=({Space}|{MultiLineSeparator})
+WhiteSpace={SpaceOrMultiLineSeparator}+
+MultiLineSeparatorsWithSpaces={MultiLineSeparator}{SpaceOrMultiLineSeparator}*
+WhiteSpaceWithNewLines=({CrLf}|{SpaceOrMultiLineSeparator})+
 
-QUOTED_TEXT=\" [^\"\r\n]* \"?
-UNQUOTED_TEXT=[^\s\"\r\n]+
+EscapedSymbol=\\\S
+EscapeOrMultiLineSeparator={EscapedSymbol}|{MultiLineSeparator}
+NonCrLf=({EscapeOrMultiLineSeparator}|{NonEOL})
 
-LINE_COMMENT=("//"|"#") [^\r\n]*
-BLOCK_COMMENT="/*" ( ([^"*"]|[\r\n])* ("*"+ [^"*""/"] )? )* ("*" | "*"+"/")?
+QuotedText=\" ({EscapeOrMultiLineSeparator}|[{NonEOL}--[\"]])* \"?
+UnquotedText=({EscapedSymbol}|[^\s\"])({MultiLineSeparatorsWithSpaces}?({EscapedSymbol}|\S))*
 
-SCRIPT_TEXT=[^\r\n{}]+
+LineComment=("/"{MultiLineSeparatorsWithSpaces}?"/"|"#") {NonCrLf}*
+BlockCommentStart="/"{MultiLineSeparatorsWithSpaces}?"*"
+BlockCommentEnd="*"{MultiLineSeparatorsWithSpaces}?"/"
 
+ScriptText=({EscapeOrMultiLineSeparator}|{NonEOL})
+
+Arrow=-{MultiLineSeparatorsWithSpaces}?>
 %%
 
-<YYINITIAL,EXPECT_NON_COMMENT,EXPECT_SCRIPT_ARGUMENTS> {
-{WHITE_SPACE}            { return WHITE_SPACE; }
-^{WHITE_SPACE}? {CRLF}   { return WHITE_SPACE; }
+// XSTATES
+
+<BLOCK_COMMENT_BODY> {
+    // block comments must end with '*/' at the end of the line
+    {NonCrLf}*{BlockCommentEnd}{SpaceOrMultiLineSeparator}*{CrLf}? {
+        int closingSlashPos = StringUtil.lastIndexOf(yytext(), '/', 0, yylength());
+        yypushback(yylength() - 1 - closingSlashPos);
+        yybegin(YYINITIAL);
+        return BLOCK_COMMENT;
+    }
+    {NonCrLf}*{CrLf}   { }
+    {NonCrLf}+         {
+          // EOF met
+          yybegin(YYINITIAL);
+          return BLOCK_COMMENT;
+    }
 }
 
+<EXPECT_SCRIPT> {
+    {SpaceOrMultiLineSeparator}*\}{SpaceOrMultiLineSeparator}*{CrLf}? {
+           int rbracePosExclusive = StringUtil.lastIndexOf(yytext(), '}', 0, yylength());
+           yypushback(yylength() - rbracePosExclusive);
+           yybegin(EXPECT_NON_COMMENT);
+           return SCRIPT_TEXT;
+    }
+    {ScriptText}*{CrLf} { }
+    {ScriptText}+ {
+        // EOF met
+        yybegin(YYINITIAL);
+        return SCRIPT_TEXT;
+    }
+}
+
+// STATES
+
+<YYINITIAL, EXPECT_NON_COMMENT, EXPECT_SCRIPT_ARGUMENTS> {
+    {WhiteSpace}             { return WHITE_SPACE; }
+}
 <YYINITIAL> {
-{BLOCK_COMMENT}          { return BLOCK_COMMENT; }
-{LINE_COMMENT}           { return LINE_COMMENT; }
-
-[^]                      { yypushback(yytext().length()); yybegin(EXPECT_NON_COMMENT); }
+    {WhiteSpaceWithNewLines} { yybegin(YYINITIAL); return WHITE_SPACE;}
+    {BlockCommentStart}      { yybegin(BLOCK_COMMENT_BODY); }
+    {LineComment}            { return LINE_COMMENT; }
+    [^]                      { yypushback(yylength()); yybegin(EXPECT_NON_COMMENT); }
 }
+
+{WhiteSpaceWithNewLines}     { yybegin(YYINITIAL); yypushback(yylength()); return CRLF; }
 
 <EXPECT_NON_COMMENT> {
 "{"                      { return BRACE1; }
 "}"                      { return BRACE2; }
 "{}"                     { yypushback(1); return BRACE1;}
 "="                      { return EQUALS; }
-"->"                     { return ARROW; }
+{Arrow}                  { return ARROW; }
 
 "!script"                { yybegin(EXPECT_SCRIPT_ARGUMENTS); return UNQUOTED_TEXT; }
 
-{QUOTED_TEXT}            { return QUOTED_TEXT; }
-{UNQUOTED_TEXT}          { return UNQUOTED_TEXT; }
-
-{CRLF}                   { yybegin(YYINITIAL); return CRLF; }
+{QuotedText}             { return QUOTED_TEXT; }
+{UnquotedText}           { return UNQUOTED_TEXT; }
 }
 
 <EXPECT_SCRIPT_ARGUMENTS> {
-"{"                { startScript(); return BRACE1; }
-{QUOTED_TEXT}      { return QUOTED_TEXT; }
-{UNQUOTED_TEXT}    { return UNQUOTED_TEXT; }
-[^]                { yybegin(YYINITIAL); yypushback(yytext().length()); }
-}
-
-<EXPECT_SCRIPT> {
-"{"                { braces++; }
-"}"                {
-                     if (braces == 0) {
-                         endScript();
-                         yypushback(1);
-                         return SCRIPT_TEXT;
-                     }
-                     braces--;
-                   }
-{CRLF}             { }
-{SCRIPT_TEXT}      { }
+"{"                { yybegin(EXPECT_SCRIPT); return BRACE1; }
+{QuotedText}       { return QUOTED_TEXT; }
+{UnquotedText}     { return UNQUOTED_TEXT; }
+[^]                { yybegin(YYINITIAL); yypushback(yylength()); }
 }
 
 [^]                      { return BAD_CHARACTER; }

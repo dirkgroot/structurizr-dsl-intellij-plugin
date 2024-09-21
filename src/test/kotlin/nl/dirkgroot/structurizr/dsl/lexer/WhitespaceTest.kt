@@ -8,10 +8,8 @@ import org.junit.Test
 class WhitespaceTest {
     @Test
     fun `empty lines`() {
-        "\n   \n\t\u000c\n".tokenize() shouldContainExactly listOf(
-            TokenType.WHITE_SPACE to "\n",
-            TokenType.WHITE_SPACE to "   \n",
-            TokenType.WHITE_SPACE to "\t\u000c\n"
+        "\n   \n\t\u2028\u2029\u000b\u0085\u000c\n".tokenize() shouldContainExactly listOf(
+            TokenType.WHITE_SPACE to "\n   \n\t\u2028\u2029\u000b\u0085\u000c\n"
         )
     }
 

@@ -2,6 +2,7 @@ package nl.dirkgroot.structurizr.dsl.lang
 
 import com.intellij.formatting.*
 import com.intellij.lang.ASTNode
+import com.intellij.psi.PsiComment
 import com.intellij.psi.TokenType.WHITE_SPACE
 import com.intellij.psi.formatter.common.AbstractBlock
 import com.intellij.psi.tree.TokenSet
@@ -30,7 +31,7 @@ class SDFormattingBlock(
                 .toList()
 
     private fun calculateIndent(child: ASTNode) =
-        if ((child.elementType in INDENT_TOKEN_TYPES || child.psi is SDStatement) &&
+        if ((child.elementType in INDENT_TOKEN_TYPES || child.psi is SDStatement || child.psi is PsiComment) &&
             myNode.treeParent != null && child.psi !is SDRawBlockStatement
         )
             Indent.getNormalIndent()
