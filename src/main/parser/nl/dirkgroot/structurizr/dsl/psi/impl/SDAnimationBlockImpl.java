@@ -27,4 +27,10 @@ public class SDAnimationBlockImpl extends SDBlockImpl implements SDAnimationBloc
     else super.accept(visitor);
   }
 
+  @Override
+  @NotNull
+  public List<SDIdentifierReferencesStatement> getIdentifierReferencesStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, SDIdentifierReferencesStatement.class);
+  }
+
 }
