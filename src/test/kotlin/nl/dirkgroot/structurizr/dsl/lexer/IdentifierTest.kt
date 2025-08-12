@@ -11,6 +11,13 @@ class IdentifierTest {
     @Test
     fun `valid individual token`() {
         "valid_identifier".tokenize() shouldContainExactly listOf(UNQUOTED_TEXT to "valid_identifier")
+        "valid_identifier\"".tokenize() shouldContainExactly listOf(UNQUOTED_TEXT to "valid_identifier\"")
+        "valid_\\\n    identifier".tokenize() shouldContainExactly listOf(UNQUOTED_TEXT to "valid_\\\n    identifier")
+        "valid_\\ identifier".tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "valid_\\",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "identifier"
+        )
     }
 
     @Test

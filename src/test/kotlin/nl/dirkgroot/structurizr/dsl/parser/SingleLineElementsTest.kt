@@ -62,6 +62,7 @@ class SingleLineElementsTest(private val keyword: String) : StructurizrDSLCodeIn
                 SingleLineStatement
                     Keyword !adrs
                     Argument docs/adrs
+                PsiWhiteSpace \n
                 SingleLineStatement
                     Keyword !adrs
                     Argument other/stuff
