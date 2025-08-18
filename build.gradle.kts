@@ -33,7 +33,7 @@ repositories {
 
 dependencies {
     testImplementation("junit:junit:4.13.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.9.1") {
+    testImplementation("io.kotest:kotest-assertions-core:6.0.0") {
         exclude(group = "org.jetbrains.kotlinx", module = "kotlinx-coroutines-core")
     }
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.28.1")
