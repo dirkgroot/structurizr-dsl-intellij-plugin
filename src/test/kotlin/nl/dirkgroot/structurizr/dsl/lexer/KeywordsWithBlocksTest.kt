@@ -32,12 +32,13 @@ class KeywordsWithBlocksTest(private val keyword: String, private val token: IEl
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             BRACE1 to "{",
-            CRLF to "\n",
-            WHITE_SPACE to "    ",
+            CRLF to "",
+            WHITE_SPACE to "\n    ",
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "description2",
-            CRLF to "\n",
+            CRLF to "",
+            WHITE_SPACE to "\n",
             BRACE2 to "}"
         )
     }

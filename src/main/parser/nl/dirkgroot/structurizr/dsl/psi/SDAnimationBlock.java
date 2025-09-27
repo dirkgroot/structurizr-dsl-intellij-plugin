@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface SDAnimationBlock extends SDBlock {
 
+  @NotNull
+  List<SDIdentifierReferencesStatement> getIdentifierReferencesStatementList();
+
 }

@@ -24,7 +24,7 @@ class StructurizrDSLParserDefinition : ParserDefinition {
 
     override fun getWhitespaceTokens() = WHITE_SPACES
 
-    override fun getCommentTokens(): TokenSet = TokenSet.EMPTY
+    override fun getCommentTokens(): TokenSet = TokenSet.create(SDTypes.LINE_COMMENT, SDTypes.BLOCK_COMMENT)
 
     override fun getStringLiteralElements(): TokenSet = TokenSet.EMPTY
 

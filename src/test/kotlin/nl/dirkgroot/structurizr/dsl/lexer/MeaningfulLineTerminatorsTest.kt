@@ -13,7 +13,8 @@ class MeaningfulLineTerminatorsTest {
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
-            CRLF to "\r"
+            CRLF to "",
+            WHITE_SPACE to "\r",
         )
     }
 
@@ -23,7 +24,8 @@ class MeaningfulLineTerminatorsTest {
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to " ",
             UNQUOTED_TEXT to "text",
-            CRLF to "\n"
+            CRLF to "",
+            WHITE_SPACE to "\n",
         )
     }
 
@@ -33,7 +35,8 @@ class MeaningfulLineTerminatorsTest {
             UNQUOTED_TEXT to "description",
             WHITE_SPACE to (" "),
             UNQUOTED_TEXT to "text",
-            CRLF to "\r\n"
+            CRLF to "",
+            WHITE_SPACE to "\r\n",
         )
     }
 }
