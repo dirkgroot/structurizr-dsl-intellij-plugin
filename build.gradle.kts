@@ -10,7 +10,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "2.2.10"
     id("org.jetbrains.intellij.platform") version "2.7.1"
     id("org.jetbrains.changelog") version "2.4.0"
-    id("org.jetbrains.kotlinx.kover") version "0.9.1"
+    id("org.jetbrains.kotlinx.kover") version "0.9.9"
     id("org.jetbrains.grammarkit") version "2022.3.2.2"
 }
 
