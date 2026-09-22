@@ -39,14 +39,13 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     create_token_set_(ANIMATION_BLOCK, BLOCK, PROPERTIES_BLOCK, SCRIPT_BLOCK),
     create_token_set_(ANIMATION_KEYWORD, KEYWORD, PROPERTIES_KEYWORD, RELATIONSHIP_KEYWORD,
       SCRIPT_KEYWORD),
-    create_token_set_(ANIMATION_STATEMENT, BLOCK_COMMENT_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP_STATEMENT,
-      IDENTIFIER_ASSIGNMENT_STATEMENT, IDENTIFIER_REFERENCES_STATEMENT, IMPLICIT_RELATIONSHIP_STATEMENT, LINE_COMMENT_STATEMENT,
-      PROPERTIES_STATEMENT, RAW_BLOCK_STATEMENT, SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT,
-      STATEMENT),
+    create_token_set_(ANIMATION_STATEMENT, BLOCK_STATEMENT, EXPLICIT_RELATIONSHIP_STATEMENT, IDENTIFIER_ASSIGNMENT_STATEMENT,
+      IDENTIFIER_REFERENCES_STATEMENT, IMPLICIT_RELATIONSHIP_STATEMENT, PROPERTIES_STATEMENT, RAW_BLOCK_STATEMENT,
+      SCRIPT_STATEMENT, SINGLE_LINE_STATEMENT, STATEMENT),
   };
 
   /* ********************************************************** */
-  // '{' CRLF (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)* '}'
+  // '{' CRLF (identifierReferencesStatement)* '}'
   public static boolean animationBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "animationBlock")) return false;
     if (!nextTokenIs(b, BRACE1)) return false;
@@ -59,7 +58,7 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // (identifierReferencesStatement | lineCommentStatement | blockCommentStatement)*
+  // (identifierReferencesStatement)*
   private static boolean animationBlock_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "animationBlock_2")) return false;
     while (true) {
@@ -70,13 +69,13 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // identifierReferencesStatement | lineCommentStatement | blockCommentStatement
+  // (identifierReferencesStatement)
   private static boolean animationBlock_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "animationBlock_2_0")) return false;
     boolean r;
+    Marker m = enter_section_(b);
     r = identifierReferencesStatement(b, l + 1);
-    if (!r) r = lineCommentStatement(b, l + 1);
-    if (!r) r = blockCommentStatement(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -139,19 +138,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
       if (!empty_element_parsed_guard_(b, "block_2", c)) break;
     }
     return true;
-  }
-
-  /* ********************************************************** */
-  // BLOCK_COMMENT lf_eof
-  public static boolean blockCommentStatement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "blockCommentStatement")) return false;
-    if (!nextTokenIs(b, BLOCK_COMMENT)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, BLOCK_COMMENT);
-    r = r && lf_eof(b, l + 1);
-    exit_section_(b, m, BLOCK_COMMENT_STATEMENT, r);
-    return r;
   }
 
   /* ********************************************************** */
@@ -353,19 +339,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LINE_COMMENT lf_eof
-  public static boolean lineCommentStatement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "lineCommentStatement")) return false;
-    if (!nextTokenIs(b, LINE_COMMENT)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LINE_COMMENT);
-    r = r && lf_eof(b, l + 1);
-    exit_section_(b, m, LINE_COMMENT_STATEMENT, r);
-    return r;
-  }
-
-  /* ********************************************************** */
   // '{' CRLF propertiesBlockElement* '}'
   public static boolean propertiesBlock(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "propertiesBlock")) return false;
@@ -391,14 +364,9 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // propertyDefinition | lineCommentStatement | blockCommentStatement
+  // propertyDefinition
   static boolean propertiesBlockElement(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "propertiesBlockElement")) return false;
-    boolean r;
-    r = propertyDefinition(b, l + 1);
-    if (!r) r = lineCommentStatement(b, l + 1);
-    if (!r) r = blockCommentStatement(b, l + 1);
-    return r;
+    return propertyDefinition(b, l + 1);
   }
 
   /* ********************************************************** */
@@ -599,8 +567,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
   //             | blockStatement
   //             | singleLineStatement
   //             | rawBlockStatement
-  //             | lineCommentStatement
-  //             | blockCommentStatement
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
@@ -614,8 +580,6 @@ public class StructurizrDSLParser implements PsiParser, LightPsiParser {
     if (!r) r = blockStatement(b, l + 1);
     if (!r) r = singleLineStatement(b, l + 1);
     if (!r) r = rawBlockStatement(b, l + 1);
-    if (!r) r = lineCommentStatement(b, l + 1);
-    if (!r) r = blockCommentStatement(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }

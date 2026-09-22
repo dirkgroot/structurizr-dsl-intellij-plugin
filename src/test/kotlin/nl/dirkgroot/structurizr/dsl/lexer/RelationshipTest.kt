@@ -18,4 +18,15 @@ class RelationshipTest {
             UNQUOTED_TEXT to "system2",
         )
     }
+
+    @Test
+    fun `with multiline arrow`() {
+        "system1 -\\\r> system2".tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "system1",
+            WHITE_SPACE to " ",
+            ARROW to "-\\\r>",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "system2",
+        )
+    }
 }

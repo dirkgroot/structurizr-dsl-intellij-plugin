@@ -53,6 +53,57 @@ class ScriptBlockTest {
     }
 
     @Test
+    fun `ends if multiline separator before rbrace`() {
+        """
+            !script kotlin {
+                some arbitrary code
+            \
+            }
+        """.trimIndent().tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "!script",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "kotlin",
+            WHITE_SPACE to " ",
+            BRACE1 to "{",
+            SCRIPT_TEXT to "\n    some arbitrary code\n\\\n",
+            BRACE2 to "}"
+        )
+    }
+
+    @Test
+    fun `does not end if the line contains other symbols before rbrace`() {
+        """
+            !script kotlin {
+                some arbitrary code
+            test }
+        """.trimIndent().tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "!script",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "kotlin",
+            WHITE_SPACE to " ",
+            BRACE1 to "{",
+            SCRIPT_TEXT to "\n    some arbitrary code\ntest }",
+        )
+    }
+
+    @Test
+    fun `does not end if the line contains other symbols after rbrace`() {
+        """
+            !script kotlin {
+                some arbitrary code
+            } \
+            test
+        """.trimIndent().tokenize() shouldContainExactly listOf(
+            UNQUOTED_TEXT to "!script",
+            WHITE_SPACE to " ",
+            UNQUOTED_TEXT to "kotlin",
+            WHITE_SPACE to " ",
+            BRACE1 to "{",
+            SCRIPT_TEXT to "\n    some arbitrary code\n} \\\ntest",
+        )
+    }
+
+    @Test
     fun `indented block`() {
         """
             |    !script {
