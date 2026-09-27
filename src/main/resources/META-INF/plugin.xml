@@ -25,5 +25,7 @@
                                implementationClass="nl.dirkgroot.structurizr.dsl.lang.StructurizrDSLParserDefinition"/>
         <lang.syntaxHighlighterFactory language="StructurizrDSL"
                                        implementationClass="nl.dirkgroot.structurizr.dsl.syntax.StructurizrDSLSyntaxHighlighterFactory"/>
+        <completion.contributor language="StructurizrDSL"
+                                implementationClass="nl.dirkgroot.structurizr.dsl.completion.SDCompletionContributor"/>
     </extensions>
 </idea-plugin>

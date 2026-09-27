@@ -1,0 +1,26 @@
+package nl.dirkgroot.structurizr.dsl.completion
+
+enum class SDCompletionContext {
+    TOP_LEVEL,
+    WORKSPACE,
+    MODEL,
+    ENTERPRISE,
+    GROUP,
+    SOFTWARE_SYSTEM,
+    CONTAINER,
+    COMPONENT,
+    PERSON,
+    DEPLOYMENT_ENVIRONMENT,
+    DEPLOYMENT_NODE,
+    INFRASTRUCTURE_NODE,
+    CONTAINER_INSTANCE,
+    SOFTWARE_SYSTEM_INSTANCE,
+    VIEWS,
+    CONFIGURATION,
+    BRANDING,
+    TERMINOLOGY,
+    STYLES,
+    STYLES_ELEMENT,
+    STYLES_RELATIONSHIP,
+    UNKNOWN,
+}
